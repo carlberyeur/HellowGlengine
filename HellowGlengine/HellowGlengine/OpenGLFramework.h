@@ -6,4 +6,13 @@ class COpenGLFramework : public IGraphicsFramework
 public:
 	COpenGLFramework();
 	~COpenGLFramework();
+
+	bool Init() override;
+	void ClearFrame() override;
+	void Present() override;
+	void UpdateWindowSize() override;
+
+private:
+	struct DeviceContext* myDeviceContext;
+	struct RenderingContext* myRenderingContext;
 };

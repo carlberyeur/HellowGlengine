@@ -2,6 +2,7 @@
 #include "IOSWindow.h"
 
 IOSWindow::IOSWindow()
+	: myIsOpen(false)
 {
 }
 

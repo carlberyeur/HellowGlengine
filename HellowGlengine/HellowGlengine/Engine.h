@@ -6,13 +6,24 @@ class IGraphicsFramework;
 class CEngine
 {
 public:
-	struct CreationParameters
+	struct SCreationParameters
 	{
+		enum eCreationFlags
+		{
+			eGL = 1 << 0,
+			eDX = 1 << 1,
+			eFullScreen = 1 << 2,
+			eWindows = 1 << 3,
+			eLinux = 1 << 4
+		};
+
 		unsigned int myWindowHeight;
 		unsigned int myWindowWidth;
+		unsigned int myCreationFlags;
+		//unsigned int myDebugFlags;
 	};
 
-	static bool CreateInstance(const CreationParameters& aCreationParameters);
+	static bool CreateInstance(const SCreationParameters& aCreationParameters);
 	static void DestroyInstance();
 	static CEngine& GetInstance();
 
@@ -20,13 +31,13 @@ public:
 	void Shutdown();
 
 private:
-	IOSWindow* myWindow;
-	IGraphicsFramework* myGraphicsFramework;
-
 	CEngine();
 	~CEngine();
 
-	bool InternalInit(const CreationParameters& aCreationParameters);
+	bool InternalInit(const SCreationParameters& aCreationParameters);
+
+	IOSWindow* myWindow;
+	IGraphicsFramework* myGraphicsFramework;
 
 	static CEngine* ourInstance;
 };
