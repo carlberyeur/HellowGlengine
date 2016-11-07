@@ -149,17 +149,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="glext.h" />
     <ClInclude Include="IGraphicsFramework.h" />
     <ClInclude Include="IOSWindow.h" />
     <ClInclude Include="OpenGLFramework.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="wglext.h" />
     <ClInclude Include="WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="IGraphicsFramework.cpp" />
     <ClCompile Include="IOSWindow.cpp" />
+    <ClCompile Include="LoadExtensions.cpp" />
     <ClCompile Include="OpenGLFramework.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

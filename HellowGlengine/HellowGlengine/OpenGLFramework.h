@@ -13,6 +13,8 @@ public:
 	void UpdateWindowSize() override;
 
 private:
-	struct DeviceContext* myDeviceContext;
-	struct RenderingContext* myRenderingContext;
+	bool LoadExtensionList();
+
+	void* myDeviceContext;
+	void* myRenderingContext;
 };

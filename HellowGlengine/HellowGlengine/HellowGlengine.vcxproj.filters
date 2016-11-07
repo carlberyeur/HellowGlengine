@@ -10,6 +10,12 @@
     <Filter Include="GraphicsFramework">
       <UniqueIdentifier>{3e449255-1c3a-46ca-92a1-4f32e6789677}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicsFramework\OpenGL">
+      <UniqueIdentifier>{ee89a83d-1de2-4f62-933a-9777b54c147b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsFramework\OpenGL\GLHelpers">
+      <UniqueIdentifier>{2e0e3019-1d3b-43ba-815e-72ffa5e0a3df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -27,10 +33,16 @@
     <ClInclude Include="IGraphicsFramework.h">
       <Filter>GraphicsFramework</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGLFramework.h">
-      <Filter>GraphicsFramework</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="glext.h">
+      <Filter>GraphicsFramework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="wglext.h">
+      <Filter>GraphicsFramework\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLFramework.h">
+      <Filter>GraphicsFramework\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,9 +57,12 @@
     <ClCompile Include="IGraphicsFramework.cpp">
       <Filter>GraphicsFramework</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGLFramework.cpp">
-      <Filter>GraphicsFramework</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="OpenGLFramework.cpp">
+      <Filter>GraphicsFramework\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadExtensions.cpp">
+      <Filter>GraphicsFramework\OpenGL\GLHelpers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
