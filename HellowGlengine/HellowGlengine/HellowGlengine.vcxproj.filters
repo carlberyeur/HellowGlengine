@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{eb3a4c59-d659-41fc-9f79-9440f0f90ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{d41a063b-ec8f-435b-8240-a800d36c2ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsFramework">
+      <UniqueIdentifier>{3e449255-1c3a-46ca-92a1-4f32e6789677}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="IOSWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphicsFramework.h">
+      <Filter>GraphicsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLFramework.h">
+      <Filter>GraphicsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="IOSWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="IGraphicsFramework.cpp">
+      <Filter>GraphicsFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLFramework.cpp">
+      <Filter>GraphicsFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp" />
+  </ItemGroup>
+</Project>
