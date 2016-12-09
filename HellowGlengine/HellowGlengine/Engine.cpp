@@ -51,24 +51,6 @@ CEngine::~CEngine()
 
 bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 {
-	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL)
-	{
-		myGraphicsFramework = new COpenGLFramework();
-		if (myGraphicsFramework->Init() == false)
-		{
-			SAFE_DELETE(myGraphicsFramework);
-			return false;
-		}
-	}
-	else if (aCreationParameters.myCreationFlags & SCreationParameters::eDX)
-	{
-		return false; // not implemented
-	}
-	else
-	{
-		return false;
-	}
-
 	if (aCreationParameters.myCreationFlags & SCreationParameters::eWindows)
 	{
 		myWindow = new CWindowsWindow();
@@ -83,6 +65,24 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 		}
 	}
 	else if (aCreationParameters.myCreationFlags & SCreationParameters::eCreationFlags::eLinux)
+	{
+		return false; // not implemented
+	}
+	else
+	{
+		return false;
+	}
+
+	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL)
+	{
+		myGraphicsFramework = new COpenGLFramework();
+		if (myGraphicsFramework->Init(*myWindow) == false)
+		{
+			SAFE_DELETE(myGraphicsFramework);
+			return false;
+		}
+	}
+	else if (aCreationParameters.myCreationFlags & SCreationParameters::eDX)
 	{
 		return false; // not implemented
 	}

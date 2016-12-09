@@ -45,15 +45,14 @@ PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 PFNGLUNIFORM3FVPROC glUniform3fv;
 PFNGLUNIFORM4FVPROC glUniform4fv;
 
-bool COpenGLFramework::LoadExtensionList()
+bool COpenGLFramework::LoadExtensionList(void* aHwnd)
 {
 
 	HDC deviceContext;
 	PIXELFORMATDESCRIPTOR pixelFormat;
 	int error;
 	HGLRC renderContext;
-	bool result;
-	HWND hwnd = GetFocus();
+	HWND hwnd = (HWND)aHwnd;
 
 	// Get the device context for this window.
 	deviceContext = GetDC(hwnd);

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "OpenGLFramework.h"
+#include "WindowsWindow.h"
 
 #include <Windows.h>
 #include <gl/GL.h>
@@ -25,14 +26,15 @@ COpenGLFramework::~COpenGLFramework()
 {
 }
 
-bool COpenGLFramework::Init()
+bool COpenGLFramework::Init(IOSWindow& aWindow)
 {
+	CWindowsWindow windowsWindow = static_cast<CWindowsWindow&>(aWindow);
 	//float fieldOfView, screenAspect;
 	//char *vendorString, *rendererString;
-	LoadExtensionList();
+	LoadExtensionList(windowsWindow.GetHWND());
 
 	// Get the device context for this window.
-	myDeviceContext = GetDC(GetFocus());
+	myDeviceContext = GetDC((HWND)windowsWindow.GetHWND());
 	if (myDeviceContext == nullptr)
 	{
 		return false;
@@ -84,6 +86,9 @@ bool COpenGLFramework::Init()
 	BOOL result = wglChoosePixelFormatARB(GetDeviceContext(), attributeListInt, nullptr, 1, &pixelFormat, &formatCount);
 	if (result != TRUE) // == FALSE?
 	{
+		DWORD errorCode = GetLastError();
+		int br = 0;
+		br++;
 		return false;
 	}
 
@@ -92,6 +97,9 @@ bool COpenGLFramework::Init()
 	result = SetPixelFormat(GetDeviceContext(), pixelFormat, &pixelFormatDescriptor);
 	if (result != TRUE)
 	{
+		DWORD errorCode = GetLastError();
+		int br = 0;
+		br++;
 		return false;
 	}
 
