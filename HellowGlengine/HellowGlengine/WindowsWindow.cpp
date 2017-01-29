@@ -8,23 +8,30 @@ const wchar_t szWindowClass[] = L"OpenGL testing";
 const wchar_t szTitle[] = L"HellopenGL";
 
 CWindowsWindow::CWindowsWindow()
+	: myHWND(nullptr)
+	, myHInstance(nullptr)
 {
 }
 
 CWindowsWindow::~CWindowsWindow()
 {
+	DestroyWindow(reinterpret_cast<HWND>(myHWND));
+	myHWND = nullptr;
+
+	UnregisterClass(szWindowClass, reinterpret_cast<HINSTANCE>(myHInstance));
+	myHInstance = NULL;
 }
 
 bool CWindowsWindow::Init(const SCreationParameters& aCreationParameters)
 {
 	myHInstance = aCreationParameters.myWindowsParameters.myHInstance;
 
-	if (RegisterWindowsWindow(aCreationParameters.myWindowsParameters.myHInstance) == false)
+	if (RegisterWindowsWindow(myHInstance) == false)
 	{
 		return false;
 	}
 	
-	if (InitHWND(aCreationParameters.myWindowsParameters.myHInstance, aCreationParameters.myWindowWidth, aCreationParameters.myWindowHeight) == false)
+	if (InitHWND(myHInstance, aCreationParameters.myWindowWidth, aCreationParameters.myWindowHeight) == false)
 	{
 		return false;
 	}
@@ -39,12 +46,49 @@ void CWindowsWindow::Update()
 	{
 		TranslateMessage(&windowsMessage);
 		DispatchMessage(&windowsMessage);
-
-		if (windowsMessage.message == WM_QUIT)
-		{
-			myIsOpen = false;
-		}
 	}
+}
+
+bool CWindowsWindow::LoadExtensionList(COpenGLFramework& aOpenGLFramework)
+{
+	// Get the instance of this application.
+	HINSTANCE hinstance = GetModuleHandle(NULL);
+
+	// Give the application a name.
+	const wchar_t* applicationName = L"temp";
+
+	WNDCLASSEX wc;
+	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	wc.lpfnWndProc = WndProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hinstance;
+	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+	wc.hIconSm = wc.hIcon;
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = applicationName;
+	wc.cbSize = sizeof(WNDCLASSEX);
+
+	// Register the window class.
+	RegisterClassEx(&wc);
+
+	// Create a temporary window for the OpenGL extension setup.
+	HWND temphwnd = CreateWindowEx(WS_EX_APPWINDOW, applicationName, applicationName, WS_POPUP,	0, 0, 640, 480, NULL, NULL, hinstance, NULL);
+	if (temphwnd == NULL)
+	{
+		return false;
+	}
+
+	// Don't show the window.
+	ShowWindow(temphwnd, SW_HIDE);
+
+	bool success = aOpenGLFramework.LoadExtensionList(temphwnd);
+
+	DestroyWindow(temphwnd);
+
+	return success;
 }
 
 bool CWindowsWindow::RegisterWindowsWindow(void* aHInstance)
@@ -53,7 +97,7 @@ bool CWindowsWindow::RegisterWindowsWindow(void* aHInstance)
 
 	wcex.cbSize = sizeof(WNDCLASSEX);
 
-	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 	wcex.lpfnWndProc = &WndProc;
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
@@ -134,10 +178,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		EndPaint(hWnd, &ps);
 	}
 	break;
+	//case WM_QUIT:
+	//	break;
+	case WM_CLOSE:
+	{
+		CEngine* engine = CEngine::GetInstancePtr();
+		if (engine)
+		{
+			engine->Shutdown();
+		}
+	}
+		break;
 	case WM_CREATE:
 		break;
 	case WM_DESTROY:
-		//Engine::GetInstance().SetIsRunning(false);
 		PostQuitMessage(EXIT_SUCCESS);
 		break;
 	default:

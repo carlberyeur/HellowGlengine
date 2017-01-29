@@ -7,9 +7,12 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
-#include <tchar.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
+#include <functional>
+#include <string>
+#include <map>
 
+#include "../CommonUtilities/Timer.h"
 
 // TODO: reference additional headers your program requires here

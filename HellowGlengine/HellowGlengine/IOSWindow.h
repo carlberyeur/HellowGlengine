@@ -29,9 +29,11 @@ public:
 	virtual ~IOSWindow();
 
 	virtual bool Init(const SCreationParameters& aCreationParameters) = 0;
+	virtual bool LoadExtensionList(class COpenGLFramework& aHWND) = 0;
 	virtual void Update() = 0;
 
 	inline bool IsOpen() const;
+	inline void Close();
 
 protected:
 	bool myIsOpen;
@@ -40,4 +42,9 @@ protected:
 inline bool IOSWindow::IsOpen() const
 {
 	return myIsOpen;
+}
+
+inline void IOSWindow::Close()
+{
+	myIsOpen = false;
 }

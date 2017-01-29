@@ -9,6 +9,7 @@ public:
 
 	bool Init(const SCreationParameters& aCreationParameters) override;
 	void Update() override;
+	bool LoadExtensionList(class COpenGLFramework& aOpenGLFrameWork) override;
 
 	inline void* GetHWND() const;
 	inline void* GetHInstance() const;

@@ -16,6 +16,21 @@
     <Filter Include="GraphicsFramework\OpenGL\GLHelpers">
       <UniqueIdentifier>{2e0e3019-1d3b-43ba-815e-72ffa5e0a3df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GraphicsFramework\OpenGL\Glew">
+      <UniqueIdentifier>{ff1d4821-7f62-4567-aed5-2587a17a61e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{02810cca-9842-4b49-8685-fbe9129302b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{653ba310-69a4-4108-bc34-94c6eb665526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\EffectManager">
+      <UniqueIdentifier>{611a2f7a-f854-477e-a7a6-a12391c509c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\ShaderCompiler">
+      <UniqueIdentifier>{dd5930ae-95bf-4bb2-8169-f0a121c9a5d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -43,6 +58,30 @@
     <ClInclude Include="OpenGLFramework.h">
       <Filter>GraphicsFramework\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="glew\wglew.h">
+      <Filter>GraphicsFramework\OpenGL\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glew.h">
+      <Filter>GraphicsFramework\OpenGL\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glxew.h">
+      <Filter>GraphicsFramework\OpenGL\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\eglew.h">
+      <Filter>GraphicsFramework\OpenGL\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="IEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GLEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowFactory.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLExtensions.h">
+      <Filter>GraphicsFramework\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,6 +102,15 @@
     </ClCompile>
     <ClCompile Include="LoadExtensions.cpp">
       <Filter>GraphicsFramework\OpenGL\GLHelpers</Filter>
+    </ClCompile>
+    <ClCompile Include="GLEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="IEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowFactory.cpp">
+      <Filter>Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

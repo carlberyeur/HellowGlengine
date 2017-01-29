@@ -7,10 +7,20 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
-#include <tchar.h>
+#include <cstdio>
 #include <stdexcept>
-#include <assert.h>
+#include <cassert>
+#include <functional>
+#include <map>
+#include <string>
+
+#include "../CommonUtilities/Timer.h"
+#include "../CommonUtilities/GrowingArray.h"
+#include "../CommonUtilities/StaticArray.h"
+
+#include "Engine.h"
+#include "OpenGLFramework.h"
+#include "WindowsWindow.h"
 
 #define SAFE_DELETE(ptr) delete ptr; ptr = nullptr
 #define SAFE_DELETE_ARRAY(array_ptr) delete[] array_ptr; array_ptr = nullptr

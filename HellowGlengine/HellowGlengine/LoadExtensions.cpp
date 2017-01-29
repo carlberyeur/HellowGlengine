@@ -47,7 +47,6 @@ PFNGLUNIFORM4FVPROC glUniform4fv;
 
 bool COpenGLFramework::LoadExtensionList(void* aHwnd)
 {
-
 	HDC deviceContext;
 	PIXELFORMATDESCRIPTOR pixelFormat;
 	int error;
@@ -309,6 +308,8 @@ bool COpenGLFramework::LoadExtensionList(void* aHwnd)
 	// Release the device context for this window.
 	ReleaseDC(hwnd, deviceContext);
 	deviceContext = 0;
+
+
 
 	return true;
 }

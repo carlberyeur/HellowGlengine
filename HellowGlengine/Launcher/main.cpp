@@ -3,6 +3,11 @@
 #include "../HellowGlengine/Engine.h"
 #include "../Game/Game.h"
 
+#include "../CommonUtilities/Time.h"
+#include "../CommonUtilities/CommandLineParser.h"
+
+CEngine::SCreationParameters::eCreationFlags GetOperatingSystem();
+
 int main(int argc, char* argv[])
 {
 	argc; argv;
@@ -10,15 +15,19 @@ int main(int argc, char* argv[])
 	{
 		CGame game;
 
-		CEngine::SCreationParameters createionParameters = {};
-		createionParameters.myWindowWidth = 1920u;
-		createionParameters.myWindowHeight = 1080u;
-		createionParameters.myCreationFlags = 0;
-		createionParameters.myCreationFlags |= CEngine::SCreationParameters::eCreationFlags::eGL;
-		createionParameters.myCreationFlags |= CEngine::SCreationParameters::eCreationFlags::eFullScreen;
-		createionParameters.myCreationFlags |= CEngine::SCreationParameters::eCreationFlags::eWindows;
+		CEngine::SCreationParameters creationParameters = {};
+		creationParameters.myInitCallback = std::bind(&CGame::Init, &game);
+		creationParameters.myUpdateCallback = std::bind(&CGame::Update, &game, std::placeholders::_1);
+		creationParameters.myRenderCallback = std::bind(&CGame::Render, &game);
+		creationParameters.myWindowWidth = 1920u;
+		creationParameters.myWindowHeight = 1080u;
+		creationParameters.myCreationFlags = 0u;
+		creationParameters.myCreationFlags |= CEngine::SCreationParameters::eCreationFlags::eGL;
+		creationParameters.myCreationFlags |= CEngine::SCreationParameters::eCreationFlags::eFullScreen;
+		creationParameters.myCreationFlags |= GetOperatingSystem();
 
-		if (CEngine::CreateInstance(createionParameters) == false)
+
+		if (CEngine::CreateInstance(creationParameters) == false)
 		{
 			return EXIT_FAILURE;
 		}
@@ -30,4 +39,13 @@ int main(int argc, char* argv[])
 	CEngine::DestroyInstance();
 
 	return EXIT_SUCCESS;
+}
+
+CEngine::SCreationParameters::eCreationFlags GetOperatingSystem()
+{
+#ifdef _WIN32
+	return CEngine::SCreationParameters::eCreationFlags::eWindows;
+#elif defined(_LINUX)
+	return  CEngine::SCreationParameters::eCreationFlags::eLinux;
+#endif // _WIN32
 }

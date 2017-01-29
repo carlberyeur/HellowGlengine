@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{ccd66182-22c2-46ad-b0cb-1c078c9a3e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{17756ca4-e033-4ae9-b032-295f243162e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{cb8a1513-b97d-413c-8874-a2a1e87922d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function">
+      <UniqueIdentifier>{dba9aab8-820b-4cc8-b894-b450893eeafd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{c948936d-5bb3-4a06-a4a1-2935e08c50e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{98d5bf30-591e-41ff-a591-637a44ad15d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{b2d90fd9-ba96-4f8a-923e-88817eebe371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{4631f48e-c5c1-4e6b-90d8-6b6ef15f280d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="GrowingArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorOnStack.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="XInputWrapper.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DL_Assert.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DL_Debug.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="QuickSort.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverseGrowingArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticTypeTraits.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandLineParser.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="XInputWrapper.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="DL_Debug.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="StringHelper.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandLineParser.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

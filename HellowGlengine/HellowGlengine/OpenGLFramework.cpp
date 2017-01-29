@@ -1,13 +1,20 @@
 #include "stdafx.h"
-#include "OpenGLFramework.h"
-#include "WindowsWindow.h"
 
 #include <Windows.h>
+#include "glew\glew.h"
 #include <gl/GL.h>
 #include "wglext.h"
 #include "glext.h"
 
 #pragma comment(lib, "opengl32.lib")
+#ifdef _AMD64_
+#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/x64/glew32.lib")
+#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/x64/glew32s.lib")
+#else
+#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/Win32/glew32.lib")
+#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/Win32/glew32s.lib")
+#endif // _AMD64_
+
 
 #define GetDeviceContext() reinterpret_cast<HDC>(myDeviceContext)
 #define GetRenderingContext() reinterpret_cast<HGLRC>(myRenderingContext)
@@ -28,13 +35,14 @@ COpenGLFramework::~COpenGLFramework()
 
 bool COpenGLFramework::Init(IOSWindow& aWindow)
 {
-	CWindowsWindow windowsWindow = static_cast<CWindowsWindow&>(aWindow);
-	//float fieldOfView, screenAspect;
-	//char *vendorString, *rendererString;
-	LoadExtensionList(windowsWindow.GetHWND());
+	if (aWindow.LoadExtensionList(*this) == false)
+	{
+		return false;
+	}
+
 
 	// Get the device context for this window.
-	myDeviceContext = GetDC((HWND)windowsWindow.GetHWND());
+	myDeviceContext = GetDC(reinterpret_cast<HWND>(static_cast<CWindowsWindow&>(aWindow).GetHWND()));
 	if (myDeviceContext == nullptr)
 	{
 		return false;
@@ -80,26 +88,34 @@ bool COpenGLFramework::Init(IOSWindow& aWindow)
 	// Null terminate the attribute list.
 	attributeListInt[18] = 0;
 
+
+	char* vendorString = (char*)glGetString(GL_VENDOR);
+	char* rendererString = (char*)glGetString(GL_RENDERER);
+
 	// Query for a pixel format that fits the attributes we want.
-	int pixelFormat;
+	int pixelFormat[1];
 	unsigned int formatCount = 0;
-	BOOL result = wglChoosePixelFormatARB(GetDeviceContext(), attributeListInt, nullptr, 1, &pixelFormat, &formatCount);
+	BOOL result = wglChoosePixelFormatARB(GetDeviceContext(), attributeListInt, nullptr, 1, pixelFormat, &formatCount);
 	if (result != TRUE) // == FALSE?
 	{
 		DWORD errorCode = GetLastError();
-		int br = 0;
-		br++;
 		return false;
 	}
 
 	// If the video card/display can handle our desired pixel format then we set it as the current one.
 	PIXELFORMATDESCRIPTOR pixelFormatDescriptor = {};
-	result = SetPixelFormat(GetDeviceContext(), pixelFormat, &pixelFormatDescriptor);
+	int maxPixelFormatIndex = DescribePixelFormat(GetDeviceContext(), pixelFormat[0], sizeof(pixelFormatDescriptor), &pixelFormatDescriptor);
+
+	if (maxPixelFormatIndex == 0)
+	{
+		DWORD errorCode = GetLastError();
+		return false;
+	}
+
+	result = SetPixelFormat(GetDeviceContext(), pixelFormat[0], &pixelFormatDescriptor);
 	if (result != TRUE)
 	{
 		DWORD errorCode = GetLastError();
-		int br = 0;
-		br++;
 		return false;
 	}
 
@@ -133,12 +149,14 @@ bool COpenGLFramework::Init(IOSWindow& aWindow)
 
 void COpenGLFramework::ClearFrame()
 {
-	throw std::logic_error("The method or operation is not implemented.");
+	glClearColor(0.5f, 0.5f, 0.5f, 0.5f);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void COpenGLFramework::Present()
 {
-	throw std::logic_error("The method or operation is not implemented.");
+	SwapBuffers(GetDeviceContext());
 }
 
 void COpenGLFramework::UpdateWindowSize()

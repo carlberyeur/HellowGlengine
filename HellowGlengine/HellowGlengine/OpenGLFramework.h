@@ -14,9 +14,9 @@ public:
 	void Present() override;
 	void UpdateWindowSize() override;
 
-private:
 	bool LoadExtensionList(void* aHwnd);
 
+private:
 	void* myDeviceContext;
 	void* myRenderingContext;
 };

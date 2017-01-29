@@ -149,17 +149,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="GLEffect.h" />
+    <ClInclude Include="glew\eglew.h" />
+    <ClInclude Include="glew\glew.h" />
+    <ClInclude Include="glew\glxew.h" />
+    <ClInclude Include="glew\wglew.h" />
     <ClInclude Include="glext.h" />
+    <ClInclude Include="IEffect.h" />
     <ClInclude Include="IGraphicsFramework.h" />
     <ClInclude Include="IOSWindow.h" />
+    <ClInclude Include="OpenGLExtensions.h" />
     <ClInclude Include="OpenGLFramework.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="wglext.h" />
+    <ClInclude Include="WindowFactory.h" />
     <ClInclude Include="WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GLEffect.cpp" />
+    <ClCompile Include="IEffect.cpp" />
     <ClCompile Include="IGraphicsFramework.cpp" />
     <ClCompile Include="IOSWindow.cpp" />
     <ClCompile Include="LoadExtensions.cpp" />
@@ -170,7 +180,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WindowFactory.cpp" />
     <ClCompile Include="WindowsWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonUtilities\CommonUtilities.vcxproj">
+      <Project>{d86519d6-e9a8-4394-9822-3fc16a9c39d6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
