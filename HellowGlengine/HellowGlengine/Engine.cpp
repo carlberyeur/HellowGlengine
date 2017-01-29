@@ -35,12 +35,32 @@ CEngine* CEngine::GetInstancePtr()
 	return ourInstance;
 }
 
+//temp includes
+#include "GLRenderObject.h"
+#include "GLEffect.h"
+
 void CEngine::Start()
 {
 	if (myInitCallback)
 	{
 		myInitCallback();
 	}
+
+	CGLRenderObject renderObject;
+	bool cool = renderObject.Init();
+	if (!cool)
+	{
+		int apa = 0;
+		apa++;
+	}
+
+	//CGLEffect effect;
+	//bool coolio = effect.Init("Shaders/VS_Pos.glsl", "", "Shaders/FS_Pos.glsl", 0);
+	//if (!coolio)
+	//{
+	//	int apa = 0;
+	//	apa++;
+	//}
 
 	while (myWindow->IsOpen() == true)
 	{
@@ -53,6 +73,9 @@ void CEngine::Start()
 		}
 
 		myGraphicsFramework->ClearFrame();
+
+		//effect.Activate();
+		renderObject.Render();
 
 		if (myRenderCallback)
 		{

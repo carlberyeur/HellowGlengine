@@ -19,9 +19,6 @@
     <Filter Include="GraphicsFramework\OpenGL\Glew">
       <UniqueIdentifier>{ff1d4821-7f62-4567-aed5-2587a17a61e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{02810cca-9842-4b49-8685-fbe9129302b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Effect">
       <UniqueIdentifier>{653ba310-69a4-4108-bc34-94c6eb665526}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Effect\ShaderCompiler">
       <UniqueIdentifier>{dd5930ae-95bf-4bb2-8169-f0a121c9a5d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderObject">
+      <UniqueIdentifier>{6094a068-c7a4-4782-8edb-fddc56b102b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +82,15 @@
     <ClInclude Include="OpenGLExtensions.h">
       <Filter>GraphicsFramework\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="RenderObject.h">
+      <Filter>RenderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GLRenderObject.h">
+      <Filter>RenderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EInputLayout.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -111,6 +120,12 @@
     </ClCompile>
     <ClCompile Include="WindowFactory.cpp">
       <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="GLRenderObject.cpp">
+      <Filter>RenderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderObject.cpp">
+      <Filter>RenderObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

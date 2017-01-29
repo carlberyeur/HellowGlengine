@@ -61,8 +61,6 @@ namespace CU
 
 		Vector4& Normalize();
 
-		void Print() const;
-
 		union
 		{
 #pragma warning(disable : 4201) // nonstandard extension used: nameless struct/union
@@ -438,14 +436,6 @@ namespace CU
 		}
 
 		return self;
-	}
-
-	template<typename TYPE>
-	inline void Vector4<TYPE>::Print() const
-	{
-#ifdef DL_PRINT
-		DL_PRINT("(%f, %f, %f, %f)", x, y, z, w);
-#endif // DL_PRINT
 	}
 }
 

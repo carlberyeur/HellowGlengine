@@ -60,12 +60,7 @@ namespace CU
 
 		Vector3& Normalize();
 
-		Vector3& InterPolateTowards(Vector3 aVectorToInterPolateTowards, float aInterpolatingSpeed);
-
-		void Print() const;
-		static void Print(const Vector3& aVector);
-		template <typename... Args>
-		static void Print(const Vector3& aVector, Args... aMoreVectors);
+		Vector3& InterPolateTowards(const Vector3& aVectorToInterPolateTowards, float aInterpolatingSpeed);
 
 		union
 		{
@@ -384,7 +379,7 @@ namespace CU
 	template<typename TYPE>
 	Vector3<TYPE> Vector3<TYPE>::GetNormalized() const
 	{
-		Vector3<TYPE> normalized = *this;
+		Vector3<TYPE> normalized = self;
 		return normalized.Normalize();
 	}
 
@@ -403,29 +398,7 @@ namespace CU
 	}
 
 	template<typename TYPE>
-	inline void Vector3<TYPE>::Print() const
-	{
-#ifdef DL_PRINT
-		DL_PRINT("(%f, %f, %f)", x, y, z);
-#endif // DL_PRINT
-	}
-
-	template<typename TYPE>
-	inline void Vector3<TYPE>::Print(const Vector3& aVector)
-	{
-		aVector.Print();
-	}
-
-	template<typename TYPE>
-	template<typename ...Args>
-	inline void Vector3<TYPE>::Print(const Vector3& aVector, Args... aMoreVectors)
-	{
-		Print(aVector);
-		Print(aMoreVectors...);
-	}
-
-	template<typename TYPE>
-	Vector3<TYPE>& Vector3<TYPE>::InterPolateTowards(Vector3 aVectorToInterPolateTowards, float aInterpolatingSpeed)
+	Vector3<TYPE>& Vector3<TYPE>::InterPolateTowards(const Vector3& aVectorToInterPolateTowards, float aInterpolatingSpeed)
 	{
 		x = x + aInterpolatingSpeed * (aVectorToInterPolateTowards.x - x);
 		y = y + aInterpolatingSpeed * (aVectorToInterPolateTowards.y - y);

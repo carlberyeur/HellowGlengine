@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EInputLayout.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GLEffect.h" />
     <ClInclude Include="glew\eglew.h" />
@@ -155,9 +156,11 @@
     <ClInclude Include="glew\glxew.h" />
     <ClInclude Include="glew\wglew.h" />
     <ClInclude Include="glext.h" />
+    <ClInclude Include="GLRenderObject.h" />
     <ClInclude Include="IEffect.h" />
     <ClInclude Include="IGraphicsFramework.h" />
     <ClInclude Include="IOSWindow.h" />
+    <ClInclude Include="RenderObject.h" />
     <ClInclude Include="OpenGLExtensions.h" />
     <ClInclude Include="OpenGLFramework.h" />
     <ClInclude Include="stdafx.h" />
@@ -169,9 +172,11 @@
   <ItemGroup>
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GLEffect.cpp" />
+    <ClCompile Include="GLRenderObject.cpp" />
     <ClCompile Include="IEffect.cpp" />
     <ClCompile Include="IGraphicsFramework.cpp" />
     <ClCompile Include="IOSWindow.cpp" />
+    <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="LoadExtensions.cpp" />
     <ClCompile Include="OpenGLFramework.cpp" />
     <ClCompile Include="stdafx.cpp">

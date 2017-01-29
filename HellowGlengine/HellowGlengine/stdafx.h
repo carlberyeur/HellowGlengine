@@ -18,6 +18,10 @@
 #include "../CommonUtilities/GrowingArray.h"
 #include "../CommonUtilities/StaticArray.h"
 
+#include "../CommonUtilities/vector2.h"
+#include "../CommonUtilities/vector3.h"
+#include "../CommonUtilities/vector4.h"
+
 #include "Engine.h"
 #include "OpenGLFramework.h"
 #include "WindowsWindow.h"

@@ -54,8 +54,6 @@ namespace CU
 		inline Vector2 GetNormalized() const;
 		inline Vector2& Normalize();
 
-		inline void Print() const;
-
 		union
 		{
 #pragma warning(disable : 4201) // nonstandard extension used: nameless struct/union
@@ -75,17 +73,13 @@ namespace CU
 		static const Vector2 One;
 	};
 
-	using Vector2c = Vector2<char>;
 	using Vector2i = Vector2<int>;
 	using Vector2ui = Vector2<unsigned int>;
 	using Vector2f = Vector2<float>;
-	using Vector2d = Vector2<double>;
 
-	using Point2c = Vector2<char>;
 	using Point2i = Vector2<int>;
 	using Point2ui = Vector2<unsigned int>;
 	using Point2f = Vector2<float>;
-	using Point2d = Vector2<double>;
 
 	template<typename TYPE> using Point2 = Vector2<TYPE>;
 
@@ -345,14 +339,6 @@ namespace CU
 		}
 
 		return self;
-	}
-
-	template<typename TYPE>
-	inline void Vector2<TYPE>::Print() const
-	{
-#ifdef DL_PRINT
-		DL_PRINT("(%f, %f)", x, y);
-#endif // DL_PRINT
 	}
 }
 
