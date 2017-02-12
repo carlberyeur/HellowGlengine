@@ -16,14 +16,14 @@
 static_assert(false, "Is this debian?");
 #endif
 
-#define SUPRESS_UNUSED_WARNING(variable) variable
+#define SUPRESS_UNUSED_WARNING(variable) (variable)
 const unsigned int MAX_STRING_BUFFER_SIZE = 1024u;
 
 namespace DL_Debug
 {
 	Debug* Debug::ourInstance = nullptr;
 	
-	class Log
+	class Debug::Log
 	{
 	public:
 		inline void CreateLog(const char* aFileName);
@@ -37,13 +37,13 @@ namespace DL_Debug
 		bool myIsActive;
 	};
 
-	void Log::CreateLog(const char* aFilePath)
+	void Debug::Log::CreateLog(const char* aFilePath)
 	{
 		myIsActive = false;
 		myFile = aFilePath;
 	}
 
-	void Log::Write(const char* aMessage)
+	void Debug::Log::Write(const char* aMessage)
 	{
 		if (myIsActive == false)
 		{
@@ -57,9 +57,9 @@ namespace DL_Debug
 		char timebuffer[80];
 		
 		localtime_s(&timeInfo, &rawTime);
-		strftime(timebuffer, 80, "%d-%m-%Y %H:%M:%S", &timeInfo);
+		strftime(timebuffer, 80, "[%d-%m-%Y %H:%M:%S] ", &timeInfo);
 
-		myDebugFile << timebuffer << "	" << aMessage << std::endl;
+		myDebugFile << timebuffer << " " << aMessage << std::endl;
 
 		myDebugFile.close();
 	}
@@ -75,7 +75,7 @@ namespace DL_Debug
 		myLogFiles.DeleteAll();
 	}
 
-	void Debug::CreateLog(eLogTypes aLogType)
+	void Debug::CreateLog(eLogType aLogType)
 	{
 		int logType = static_cast<int>(aLogType);
 		if (myLogFiles[logType] != nullptr)
@@ -88,22 +88,22 @@ namespace DL_Debug
 		const char* fileName;
 		switch (aLogType)
 		{
-		case DL_Debug::eLogTypes::eEngine:
+		case DL_Debug::eLogType::eEngine:
 			fileName = "LOG_ENGINE.loggo";
 			break;
-		case DL_Debug::eLogTypes::eGamePlay:
+		case DL_Debug::eLogType::eGamePlay:
 			fileName = "LOG_GAMEPLAY.loggo";
 			break;
-		case DL_Debug::eLogTypes::eResource:
+		case DL_Debug::eLogType::eResource:
 			fileName = "LOG_RESOURCES.loggo";
 			break;
-		case DL_Debug::eLogTypes::eCrash:
+		case DL_Debug::eLogType::eCrash:
 			fileName = "LOG_CRASH.loggo";
 			break;
-		case DL_Debug::eLogTypes::eThreadedModels:
+		case DL_Debug::eLogType::eThreadedModels:
 			fileName = "LOG_THREADED_MODELS.loggo";
 			break;
-		case DL_Debug::eLogTypes::eThreadPool:
+		case DL_Debug::eLogType::eThreadPool:
 			fileName = "LOG_THREADPOOL.loggo";
 			break;
 		default:
@@ -134,37 +134,37 @@ namespace DL_Debug
 
 	void Debug::ActivateLogs()
 	{
-		CommandLineManager* commandLineManager = CommandLineManager::GetInstance();
+		CommandLineManager<wchar_t>* commandLineManager = CommandLineManager<wchar_t>::GetInstance();
 		if (commandLineManager != nullptr)
 		{
-			if (commandLineManager->HasArgument("-activatelog", "gameplay"))
+			if (commandLineManager->HasArgument(L"-activatelog", L"gameplay"))
 			{
-				Activate(DL_Debug::eLogTypes::eGamePlay);
+				Activate(DL_Debug::eLogType::eGamePlay);
 			}
-			if (commandLineManager->HasArgument("-activatelog", "resource"))
+			if (commandLineManager->HasArgument(L"-activatelog", L"resource"))
 			{
-				Activate(DL_Debug::eLogTypes::eResource);
+				Activate(DL_Debug::eLogType::eResource);
 			}
-			if (commandLineManager->HasArgument("-activatelog", "engine"))
+			if (commandLineManager->HasArgument(L"-activatelog", L"engine"))
 			{
-				Activate(DL_Debug::eLogTypes::eEngine);
+				Activate(DL_Debug::eLogType::eEngine);
 			}
-			if (commandLineManager->HasArgument("-activatelog", "crash"))
+			if (commandLineManager->HasArgument(L"-activatelog", L"crash"))
 			{
-				Activate(DL_Debug::eLogTypes::eCrash);
+				Activate(DL_Debug::eLogType::eCrash);
 			}
-			if (commandLineManager->HasArgument("-activatelog", "threadedModels"))
+			if (commandLineManager->HasArgument(L"-activatelog", L"threadedModels"))
 			{
-				Activate(DL_Debug::eLogTypes::eThreadedModels);
+				Activate(DL_Debug::eLogType::eThreadedModels);
 			}
-			if (commandLineManager->HasArgument("-activatelog", "threadPool"))
+			if (commandLineManager->HasArgument(L"-activatelog", L"threadPool"))
 			{
-				Activate(DL_Debug::eLogTypes::eThreadPool);
+				Activate(DL_Debug::eLogType::eThreadPool);
 			}
 		}
 	}
 
-	void Debug::Activate(const eLogTypes aLogType)
+	void Debug::Activate(const eLogType aLogType)
 	{
 		int logType = static_cast<int>(aLogType);
 		if (myLogFiles[logType] == nullptr)
@@ -175,7 +175,7 @@ namespace DL_Debug
 		myLogFiles[logType]->Activate();
 	}
 
-	void Debug::Deactivate(const eLogTypes aLogType)
+	void Debug::Deactivate(const eLogType aLogType)
 	{
 		int logType = static_cast<int>(aLogType);
 		if (myLogFiles[logType] != nullptr)
@@ -184,41 +184,7 @@ namespace DL_Debug
 		}
 	}
 
-	void Debug::AssertMessage(const char *aFileName, const int aLine, const char* /*aFunctionName*/, const char *aString, ...)
-	{
-		char buffer[MAX_STRING_BUFFER_SIZE] = {};
-		va_list args;
-
-		va_start(args, aString);
-		VSPRINTF(buffer, aString, args);
-		va_end(args);
-
-#ifdef _WIN32
-		wchar_t fileNameBuffer[MAX_STRING_BUFFER_SIZE];
-		wchar_t bufferBuffer[MAX_STRING_BUFFER_SIZE];
-		_wassert(CU::CharToWChar(bufferBuffer, buffer), CU::CharToWChar(fileNameBuffer, aFileName), aLine);
-#else
-		assert(false && charToWChar(aString) && charToWChar(aFileName) && aLine);
-#endif
-	}
-
-	void Debug::AssertMessage(const char* aFileName, const int aLine, const char* /*aFunctionName*/, const wchar_t* aString, ...)
-	{
-		wchar_t buffer[MAX_STRING_BUFFER_SIZE] = {};
-		va_list args;
-		va_start(args, aString);
-		wvsprintf(buffer, aString, args);
-		va_end(args);
-
-#ifdef _WIN32
-		wchar_t fileNameBuffer[MAX_STRING_BUFFER_SIZE];
-		_wassert(buffer, CU::CharToWChar(fileNameBuffer, aFileName), aLine);
-#else
-		assert(false && buffer && charToWChar(aFileName) && aLine);
-#endif
-	}
-
-	void Debug::PrintMessage(const char *aFormattedString, ...)
+	void Debug::PrintMessage(const char* aFormattedString, ...)
 	{
 		char buffer[MAX_STRING_BUFFER_SIZE] = {};
 		va_list args;
@@ -230,18 +196,18 @@ namespace DL_Debug
 		std::cout << buffer << std::endl;
 	}
 
-	void Debug::PrintMessage(const wchar_t * aWString, ...)
+	void Debug::PrintMessage(const wchar_t* aFormattedString, ...)
 	{
 		wchar_t buffer[MAX_STRING_BUFFER_SIZE] = {};
 		va_list args;
-		va_start(args, aWString);
-		wvsprintf(buffer, aWString, args);
+		va_start(args, aFormattedString);
+		wvsprintf(buffer, aFormattedString, args);
 		va_end(args);
 
 		std::wcout << buffer << std::endl;
 	}
 
-	void Debug::WriteLog(const eLogTypes aLogType, const char* aFormattedString, ...)
+	void Debug::WriteLog(const eLogType aLogType, const char* aFormattedString, ...)
 	{
 		Log* log = myLogFiles[static_cast<int>(aLogType)];
 		if (log == nullptr)
@@ -259,7 +225,7 @@ namespace DL_Debug
 		log->Write(buffer);
 	}
 
-	void Debug::ShowMessageBox(const char* aMessage, const char* aFileName, const int aLineNumber, ...)
+	void Debug::ShowMessageBox(const char* aMessage, ...)
 	{
 #ifdef _WIN32
 		char buffer[MAX_STRING_BUFFER_SIZE] = {};
@@ -269,28 +235,27 @@ namespace DL_Debug
 		VSPRINTF(buffer, aMessage, args);
 		va_end(args);
 
-		wchar_t wBuffer[MAX_STRING_BUFFER_SIZE] = {};
-		CU::CharToWChar(wBuffer, buffer);
+		int returnValue = MessageBoxA(nullptr, buffer, "Error (press 'abort' to exit program, 'retry' to debug, 'ignore' to continue", MB_ABORTRETRYIGNORE);
 
-		std::wstring errorMsg = wBuffer;
-		errorMsg += L"\nFile and line: ";
-		std::string temp(aFileName);
-		std::wstring temp2(temp.begin(), temp.end());
-		temp2 += std::to_wstring(aLineNumber);
-		errorMsg += temp2;
-		int returnValue = MessageBox(nullptr, wBuffer, L"Friendly error, press cancel to exit, retry if you think you can continue :)", MB_RETRYCANCEL);
-
-		if (returnValue == IDCANCEL)
+		if (returnValue == IDABORT)
 		{
-			DL_ASSERT(wBuffer); // TODO: FIX MINIDUMP AND SHIT
+			exit(EXIT_FAILURE);
+		}
+		else if (returnValue == IDRETRY)
+		{
+			DL_ASSERT(buffer);
+		}
+		else if (returnValue == IDIGNORE)
+		{
+			return;
 		}
 #else
-		aMessage;
-		//implement mbx for unix
+		SUPRESS_UNUSED_WARNING(aMessage);
+#pragma message("ShowMessageBox not implemented outside of windows")
 #endif
 	}
 
-	void Debug::ShowMessageBox(const wchar_t* aMessage, const char* aFileName, const int aLineNumber, ...)
+	void Debug::ShowMessageBox(const wchar_t* aMessage, ...)
 	{
 #ifdef _WIN32
 		wchar_t buffer[MAX_STRING_BUFFER_SIZE] = {};
@@ -300,17 +265,23 @@ namespace DL_Debug
 		wvsprintf(buffer, aMessage, args);
 		va_end(args);
 
-		std::wstring errorMsg = L"Friendly error, press cancel to exit, retry if you think you can continue :)\nFile and line: ";
-		std::string temp(aFileName);
-		std::wstring temp2(temp.begin(), temp.end());
-		temp2 += std::to_wstring(aLineNumber);
-		errorMsg += temp2;
-		int returnValue = MessageBox(nullptr, buffer, errorMsg.c_str(), MB_RETRYCANCEL);
+		int returnValue = MessageBoxW(nullptr, buffer, L"Error (press 'abort' to exit program, 'retry' to debug, 'ignore' to continue", MB_ABORTRETRYIGNORE);
 
-		//MessageBox(GetFocus(), buffer, L"MessageBox :)", MB_HELP);
+		if (returnValue == IDABORT)
+		{
+			exit(EXIT_FAILURE);
+		}
+		else if (returnValue == IDRETRY)
+		{
+			DL_ASSERT(buffer);
+		}
+		else if (returnValue == IDIGNORE)
+		{
+			return;
+		}
 #else
-		aMessage;
-		//implement mbx for unix
+		SUPRESS_UNUSED_WARNING(aMessage);
+#pragma message("ShowMessageBox not implemented outside of windows")
 #endif
 	}
 
@@ -326,6 +297,7 @@ namespace DL_Debug
 		}
 #else
 		SUPRESS_UNUSED_WARNING(aColor);
+#pragma message("ShowMessageBox not implemented outside of windows")
 #endif
 	}
 

@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef _GROWING_ARRAY_
+#define _GROWING_ARRAY_
+
 #pragma message("Growing Array compiled")
 #include <assert.h>
 #include <string.h> // memcpy
@@ -73,7 +77,6 @@ namespace CU
 		inline void DeleteCyclic(const ObjectType& aObject);
 		inline void DeleteCyclicAtIndex(const SizeType aIndex);
 		inline SizeType Find(const ObjectType& aObject);
-		inline bool Find(const ObjectType& aObject, SizeType& aReturnIndex);
 
 		inline ObjectType& GetLast();
 		inline const ObjectType& GetLast() const;
@@ -88,9 +91,8 @@ namespace CU
 		inline void DeleteAll();
 
 		inline void Optimize();
-		inline void ShrinkToFit();
 
-		inline void QuickSort(std::function<bool(ObjectType, ObjectType)> aCompareFunction);
+		inline void QuickSort(std::function<bool(const ObjectType&, const ObjectType&)> aCompareFunction);
 
 		inline void Resize(const SizeType aNewSize);
 		inline void Resize(const SizeType aNewSize, const ObjectType& aObject);
@@ -483,16 +485,14 @@ namespace CU
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
 		assert((aIndex >= 0 && aIndex < mySize) && "Index out of bounds!");
 
-		myArray[aIndex] = myArray[mySize - 1];
-		myArray[mySize - 1] = ObjectType(); //trying this to fix sharedptr error, mvh carl
-		--mySize;
+		myArray[aIndex] = myArray[--mySize];
+		myArray[mySize] = ObjectType();
 	}
 
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
 	inline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Find(const ObjectType& aObject)
 	{
-		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
 		for (SizeType i = 0; i < mySize; ++i)
 		{
 			if (myArray[i] == aObject)
@@ -502,23 +502,6 @@ namespace CU
 		}
 
 		return FoundNone;
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Find(const ObjectType& aObject, SizeType& aReturnIndex)
-	{
-		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
-
-		for (SizeType i = 0; i < mySize; ++i)
-		{
-			if (myArray[i] == aObject)
-			{
-				aReturnIndex = i;
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
@@ -605,16 +588,10 @@ namespace CU
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::ShrinkToFit()
-	{
-		Optimize();
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	inline void CU::GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::QuickSort(std::function<bool(ObjectType, ObjectType)> aCompareFunction)
+	inline void CU::GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::QuickSort(std::function<bool(const ObjectType&, const ObjectType&)> aCompareFunction)
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
-		CU::QuickSort(*this, 0, mySize, aCompareFunction);
+		CU::QuickSort(self, 0, mySize, aCompareFunction);
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
@@ -761,3 +738,7 @@ namespace CU
 		}
 	};
 }
+
+#undef self
+
+#endif // !_GROWING_ARRAY_

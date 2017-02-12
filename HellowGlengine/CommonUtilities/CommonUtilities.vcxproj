@@ -131,21 +131,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AlarmClock.h" />
+    <ClInclude Include="Binder.h" />
+    <ClInclude Include="MemberFunction.h" />
     <ClInclude Include="CommandLineParser.h" />
+    <ClInclude Include="CommonCommonUtilities.h" />
+    <ClInclude Include="CommonMacros.h" />
+    <ClInclude Include="DirectInputProxy.h" />
     <ClInclude Include="DL_Assert.h" />
     <ClInclude Include="DL_Debug.h" />
+    <ClInclude Include="DynamicMemoryPool.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GrowingArray.h" />
+    <ClInclude Include="DInputWrapper.h" />
+    <ClInclude Include="CommonSTL.h" />
+    <ClInclude Include="InvertMatrix.h" />
+    <ClInclude Include="JsonValue.h" />
+    <ClInclude Include="matrix33.h" />
+    <ClInclude Include="matrix44.h" />
+    <ClInclude Include="MemoryLeekLogger.h" />
+    <ClInclude Include="MemoryManagedObject.h" />
+    <ClInclude Include="picojson.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QuickSort.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="ReverseGrowingArray.h" />
+    <ClInclude Include="SmartPointer.h" />
     <ClInclude Include="StaticArray.h" />
+    <ClInclude Include="StaticMemoryPool.h" />
     <ClInclude Include="StaticTypeTraits.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ThreadNamer.h" />
     <ClInclude Include="Time.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="vector3.h" />
     <ClInclude Include="vector4.h" />
@@ -153,17 +174,27 @@
     <ClInclude Include="XInputWrapper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AlarmClock.cpp" />
     <ClCompile Include="CommandLineParser.cpp" />
+    <ClCompile Include="DirectInputProxy.cpp" />
     <ClCompile Include="DL_Debug.cpp" />
+    <ClCompile Include="DInputWrapper.cpp" />
+    <ClCompile Include="InvertMatrix.cpp" />
+    <ClCompile Include="JsonValue.cpp" />
+    <ClCompile Include="MemoryLeekLogger.cpp" />
+    <ClCompile Include="MemoryManagedObject.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="StringHelper.cpp" />
+    <ClCompile Include="ThreadNamer.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="XInputWrapper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{3336fc95-b9cd-446f-886e-a2e0da137ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PythonWrapper">
+      <UniqueIdentifier>{85938923-3fcd-4a9a-9fc3-f933c1992ad4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="PythonWrapper.h">
+      <Filter>PythonWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="PythonModule.h" />
+    <ClInclude Include="PythonFunction.h" />
+    <ClInclude Include="PythonList.h" />
+    <ClInclude Include="PythonTuple.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonWrapper.cpp">
+      <Filter>PythonWrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonModule.cpp" />
+    <ClCompile Include="PythonFunction.cpp" />
+    <ClCompile Include="PythonList.cpp" />
+    <ClCompile Include="PythonTuple.cpp" />
+  </ItemGroup>
+</Project>

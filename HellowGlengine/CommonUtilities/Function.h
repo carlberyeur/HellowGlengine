@@ -9,6 +9,7 @@ namespace CU
 		using FunctionPointerType = Ret(*)(Args...);
 
 		CFunction();
+		CFunction(FunctionPointerType aFunctionPointer);
 		~CFunction();
 
 		Ret operator()(Args... aArgs);
@@ -18,18 +19,24 @@ namespace CU
 	};
 
 	template<typename Ret, typename ...Args>
-	inline CFunction<Ret, ...Args>::CFunction()
-	{
-	}
-
-	template<typename Ret, typename... Args>
-	inline CFunction<Ret, ...Args>::~CFunction()
+	inline CFunction<Ret, Args...>::CFunction()
 	{
 	}
 
 	template<typename Ret, typename ...Args>
-	inline Ret CFunction<Ret, ...Args>::operator()(Args ...aArgs)
+	inline CFunction<Ret, Args...>::CFunction(FunctionPointerType aFunctionPointer)
 	{
-		return Ret();
+		myFunctionPointer = aFunctionPointer;
+	}
+
+	template<typename Ret, typename ...Args>
+	inline CFunction<Ret, Args...>::~CFunction()
+	{
+	}
+
+	template<typename Ret, typename ...Args>
+	inline Ret CFunction<Ret, Args...>::operator()(Args... aArgs)
+	{
+		return myFunctionPointer(aArgs...);
 	}
 }

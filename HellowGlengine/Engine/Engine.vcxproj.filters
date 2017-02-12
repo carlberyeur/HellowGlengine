@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="WindowFactory.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="IOSWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="IGraphicsFramework.cpp">
+      <Filter>GraficsFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadExtensions.cpp">
+      <Filter>GraficsFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLFramework.cpp">
+      <Filter>GraficsFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTextureManager.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTexture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderObject.cpp">
+      <Filter>RenderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GLRenderObject.cpp">
+      <Filter>RenderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GLEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="IEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="TargaLoader.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="WindowsWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowFactory.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="IOSWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphicsFramework.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLExtensions.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLFramework.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="wglext.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\wglew.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glxew.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="glext.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\glew.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GLTextureManager.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GLTexture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderObject.h">
+      <Filter>RenderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GLRenderObject.h">
+      <Filter>RenderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GLEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EInputLayout.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\eglew.h">
+      <Filter>GraficsFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="TargaLoader.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Window">
+      <UniqueIdentifier>{915d1908-b62d-45d2-887b-01d6e8e208cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraficsFramework">
+      <UniqueIdentifier>{5ce160b6-7580-47c4-bb7e-10f0818be341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{130946b6-f84e-40a5-91e7-dbcb5394c4c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderObject">
+      <UniqueIdentifier>{e47dc726-aa4c-455b-8ae9-b588a1ebf561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{64a1f16d-cc43-4e5e-b833-f5631796fc05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{ac44d581-b19f-4034-8935-5fc08d988d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{ea2132b5-d253-4fca-98cd-24c6e3aec664}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

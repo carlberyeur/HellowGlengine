@@ -14,7 +14,7 @@ public:
 	~CGame();
 
 	void Init();
-	void Update(const CU::Time aDeltaTime);
+	void Update(const CU::Time& aDeltaTime);
 	void Render();
 
 private:

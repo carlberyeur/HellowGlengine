@@ -3,7 +3,7 @@
 #include "VectorOnStack.h"
 
 #ifndef assert
-#include <assert.h>
+#include <cassert>
 #endif // !assert
 
 namespace CU

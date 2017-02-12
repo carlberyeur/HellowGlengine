@@ -1,20 +1,22 @@
 #pragma once
-#include <thread>
-#include "DynamicString.h"
+
+namespace std
+{
+	class thread;
+}
 
 namespace CU
 {
 	class Work;
 	class ThreadPool;
 
-	typedef unsigned int TimerHandle;
-
 	class Worker
 	{
 	public:
 		Worker();
 		~Worker();
-		void Init(ThreadPool& aThreadPool, TimerHandle aTimerHandle);
+
+		void Init(ThreadPool& aThreadPool);
 		void Stop();
 		inline bool GetIsActive() { return isActive; }
 
@@ -26,7 +28,6 @@ namespace CU
 		std::thread *myThread;
 		ThreadPool *myPool;
 		bool isActive;
-		DynamicString myLogString;
-		TimerHandle myTimerHandle;
+		std::string myLogString;
 	};
 }

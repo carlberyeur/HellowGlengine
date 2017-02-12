@@ -18,7 +18,7 @@ namespace CU
 
 	private:
 		GrowingArray<ObjectType> myData;
-		GrowingArray<ObjectType*, unsigned int, false> myFreeData;
+		GrowingArray<ObjectType*> myFreeData;
 	};
 
 	template<typename ObjectType>

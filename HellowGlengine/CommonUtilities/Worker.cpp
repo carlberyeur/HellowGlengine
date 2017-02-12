@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ThreadPool.h"
-#include "DL_Debug.h"
-#include "TimerManager.h"
+
+#include <thread>
 
 namespace CU
 {
@@ -24,11 +24,10 @@ namespace CU
 		}
 	}
 
-	void Worker::Init(ThreadPool& aThreadPool, TimerHandle aTimerHandle)
+	void Worker::Init(ThreadPool& aThreadPool)
 	{
 		myPool = &aThreadPool;
 		myThread = new std::thread(&Worker::Update, this);
-		myTimerHandle = aTimerHandle;
 	}
 
 

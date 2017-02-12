@@ -1,16 +1,17 @@
 #include "stdafx.h"
 
-#include "../HellowGlengine/Engine.h"
+#include "../Engine/Engine.h"
 #include "../Game/Game.h"
 
-#include "../CommonUtilities/Time.h"
-#include "../CommonUtilities/CommandLineParser.h"
+#pragma comment(lib, "../Dependencies/python34/libs/python34.lib")
 
 CEngine::SCreationParameters::eCreationFlags GetOperatingSystem();
 
-int main(int argc, char* argv[])
+
+int wmain(int argc, wchar_t* argv[])
 {
-	argc; argv;
+	int exitResult = EXIT_FAILURE;
+	CommandLineManager<wchar_t>::CreateInstance(argc, argv);
 
 	{
 		CGame game;
@@ -27,18 +28,20 @@ int main(int argc, char* argv[])
 		creationParameters.myCreationFlags |= GetOperatingSystem();
 
 
-		if (CEngine::CreateInstance(creationParameters) == false)
+		if (CEngine::CreateInstance(creationParameters))
 		{
-			return EXIT_FAILURE;
+			CEngine::GetInstance().Start();
+			exitResult = EXIT_SUCCESS;
 		}
 
-		CEngine::GetInstance().Start();
 	}
 
 	CEngine::GetInstance().Shutdown();
 	CEngine::DestroyInstance();
 
-	return EXIT_SUCCESS;
+	CommandLineManager<wchar_t>::DestroyInstance();
+
+	return exitResult;
 }
 
 CEngine::SCreationParameters::eCreationFlags GetOperatingSystem()

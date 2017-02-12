@@ -164,11 +164,11 @@
     <ProjectReference Include="..\CommonUtilities\CommonUtilities.vcxproj">
       <Project>{d86519d6-e9a8-4394-9822-3fc16a9c39d6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.vcxproj">
+      <Project>{66fe1115-7ac7-43e1-8398-a1ae3222a5c6}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Game\Game.vcxproj">
       <Project>{92e926b9-f0c6-48fa-863f-13c96cf90d91}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\HellowGlengine\HellowGlengine.vcxproj">
-      <Project>{66fe1115-7ac7-43e1-8398-a1ae3222a5c6}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

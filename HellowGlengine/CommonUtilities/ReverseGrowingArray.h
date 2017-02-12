@@ -2,7 +2,7 @@
 
 namespace CU
 {
-	template<typename ObjectType, typename SizeType = unsigned int, bool USE_SAFE_MODE = true>
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
 	class GrowingArray;
 
 	template<typename GrowingArrayType>
