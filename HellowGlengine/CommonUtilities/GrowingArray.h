@@ -595,36 +595,6 @@ namespace CU
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	__forceinline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::ByteSize() const
-	{
-		return mySize * sizeof(ObjectType);
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	__forceinline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Size() const
-	{
-		return mySize;
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	__forceinline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Capacity() const
-	{
-		return myCapacity;
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	__forceinline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Empty() const
-	{
-		return mySize == 0;
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	inline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::IsInitialized() const
-	{
-		return myArray != nullptr;
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
 	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Resize(SizeType aNewSize)
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
@@ -651,6 +621,45 @@ namespace CU
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Destroy()
+	{
+		delete[] myArray;
+		myArray = nullptr;
+		myCapacity = 0;
+		mySize = 0;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	__forceinline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::ByteSize() const
+	{
+		return mySize * sizeof(ObjectType);
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	__forceinline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Size() const
+	{
+		return mySize;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	__forceinline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Capacity() const
+	{
+		return myCapacity;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	__forceinline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Empty() const
+	{
+		return mySize == 0;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	__forceinline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::IsInitialized() const
+	{
+		return myArray != nullptr;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
 	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Reallocate(const SizeType aNewSize)
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
@@ -661,15 +670,6 @@ namespace CU
 		delete[] myArray;
 		myArray = newArray;
 		myCapacity = aNewSize;
-	}
-
-	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Destroy()
-	{
-		delete[] myArray;
-		myArray = nullptr;
-		myCapacity = 0;
-		mySize = 0;
 	}
 
 	template<typename ObjectType, typename SizeType>

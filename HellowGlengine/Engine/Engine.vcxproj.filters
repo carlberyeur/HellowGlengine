@@ -77,16 +77,7 @@
     <ClInclude Include="wglext.h">
       <Filter>GraficsFramework</Filter>
     </ClInclude>
-    <ClInclude Include="glew\wglew.h">
-      <Filter>GraficsFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="glew\glxew.h">
-      <Filter>GraficsFramework</Filter>
-    </ClInclude>
     <ClInclude Include="glext.h">
-      <Filter>GraficsFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="glew\glew.h">
       <Filter>GraficsFramework</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
@@ -115,9 +106,6 @@
     </ClInclude>
     <ClInclude Include="EInputLayout.h">
       <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="glew\eglew.h">
-      <Filter>GraficsFramework</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Renderer</Filter>

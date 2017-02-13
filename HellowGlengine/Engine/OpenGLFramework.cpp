@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include <Windows.h>
-#include "glew\glew.h"
 #include <gl/GL.h>
 #include "wglext.h"
 #include "glext.h"

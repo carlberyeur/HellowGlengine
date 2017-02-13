@@ -7,6 +7,39 @@
     <Filter Include="Game">
       <UniqueIdentifier>{18af4a85-8419-4a17-8798-147d72faaf36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StateStack">
+      <UniqueIdentifier>{28355575-8e44-450e-94c5-e67a5ab6ff44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{cc75df48-605c-4051-8e12-3a7fdcb8be7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{be4d291e-e5cf-47aa-a163-23c55fbcc205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ScriptLoader">
+      <UniqueIdentifier>{7b0c2ea9-b2d8-475e-af39-2e36ce82cefd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StateStack\State">
+      <UniqueIdentifier>{481ec893-db4e-4837-9fb0-9c1888061719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StateStack\State\States">
+      <UniqueIdentifier>{6eeafadf-71a5-4ab1-bef7-b75f60700784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{c53b3126-3bac-4e43-bd28-15081cb24738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component">
+      <UniqueIdentifier>{0eb343a5-d19e-4923-8307-3a91ea5f562d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\ScriptComponent">
+      <UniqueIdentifier>{20231f63-4863-41df-b0d4-d464f036af5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\ComponentMessage">
+      <UniqueIdentifier>{171391a6-2525-421c-b719-b45687b8de93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\SpriteComponent">
+      <UniqueIdentifier>{91fd99d6-85dc-4d5b-adcc-d3676e74ab96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -18,6 +51,37 @@
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="ScriptLoader.h">
+      <Filter>ScriptLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="StateStack.h">
+      <Filter>StateStack</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>StateStack\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>StateStack\State\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>GameObject\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMessage.h">
+      <Filter>GameObject\ComponentMessage</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptComponent.h">
+      <Filter>GameObject\Component\ScriptComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -26,5 +90,33 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="ScriptLoader.cpp">
+      <Filter>ScriptLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="StateStack.cpp">
+      <Filter>StateStack</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>StateStack\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>StateStack\State\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>GameObject\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptComponent.cpp">
+      <Filter>GameObject\Component\ScriptComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp" />
   </ItemGroup>
 </Project>

@@ -35,3 +35,9 @@
 #include "../CommonUtilities/CommonMacros.h"
 #include "../CommonUtilities/CommonCommonUtilities.h"
 #include "../CommonUtilities/CommandLineParser.h"
+
+#include "PythonWrapper.h"
+#include "PythonModule.h"
+#include "PythonFunction.h"
+#include "PythonTuple.h"
+#include "PythonList.h"

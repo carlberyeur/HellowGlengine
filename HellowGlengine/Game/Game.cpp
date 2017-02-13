@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Game.h"
 
+#include "StateStack.h"
+
 #include "../PythonWrapper/PythonWrapper.h"
 #include "../CommonUtilities/CommandLineParser.h"
 
@@ -9,18 +11,21 @@
 #include "../PythonWrapper/PythonList.h"
 #include "../PythonWrapper/PythonTuple.h"
 
+#include "ScriptLoader.h"
+
 CGame::CGame()
-	: myGameWorld(nullptr)
+	: myStateStack(nullptr)
 {
 }
 
 CGame::~CGame()
 {
+	SAFE_DELETE(myStateStack);
 }
 
 void CGame::Init()
 {
-	CPythonWrapper pythonWrapper(CommandLineManagerW::GetInstance()->GetArgV()[0], nullptr);
+	CPythonWrapper pythonWrapper(CommandLineManagerW::GetInstance()->GetArgV()[0], ScriptLoader::InitPythonModules);
 
 
 	CPythonModule module;
@@ -34,12 +39,16 @@ void CGame::Init()
 		args.Append<std::string>("hej");
 		function(args.AsTuple());
 	}
+
+	myStateStack = new CStateStack();
 }
 
-void CGame::Update(const CU::Time& /*aDeltaTime*/)
+void CGame::Update(const CU::Time& aDeltaTime)
 {
+	myStateStack->Update(aDeltaTime);
 }
 
 void CGame::Render()
 {
+	myStateStack->Render();
 }

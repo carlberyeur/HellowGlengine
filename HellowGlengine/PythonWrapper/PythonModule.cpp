@@ -28,6 +28,7 @@ void CPythonModule::Init(PyObject* aModuleObject)
 {
 	Py_XDECREF(myModuleObject);
 	myModuleObject = aModuleObject;
+	Py_XINCREF(myModuleObject);
 }
 
 CPythonModule CPythonModule::operator=(const CPythonModule& aCopy)

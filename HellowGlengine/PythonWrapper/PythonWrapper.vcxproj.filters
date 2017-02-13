@@ -7,6 +7,18 @@
     <Filter Include="PythonWrapper">
       <UniqueIdentifier>{85938923-3fcd-4a9a-9fc3-f933c1992ad4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="List">
+      <UniqueIdentifier>{4dbdd1cf-acfd-4edc-a8b3-670d7016d7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tuple">
+      <UniqueIdentifier>{65a76792-d8cd-4ae7-9a16-71189cffaf9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{afe23aff-c07f-4e08-b6a3-e3e9e7485ced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function">
+      <UniqueIdentifier>{3185dfba-024e-4d08-89a4-ed8b841eca0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -18,10 +30,21 @@
     <ClInclude Include="PythonWrapper.h">
       <Filter>PythonWrapper</Filter>
     </ClInclude>
-    <ClInclude Include="PythonModule.h" />
-    <ClInclude Include="PythonFunction.h" />
-    <ClInclude Include="PythonList.h" />
-    <ClInclude Include="PythonTuple.h" />
+    <ClInclude Include="PythonTuple.h">
+      <Filter>Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="PythonModule.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="PythonList.h">
+      <Filter>List</Filter>
+    </ClInclude>
+    <ClInclude Include="PythonFunction.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="HelperMacros.h">
+      <Filter>PythonWrapper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -30,9 +53,17 @@
     <ClCompile Include="PythonWrapper.cpp">
       <Filter>PythonWrapper</Filter>
     </ClCompile>
-    <ClCompile Include="PythonModule.cpp" />
-    <ClCompile Include="PythonFunction.cpp" />
-    <ClCompile Include="PythonList.cpp" />
-    <ClCompile Include="PythonTuple.cpp" />
+    <ClCompile Include="PythonTuple.cpp">
+      <Filter>Tuple</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonModule.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonList.cpp">
+      <Filter>List</Filter>
+    </ClCompile>
+    <ClCompile Include="PythonFunction.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

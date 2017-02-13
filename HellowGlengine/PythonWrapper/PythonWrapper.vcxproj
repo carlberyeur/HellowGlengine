@@ -139,6 +139,7 @@
     <ClInclude Include="PythonFunction.h" />
     <ClInclude Include="PythonList.h" />
     <ClInclude Include="PythonModule.h" />
+    <ClInclude Include="HelperMacros.h" />
     <ClInclude Include="PythonTuple.h" />
     <ClInclude Include="PythonWrapper.h" />
     <ClInclude Include="stdafx.h" />

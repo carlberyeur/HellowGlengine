@@ -5,7 +5,7 @@ namespace CU
 	class Time;
 }
 
-class CGameWorld;
+class CStateStack;
 
 class CGame
 {
@@ -18,5 +18,5 @@ public:
 	void Render();
 
 private:
-	CGameWorld* myGameWorld;
+	CStateStack* myStateStack;
 };

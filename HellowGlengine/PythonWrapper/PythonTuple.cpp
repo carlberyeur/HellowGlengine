@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include "PythonTuple.h"
-#include "PythonList.h"
 
 CPythonTuple::CPythonTuple()
 	: myTupleObject(nullptr)

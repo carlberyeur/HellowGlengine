@@ -42,3 +42,13 @@ extern PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 extern PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 extern PFNGLUNIFORM3FVPROC glUniform3fv;
 extern PFNGLUNIFORM4FVPROC glUniform4fv;
+
+
+
+//need more extensions :OO
+//extern PFNGLARETEXTURESRESIDENTEXTPROC glAreTexturesResident;
+//extern PFNGLBINDTEXTUREEXTPROC glBindTexture;
+//extern PFNGLDELETETEXTURESEXTPROC glDeleteTextures;
+//extern PFNGLGENTEXTURESEXTPROC glGenTextures;
+//extern PFNGLISTEXTUREEXTPROC glIsTexture;
+//extern PFNGLPRIORITIZETEXTURESEXTPROC glPrioritizeTextures;

@@ -152,10 +152,6 @@
     <ClInclude Include="EInputLayout.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GLEffect.h" />
-    <ClInclude Include="glew\eglew.h" />
-    <ClInclude Include="glew\glew.h" />
-    <ClInclude Include="glew\glxew.h" />
-    <ClInclude Include="glew\wglew.h" />
     <ClInclude Include="glext.h" />
     <ClInclude Include="GLRenderObject.h" />
     <ClInclude Include="GLTexture.h" />

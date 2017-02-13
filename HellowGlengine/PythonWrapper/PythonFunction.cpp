@@ -1,8 +1,4 @@
 #include "stdafx.h"
-#include "PythonFunction.h"
-#include "PythonTuple.h"
-
-#define mememe (*this)
 
 CPythonFunction::CPythonFunction()
 	: myFunctionObject(nullptr)
@@ -12,13 +8,13 @@ CPythonFunction::CPythonFunction()
 CPythonFunction::CPythonFunction(const CPythonFunction& aCopy)
 	: CPythonFunction()
 {
-	mememe = aCopy;
+	*this = aCopy;
 }
 
 CPythonFunction::CPythonFunction(CPythonFunction&& aTemporary)
 	: CPythonFunction()
 {
-	mememe = std::move(aTemporary);
+	*this = std::move(aTemporary);
 }
 
 CPythonFunction::~CPythonFunction()
@@ -32,7 +28,7 @@ CPythonFunction& CPythonFunction::operator=(const CPythonFunction& aCopy)
 	myFunctionObject = aCopy.myFunctionObject;
 	Py_XINCREF(myFunctionObject);
 
-	return mememe;
+	return *this;
 }
 
 CPythonFunction& CPythonFunction::operator=(CPythonFunction&& aTemporary)
@@ -41,24 +37,28 @@ CPythonFunction& CPythonFunction::operator=(CPythonFunction&& aTemporary)
 	myFunctionObject = aTemporary.myFunctionObject;
 	aTemporary.myFunctionObject = nullptr;
 
-	return mememe;
+	return *this;
 }
 
 void CPythonFunction::operator()()
 {
-	if (/*myFunctionObject &&*/ PyCallable_Check(myFunctionObject))
+	if (PyCallable_Check(myFunctionObject))
 	{
-		PyObject* args = Py_BuildValue("(l)", 23456);
+		PyObject* args = Py_BuildValue("()");
 		PyObject_CallObject(myFunctionObject, args);
 	}
 }
 
 CPythonTuple CPythonFunction::operator()(const CPythonTuple& aArguments)
 {
-	if (/*myFunctionObject &&*/ PyCallable_Check(myFunctionObject))
+	if (PyCallable_Check(myFunctionObject))
 	{
 		PyObject* args = aArguments.myTupleObject;
 		PyObject* returnValue = PyObject_CallObject(myFunctionObject, args);
+		if (!returnValue)
+		{
+			PyErr_Print();
+		}
 		return CPythonTuple(returnValue);
 	}
 
@@ -67,13 +67,13 @@ CPythonTuple CPythonFunction::operator()(const CPythonTuple& aArguments)
 
 bool CPythonFunction::Init(PyObject* aMaybeFunctionObject)
 {
-	if (!aMaybeFunctionObject) return false;
+	Py_CLEAR(myFunctionObject);
 
-	Py_XDECREF(myFunctionObject);
 	if (PyCallable_Check(aMaybeFunctionObject))
 	{
 		myFunctionObject = aMaybeFunctionObject;
 		Py_INCREF(myFunctionObject);
+		return true;
 	}
 
 	return false;
