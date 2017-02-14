@@ -9,6 +9,15 @@ namespace DL_Debug
 	const unsigned short CONSOLE_TEXT_COLOR_WHITE = 15;
 }
 
+extern "C"
+{
+	_ACRTIMP void __cdecl _wassert(
+		_In_z_ wchar_t const* _Message,
+		_In_z_ wchar_t const* _File,
+		_In_   unsigned       _Line
+	);
+}
+
 #include <assert.h>
 
 #ifndef _RETAIL_BUILD

@@ -7,8 +7,8 @@
 
 #pragma comment(lib, "opengl32.lib")
 #ifdef _AMD64_
-#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/x64/glew32.lib")
-#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/x64/glew32s.lib")
+//#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/x64/glew32.lib")
+//#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/x64/glew32s.lib")
 #else
 #pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/Win32/glew32.lib")
 #pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/Win32/glew32s.lib")
