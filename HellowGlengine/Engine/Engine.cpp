@@ -2,6 +2,7 @@
 #include "Engine.h"
 
 #include "WindowFactory.h"
+#include "InputManager.h"
 
 CEngine* CEngine::ourInstance = nullptr;
 
@@ -99,6 +100,7 @@ CEngine::CEngine()
 	, myRenderCallback(nullptr)
 	, myWindow(nullptr)
 	, myGraphicsFramework(nullptr)
+	, myInputManager(nullptr)
 	, myLogicTimer(nullptr)
 	, myRenderTimer(nullptr)
 {
@@ -108,6 +110,7 @@ CEngine::~CEngine()
 {
 	SAFE_DELETE(myWindow);
 	SAFE_DELETE(myGraphicsFramework);
+	SAFE_DELETE(myInputManager);
 	SAFE_DELETE(myLogicTimer);
 	SAFE_DELETE(myRenderTimer);
 }
@@ -118,12 +121,16 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL && aCreationParameters.myCreationFlags & SCreationParameters::eDX) return false;
 
 	myWindow = CWindowFactory::CreateWindow(aCreationParameters.myCreationFlags);
+	if (!myWindow)
+	{
+		return false;
+	}
 
 	IOSWindow::SCreationParameters windowCreationParameters = {};
 	windowCreationParameters.myWindowWidth = aCreationParameters.myWindowWidth;
 	windowCreationParameters.myWindowHeight = aCreationParameters.myWindowHeight;
 	windowCreationParameters.myIsWindowed = (aCreationParameters.myCreationFlags ^ SCreationParameters::eFullScreen) > 0u;
-	if (myWindow->Init(windowCreationParameters) == false)
+	if (!myWindow->Init(windowCreationParameters))
 	{
 		SAFE_DELETE(myWindow);
 		return false;
@@ -132,7 +139,7 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL)
 	{
 		myGraphicsFramework = new COpenGLFramework();
-		if (myGraphicsFramework->Init(*myWindow) == false)
+		if (!myGraphicsFramework->Init(*myWindow))
 		{
 			SAFE_DELETE(myGraphicsFramework);
 			return false;
@@ -152,6 +159,8 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	myRenderCallback = aCreationParameters.myRenderCallback;
 
 	myLogicTimer = new CU::CStopWatch();
+
+	myInputManager = new CInputManager(*myWindow);
 
 	return true;
 }

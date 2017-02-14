@@ -133,11 +133,11 @@
   <ItemGroup>
     <ClInclude Include="AlarmClock.h" />
     <ClInclude Include="Binder.h" />
+    <ClInclude Include="ConstexprString.h" />
     <ClInclude Include="MemberFunction.h" />
     <ClInclude Include="CommandLineParser.h" />
     <ClInclude Include="CommonCommonUtilities.h" />
     <ClInclude Include="CommonMacros.h" />
-    <ClInclude Include="DirectInputProxy.h" />
     <ClInclude Include="DL_Assert.h" />
     <ClInclude Include="DL_Debug.h" />
     <ClInclude Include="DynamicMemoryPool.h" />
@@ -152,6 +152,7 @@
     <ClInclude Include="MemoryLeekLogger.h" />
     <ClInclude Include="MemoryManagedObject.h" />
     <ClInclude Include="picojson.h" />
+    <ClInclude Include="Pointer.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QuickSort.h" />
     <ClInclude Include="Random.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="Synchronizer.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ThreadNamer.h" />
     <ClInclude Include="Time.h" />
@@ -176,7 +178,6 @@
   <ItemGroup>
     <ClCompile Include="AlarmClock.cpp" />
     <ClCompile Include="CommandLineParser.cpp" />
-    <ClCompile Include="DirectInputProxy.cpp" />
     <ClCompile Include="DL_Debug.cpp" />
     <ClCompile Include="DInputWrapper.cpp" />
     <ClCompile Include="InvertMatrix.cpp" />

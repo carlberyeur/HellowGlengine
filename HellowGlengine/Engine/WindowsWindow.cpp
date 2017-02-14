@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "WindowsWindow.h"
-
+#include "InputManager.h"
 #include <Windows.h>
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -25,6 +25,7 @@ CWindowsWindow::~CWindowsWindow()
 bool CWindowsWindow::Init(const SCreationParameters& aCreationParameters)
 {
 	myHInstance = aCreationParameters.myWindowsParameters.myHInstance;
+	myHInstance = GetModuleHandle(nullptr);
 
 	if (RegisterWindowsWindow(myHInstance) == false)
 	{
@@ -142,6 +143,11 @@ bool CWindowsWindow::InitHWND(void* aHInstance, const unsigned int aWindowWidth,
 	}
 
 	return true;
+}
+
+bool CWindowsWindow::InitInputWrapper(CInputManager& aInputManager)
+{
+	return aInputManager.InitInputWrapper(myHWND, myHInstance);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

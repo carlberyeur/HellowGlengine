@@ -8,6 +8,7 @@ namespace CU
 
 class IOSWindow;
 class IGraphicsFramework;
+class CInputManager;
 
 class CEngine
 {
@@ -53,6 +54,9 @@ private:
 
 	IOSWindow* myWindow;
 	IGraphicsFramework* myGraphicsFramework;
+
+	CInputManager* myInputManager;
+
 	CU::CStopWatch* myLogicTimer;
 	CU::CStopWatch* myRenderTimer;
 

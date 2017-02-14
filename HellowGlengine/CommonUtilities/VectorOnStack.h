@@ -32,9 +32,13 @@ namespace CU
 		iterator end();
 		const_iterator end() const;
 
+		inline void Add();
 		inline void Add(const ObjectType& aObject);
-		inline void SafeAdd(const ObjectType& aObject);
 		inline void Add(ObjectType&& aObject);
+		inline bool SafeAdd(const ObjectType& aObject);
+		inline bool TryAdd();
+		inline bool TryAdd(const ObjectType& aObject);
+		inline bool TryAdd(ObjectType&& aObject);
 		inline void Insert(const SizeType aIndex, ObjectType& aObject);
 		inline void Remove(const ObjectType& aObject);
 		inline void RemoveAtIndex(const SizeType aIndex);
@@ -115,7 +119,7 @@ namespace CU
 	template <typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
 	VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>& VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::operator=(const VectorOnStack& aVectorOnStack)
 	{
-		if (UseSafeModeFlag == false)
+		if (!UseSafeModeFlag)
 		{
 			memcpy(myVectorOnStack, aVectorOnStack.myVectorOnStack, sizeof(VectorOnStack));
 		}
@@ -181,40 +185,68 @@ namespace CU
 		return myVectorOnStack + mySize;
 	}
 
+	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
+	inline void VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::Add()
+	{
+		assert((mySize < Capacity) && "VectorOnStack is full!");
+		TryAdd();
+	}
+
 	template <typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
 	inline void VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::Add(const ObjectType& aObject)
 	{
 		assert((mySize < Capacity) && "VectorOnStack is full!");
-		if (mySize < Capacity)
-		{
-			myVectorOnStack[mySize++] = aObject;
-		}
-	}
-
-	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
-	inline void VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::SafeAdd(const ObjectType& aObject)
-	{
-		if (mySize < Capacity)
-		{
-			myVectorOnStack[mySize++] = aObject;
-		}
+		TryAdd(aObject);
 	}
 
 	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
 	inline void VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::Add(ObjectType&& aObject)
 	{
 		assert((mySize < Capacity) && "VectorOnStack is full!");
+		TryAdd(std::move(aObject));
+	}
+
+	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
+	inline bool VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::SafeAdd(const ObjectType& aObject)
+	{
+		return TryAdd(aObject);
+	}
+
+	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
+	inline bool VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::TryAdd()
+	{
+		ObjectType temp;
+		return TryAdd(std::move(temp));
+	}
+
+	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
+	inline bool VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::TryAdd(const ObjectType& aObject)
+	{
+		if (mySize < Capacity)
+		{
+			myVectorOnStack[mySize++] = aObject;
+			return true;
+		}
+
+		return false;
+	}
+
+	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
+	inline bool VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::TryAdd(ObjectType&& aObject)
+	{
 		if (mySize < Capacity)
 		{
 			myVectorOnStack[mySize++] = std::move(aObject);
+			return true;
 		}
+
+		return false;
 	}
 
 	template <typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
 	inline void VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::Insert(const SizeType aIndex, ObjectType& aObject)
 	{
 		assert((mySize < Capacity + 1) && "VectorOnStack is full!");
-
 		assert((aIndex >= 0 && aIndex < Capacity) && "Index out of bounds!");
 
 		if (aIndex >= mySize)

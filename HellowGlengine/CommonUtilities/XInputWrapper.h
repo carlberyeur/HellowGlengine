@@ -9,7 +9,7 @@ namespace CU
 	class Vector2;
 	using Vector2f = Vector2<float>;
 
-	class XInputWrapper
+	class CXInputWrapper
 	{
 	public:
 		struct KeyStroke
@@ -25,8 +25,8 @@ namespace CU
 			unsigned short myKeyCode;
 		};
 
-		XInputWrapper();
-		~XInputWrapper();
+		CXInputWrapper();
+		~CXInputWrapper();
 
 		void Init(const unsigned int aJoystickCount);
 

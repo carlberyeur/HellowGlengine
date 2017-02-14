@@ -53,6 +53,15 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Precompiled</Filter>
     </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="InputMessage.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="InputListener.cpp">
+      <Filter>InputManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -119,6 +128,15 @@
     <ClInclude Include="stdafx.h">
       <Filter>Precompiled</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="InputMessage.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="InputListener.h">
+      <Filter>InputManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -141,6 +159,9 @@
     </Filter>
     <Filter Include="Precompiled">
       <UniqueIdentifier>{ea2132b5-d253-4fca-98cd-24c6e3aec664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InputManager">
+      <UniqueIdentifier>{4714d9be-d2a2-440a-8e54-1349b106ccc2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

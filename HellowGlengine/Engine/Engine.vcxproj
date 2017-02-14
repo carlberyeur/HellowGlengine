@@ -158,6 +158,9 @@
     <ClInclude Include="GLTextureManager.h" />
     <ClInclude Include="IEffect.h" />
     <ClInclude Include="IGraphicsFramework.h" />
+    <ClInclude Include="InputListener.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="InputMessage.h" />
     <ClInclude Include="IOSWindow.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Renderer.h" />
@@ -180,6 +183,9 @@
     <ClCompile Include="GLTextureManager.cpp" />
     <ClCompile Include="IEffect.cpp" />
     <ClCompile Include="IGraphicsFramework.cpp" />
+    <ClCompile Include="InputListener.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="InputMessage.cpp" />
     <ClCompile Include="IOSWindow.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Renderer.cpp" />

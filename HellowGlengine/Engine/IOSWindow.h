@@ -30,6 +30,7 @@ public:
 
 	virtual bool Init(const SCreationParameters& aCreationParameters) = 0;
 	virtual bool LoadExtensionList(class COpenGLFramework& aHWND) = 0;
+	virtual bool InitInputWrapper(class CInputManager& aInputManager) = 0;
 	virtual void Update() = 0;
 
 	inline bool IsOpen() const;

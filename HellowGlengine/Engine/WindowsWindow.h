@@ -10,6 +10,7 @@ public:
 	bool Init(const SCreationParameters& aCreationParameters) override;
 	void Update() override;
 	bool LoadExtensionList(class COpenGLFramework& aOpenGLFrameWork) override;
+	bool InitInputWrapper(CInputManager& aInputManager) override;
 
 	inline void* GetHWND() const;
 	inline void* GetHInstance() const;

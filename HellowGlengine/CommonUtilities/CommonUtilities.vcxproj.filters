@@ -132,9 +132,6 @@
     <ClInclude Include="MemoryLeekLogger.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="DirectInputProxy.h">
-      <Filter>Input\DirectInput</Filter>
-    </ClInclude>
     <ClInclude Include="DInputWrapper.h">
       <Filter>Input\DirectInput</Filter>
     </ClInclude>
@@ -169,6 +166,15 @@
       <Filter>Function</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Synchronizer.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Pointer.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstexprString.h">
       <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -207,9 +213,6 @@
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="DInputWrapper.cpp">
-      <Filter>Input\DirectInput</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectInputProxy.cpp">
       <Filter>Input\DirectInput</Filter>
     </ClCompile>
     <ClCompile Include="XInputWrapper.cpp">

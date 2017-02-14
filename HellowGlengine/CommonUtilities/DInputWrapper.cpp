@@ -11,7 +11,7 @@
 
 namespace CU
 {
-	InputWrapper::InputWrapper()
+	CDirectInputWrapper::CDirectInputWrapper()
 		: myKeyboardState(0)
 		, myPreviousKeyboardState(0)
 		, myMouseState({0})
@@ -23,11 +23,11 @@ namespace CU
 	{
 	}
 
-	InputWrapper::~InputWrapper()
+	CDirectInputWrapper::~CDirectInputWrapper()
 	{
 	}
 
-	bool InputWrapper::Init(HINSTANCE hinstance, HWND hwnd)
+	bool CDirectInputWrapper::Init(HINSTANCE hinstance, HWND hwnd)
 	{
 		if (myIsInitialized == false)
 		{
@@ -96,7 +96,7 @@ namespace CU
 		return true;
 	}
 
-	void InputWrapper::Shutdown()
+	void CDirectInputWrapper::Shutdown()
 	{
 		if (myMouse != nullptr)
 		{
@@ -119,7 +119,7 @@ namespace CU
 		}
 	}
 
-	bool InputWrapper::Update()
+	bool CDirectInputWrapper::Update()
 	{
 		if (myIsInitialized == true)
 		{
@@ -140,7 +140,7 @@ namespace CU
 		return true;
 	}
 
-	void InputWrapper::GetMousePosition(int& aX, int& aY) const
+	void CDirectInputWrapper::GetMousePosition(int& aX, int& aY) const
 	{
 		POINT point;
 		GetCursorPos(&point);
@@ -148,90 +148,75 @@ namespace CU
 		aY = point.y;
 	}
 
-	void InputWrapper::GetMousePosition(Vector2<int>& /*aMousePosition*/) const
+	void CDirectInputWrapper::GetMousePosition(Vector2<int>& /*aMousePosition*/) const
 	{
 	}
 
-	int InputWrapper::GetMousePositionX() const
+	int CDirectInputWrapper::GetMousePositionX() const
 	{
 		POINT point;
 		GetCursorPos(&point);
 		return point.x;
 	}
 
-	int InputWrapper::GetMousePositionY() const 
+	int CDirectInputWrapper::GetMousePositionY() const 
 	{
 		POINT point;
 		GetCursorPos(&point);
 		return point.y;
 	}
 
-	int InputWrapper::GetMouseRelativePositionX() const
+	int CDirectInputWrapper::GetMouseRelativePositionX() const
 	{
 		return myMouseState.lX;
 	}
 
-	int InputWrapper::GetMouseRelativePositionY() const
+	int CDirectInputWrapper::GetMouseRelativePositionY() const
 	{
 		return myMouseState.lY;
 	}
 
-	void InputWrapper::SetMousePosition(const int aMouseX, const int aMouseY)
+	void CDirectInputWrapper::SetMousePosition(const int aMouseX, const int aMouseY)
 	{
 		SetCursorPos(aMouseX, aMouseY);
 	}
 
-	bool InputWrapper::IsKeyboardKeyDown(eKeys aKey) const
+	bool CDirectInputWrapper::IsKeyboardKeyDown(unsigned char aKey) const
 	{
 		return KEYBOARDKEYDOWN(aKey, myKeyboardState);
 	}
 
-	bool InputWrapper::IsKeyboardKeyPressed(eKeys aKey) const
+	bool CDirectInputWrapper::IsKeyboardKeyPressed(unsigned char aKey) const
 	{
 		return KEYBOARDKEYDOWN(aKey, myKeyboardState) && KEYBOARDKEYUP(aKey, myPreviousKeyboardState);
 	}
 
-	bool InputWrapper::IsKeyboardKeyReleased(eKeys aKey) const
+	bool CDirectInputWrapper::IsKeyboardKeyReleased(unsigned char aKey) const
 	{
 		return KEYBOARDKEYDOWN(aKey, myPreviousKeyboardState) && KEYBOARDKEYUP(aKey, myKeyboardState);
 	}
 
-	bool InputWrapper::IsMouseButtonDown(eMouseButtons aButton) const
+	bool CDirectInputWrapper::IsMouseButtonDown(eMouseButtons aButton) const
 	{
 		return MOUSEBUTTONDOWN(aButton, myMouseState);
 	}
 
-	bool InputWrapper::IsMouseButtonPressed(eMouseButtons aButton) const
+	bool CDirectInputWrapper::IsMouseButtonPressed(eMouseButtons aButton) const
 	{
 		return MOUSEBUTTONDOWN(aButton, myMouseState) && MOUSEBUTTONUP(aButton, myPreviousMouseState);
 	}
 
-	bool InputWrapper::IsMouseButtonReleased(eMouseButtons aButton) const
+	bool CDirectInputWrapper::IsMouseButtonReleased(eMouseButtons aButton) const
 	{
 		return MOUSEBUTTONDOWN(aButton, myPreviousMouseState) && MOUSEBUTTONUP(aButton, myMouseState);
 	}
 
-	int InputWrapper::GetMouseWheelPos() const
+	int CDirectInputWrapper::GetMouseWheelPos() const
 	{
 		return myMouseState.lZ / 120;
 	}
 
-	bool InputWrapper::GetKeysDown(GrowingArray<eKeys>& aKeysDown)
-	{
-		aKeysDown.RemoveAll();
-
-		for (int i = 0; i < 256; ++i)
-		{
-			if (myKeyboardState[i] & 0x80)
-			{
-				aKeysDown.Add(static_cast<CU::eKeys>(i));
-			}
-		}
-
-		return !aKeysDown.Empty();
-	}
-
-	bool InputWrapper::GetKeysPressed(GrowingArray<eKeys>& aKeysPressed)
+	bool CDirectInputWrapper::GetKeysPressed(GrowingArray<unsigned char>& aKeysPressed)
 	{
 		aKeysPressed.RemoveAll();
 
@@ -239,14 +224,14 @@ namespace CU
 		{
 			if ((myKeyboardState[i] & 0x80) && (myPreviousKeyboardState[i] ^ myKeyboardState[i]))
 			{
-				aKeysPressed.Add(static_cast<CU::eKeys>(i));
+				aKeysPressed.Add(i);
 			}
 		}
 
 		return !aKeysPressed.Empty();
 	}
 
-	bool InputWrapper::GetKeysReleased(GrowingArray<eKeys>& aKeysReleased)
+	bool CDirectInputWrapper::GetKeysReleased(GrowingArray<unsigned char>& aKeysReleased)
 	{
 		aKeysReleased.RemoveAll();
 
@@ -254,14 +239,14 @@ namespace CU
 		{
 			if ((myPreviousKeyboardState[i] & 0x80) && (myPreviousKeyboardState[i] ^ myKeyboardState[i]))
 			{
-				aKeysReleased.Add(static_cast<CU::eKeys>(i));
+				aKeysReleased.Add(i);
 			}
 		}
 
 		return !aKeysReleased.Empty();
 	}
 
-	bool InputWrapper::ReadKeyboard()
+	bool CDirectInputWrapper::ReadKeyboard()
 	{
 		for (int i = 0; i < 256; ++i)
 		{
@@ -283,7 +268,7 @@ namespace CU
 		}
 		return true;	
 	}
-	bool InputWrapper::ReadMouse()
+	bool CDirectInputWrapper::ReadMouse()
 	{
 		if (myIsInitialized == true)
 		{

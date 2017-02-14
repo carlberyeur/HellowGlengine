@@ -12,45 +12,45 @@ namespace CU
 {
 	typedef GrowingArray<XINPUT_STATE*>::size_type size_g;
 
-	const unsigned short XInputWrapper::GAMEPAD::DPAD_UP = XINPUT_GAMEPAD_DPAD_UP;
-	const unsigned short XInputWrapper::GAMEPAD::DPAD_DOWN = XINPUT_GAMEPAD_DPAD_DOWN;
-	const unsigned short XInputWrapper::GAMEPAD::DPAD_LEFT = XINPUT_GAMEPAD_DPAD_LEFT;
-	const unsigned short XInputWrapper::GAMEPAD::DPAD_RIGHT = XINPUT_GAMEPAD_DPAD_RIGHT;
-	const unsigned short XInputWrapper::GAMEPAD::START = XINPUT_GAMEPAD_START;
-	const unsigned short XInputWrapper::GAMEPAD::BACK = XINPUT_GAMEPAD_BACK;
-	const unsigned short XInputWrapper::GAMEPAD::LEFT_THUMB = XINPUT_GAMEPAD_LEFT_THUMB;
-	const unsigned short XInputWrapper::GAMEPAD::RIGHT_THUMB = XINPUT_GAMEPAD_RIGHT_THUMB;
-	const unsigned short XInputWrapper::GAMEPAD::LEFT_SHOULDER = XINPUT_GAMEPAD_LEFT_SHOULDER;
-	const unsigned short XInputWrapper::GAMEPAD::RIGHT_SHOULDER = XINPUT_GAMEPAD_RIGHT_SHOULDER;
-	const unsigned short XInputWrapper::GAMEPAD::A = XINPUT_GAMEPAD_A;
-	const unsigned short XInputWrapper::GAMEPAD::B = XINPUT_GAMEPAD_B;
-	const unsigned short XInputWrapper::GAMEPAD::X = XINPUT_GAMEPAD_X;
-	const unsigned short XInputWrapper::GAMEPAD::Y = XINPUT_GAMEPAD_Y;
+	const unsigned short CXInputWrapper::GAMEPAD::DPAD_UP = XINPUT_GAMEPAD_DPAD_UP;
+	const unsigned short CXInputWrapper::GAMEPAD::DPAD_DOWN = XINPUT_GAMEPAD_DPAD_DOWN;
+	const unsigned short CXInputWrapper::GAMEPAD::DPAD_LEFT = XINPUT_GAMEPAD_DPAD_LEFT;
+	const unsigned short CXInputWrapper::GAMEPAD::DPAD_RIGHT = XINPUT_GAMEPAD_DPAD_RIGHT;
+	const unsigned short CXInputWrapper::GAMEPAD::START = XINPUT_GAMEPAD_START;
+	const unsigned short CXInputWrapper::GAMEPAD::BACK = XINPUT_GAMEPAD_BACK;
+	const unsigned short CXInputWrapper::GAMEPAD::LEFT_THUMB = XINPUT_GAMEPAD_LEFT_THUMB;
+	const unsigned short CXInputWrapper::GAMEPAD::RIGHT_THUMB = XINPUT_GAMEPAD_RIGHT_THUMB;
+	const unsigned short CXInputWrapper::GAMEPAD::LEFT_SHOULDER = XINPUT_GAMEPAD_LEFT_SHOULDER;
+	const unsigned short CXInputWrapper::GAMEPAD::RIGHT_SHOULDER = XINPUT_GAMEPAD_RIGHT_SHOULDER;
+	const unsigned short CXInputWrapper::GAMEPAD::A = XINPUT_GAMEPAD_A;
+	const unsigned short CXInputWrapper::GAMEPAD::B = XINPUT_GAMEPAD_B;
+	const unsigned short CXInputWrapper::GAMEPAD::X = XINPUT_GAMEPAD_X;
+	const unsigned short CXInputWrapper::GAMEPAD::Y = XINPUT_GAMEPAD_Y;
 
 #define THROW_AWAY_IF_LOW(LOW_VALUE, REAL_VALUE) ((std::abs(REAL_VALUE) - LOW_VALUE <= 0) ? REAL_VALUE : 0)
 
-	XInputWrapper::KeyStroke::eKeyState FlagsToKeyState(const WORD aFlag)
+	CXInputWrapper::KeyStroke::eKeyState FlagsToKeyState(const WORD aFlag)
 	{
 		switch (aFlag)
 		{
 		case XINPUT_KEYSTROKE_KEYDOWN:
-			return XInputWrapper::KeyStroke::eKeyState::ePressed;
+			return CXInputWrapper::KeyStroke::eKeyState::ePressed;
 		case XINPUT_KEYSTROKE_KEYUP:
-			return XInputWrapper::KeyStroke::eKeyState::eReleased;
+			return CXInputWrapper::KeyStroke::eKeyState::eReleased;
 		case XINPUT_KEYSTROKE_REPEAT:
-			return XInputWrapper::KeyStroke::eKeyState::eRepeat;
+			return CXInputWrapper::KeyStroke::eKeyState::eRepeat;
 		default:
-			return XInputWrapper::KeyStroke::eKeyState::eRepeat;
+			return CXInputWrapper::KeyStroke::eKeyState::eRepeat;
 		}
 	}
 
-	XInputWrapper::XInputWrapper()
+	CXInputWrapper::CXInputWrapper()
 		: myJoysticks(2)
 		, myDisconnectedJoysticks(2)
 	{
 	}
 
-	XInputWrapper::~XInputWrapper()
+	CXInputWrapper::~CXInputWrapper()
 	{
 		myJoysticks.DeleteAll();
 
@@ -61,7 +61,7 @@ namespace CU
 		}
 	}
 
-	void XInputWrapper::Init(const unsigned int aJoystickCount)
+	void CXInputWrapper::Init(const unsigned int aJoystickCount)
 	{
 		for (size_g i = 0; i < aJoystickCount; ++i)
 		{
@@ -69,7 +69,7 @@ namespace CU
 		}
 	}
 
-	void XInputWrapper::UpdateStates()
+	void CXInputWrapper::UpdateStates()
 	{
 		for (size_g i = 0; i < myJoysticks.Size(); ++i)
 		{
@@ -82,7 +82,7 @@ namespace CU
 		MoveDisconnectedJoysticks();
 	}
 
-	bool XInputWrapper::GetKeyStroke(const unsigned int aJoystickIndex, KeyStroke& aKeyStrokeOutput)
+	bool CXInputWrapper::GetKeyStroke(const unsigned int aJoystickIndex, KeyStroke& aKeyStrokeOutput)
 	{
 		XINPUT_KEYSTROKE keyStroke = {};
 
@@ -101,7 +101,7 @@ namespace CU
 		return false;
 	}
 
-	bool XInputWrapper::GetKeyPressed(const unsigned int aJoystickIndex, const unsigned short aButton)
+	bool CXInputWrapper::GetKeyPressed(const unsigned int aJoystickIndex, const unsigned short aButton)
 	{
 		KeyStroke keyStroke = {};
 		if (GetKeyStroke(aJoystickIndex, keyStroke) == true)
@@ -115,7 +115,7 @@ namespace CU
 		return false;
 	}
 
-	bool XInputWrapper::GetKeyReleased(const unsigned int aJoystickIndex, const unsigned short aButton)
+	bool CXInputWrapper::GetKeyReleased(const unsigned int aJoystickIndex, const unsigned short aButton)
 	{
 		KeyStroke keyStroke = {};
 		if (GetKeyStroke(aJoystickIndex, keyStroke) == true)
@@ -129,7 +129,7 @@ namespace CU
 		return false;
 	}
 
-	bool XInputWrapper::IsConnected(const unsigned int aJoystickIndex, unsigned int* aError)
+	bool CXInputWrapper::IsConnected(const unsigned int aJoystickIndex, unsigned int* aError)
 	{
 		ZeroMemory(&myJoysticks[aJoystickIndex], sizeof(XINPUT_STATE));
 
@@ -148,7 +148,7 @@ namespace CU
 		return false;
 	}
 
-	CU::Vector2f XInputWrapper::GetRightStickPosition(const unsigned int aJoystickIndex)
+	CU::Vector2f CXInputWrapper::GetRightStickPosition(const unsigned int aJoystickIndex)
 	{
 		CU::Vector2f position(myJoysticks[aJoystickIndex]->Gamepad.sThumbRX, myJoysticks[aJoystickIndex]->Gamepad.sThumbRY);
 
@@ -160,7 +160,7 @@ namespace CU
 		return position / SHRT_MAX;
 	}
 
-	CU::Vector2f XInputWrapper::GetLeftStickPosition(const unsigned int aJoystickIndex)
+	CU::Vector2f CXInputWrapper::GetLeftStickPosition(const unsigned int aJoystickIndex)
 	{
 		CU::Vector2f position(myJoysticks[aJoystickIndex]->Gamepad.sThumbLX, myJoysticks[aJoystickIndex]->Gamepad.sThumbLY);
 
@@ -172,7 +172,7 @@ namespace CU
 		return position / SHRT_MAX;
 	}
 
-	bool XInputWrapper::LeftStickIsInDeadzone(const unsigned int aJoystickIndex)
+	bool CXInputWrapper::LeftStickIsInDeadzone(const unsigned int aJoystickIndex)
 	{
 		short x = myJoysticks[aJoystickIndex]->Gamepad.sThumbLX;
 		short y = myJoysticks[aJoystickIndex]->Gamepad.sThumbLY;
@@ -180,7 +180,7 @@ namespace CU
 		return THROW_AWAY_IF_LOW(XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE, x) == 0 && THROW_AWAY_IF_LOW(XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE, y) == 0;
 	}
 
-	bool XInputWrapper::RightStickIsInDeadzone(const unsigned int aJoystickIndex)
+	bool CXInputWrapper::RightStickIsInDeadzone(const unsigned int aJoystickIndex)
 	{
 		short x = myJoysticks[aJoystickIndex]->Gamepad.sThumbRX;
 		short y = myJoysticks[aJoystickIndex]->Gamepad.sThumbRY;
@@ -188,21 +188,21 @@ namespace CU
 		return THROW_AWAY_IF_LOW(XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE, x) == 0 && THROW_AWAY_IF_LOW(XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE, y) == 0;
 	}
 
-	float XInputWrapper::GetLeftTriggerDown(const unsigned int aJoystickIndex)
+	float CXInputWrapper::GetLeftTriggerDown(const unsigned int aJoystickIndex)
 	{
 		unsigned char trigger = myJoysticks[aJoystickIndex]->Gamepad.bLeftTrigger;
 
 		return static_cast<float>(THROW_AWAY_IF_LOW(XINPUT_GAMEPAD_TRIGGER_THRESHOLD, trigger)) / static_cast<float>(UCHAR_MAX);
 	}
 
-	float XInputWrapper::GetRightTringgerDown(const unsigned int aJoystickIndex)
+	float CXInputWrapper::GetRightTringgerDown(const unsigned int aJoystickIndex)
 	{
 		unsigned char trigger = myJoysticks[aJoystickIndex]->Gamepad.bRightTrigger;
 
 		return static_cast<float>(THROW_AWAY_IF_LOW(XINPUT_GAMEPAD_TRIGGER_THRESHOLD, trigger)) / static_cast<float>(UCHAR_MAX);
 	}
 
-	void XInputWrapper::SetLeftVibration(const unsigned int aJoystickIndex, const unsigned short aAmount)
+	void CXInputWrapper::SetLeftVibration(const unsigned int aJoystickIndex, const unsigned short aAmount)
 	{
 		XINPUT_VIBRATION vibration = {};
 
@@ -212,7 +212,7 @@ namespace CU
 		XInputSetState(aJoystickIndex, &vibration);
 	}
 
-	void XInputWrapper::SetRightVibration(const unsigned int aJoystickIndex, const unsigned short aAmount)
+	void CXInputWrapper::SetRightVibration(const unsigned int aJoystickIndex, const unsigned short aAmount)
 	{
 		XINPUT_VIBRATION vibration = {};
 
@@ -222,7 +222,7 @@ namespace CU
 		XInputSetState(aJoystickIndex, &vibration);
 	}
 
-	void XInputWrapper::SetFullControllerVibration(const unsigned int aJoystickIndex, const unsigned short aAmount)
+	void CXInputWrapper::SetFullControllerVibration(const unsigned int aJoystickIndex, const unsigned short aAmount)
 	{
 		XINPUT_VIBRATION vibration = {};
 
@@ -232,7 +232,7 @@ namespace CU
 		XInputSetState(aJoystickIndex, &vibration);
 	}
 
-	void XInputWrapper::StopVibration(const unsigned int aJoystickIndex)
+	void CXInputWrapper::StopVibration(const unsigned int aJoystickIndex)
 	{
 		XINPUT_VIBRATION vibration = {};
 
@@ -242,12 +242,12 @@ namespace CU
 		XInputSetState(aJoystickIndex, &vibration);
 	}
 
-	unsigned int XInputWrapper::GetConnectedJoystickCount() const
+	unsigned int CXInputWrapper::GetConnectedJoystickCount() const
 	{
 		return myJoysticks.Size();
 	}
 
-	bool XInputWrapper::UpdateState(const unsigned int aJoystickIndex)
+	bool CXInputWrapper::UpdateState(const unsigned int aJoystickIndex)
 	{
 		ZeroMemory(myJoysticks[aJoystickIndex], sizeof(XINPUT_STATE));
 
@@ -259,7 +259,7 @@ namespace CU
 		return false;
 	}
 
-	void XInputWrapper::MoveDisconnectedJoysticks()
+	void CXInputWrapper::MoveDisconnectedJoysticks()
 	{
 		for (size_g i = 0; i < myDisconnectedJoysticks.Size(); ++i)
 		{
