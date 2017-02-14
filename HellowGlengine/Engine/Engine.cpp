@@ -62,10 +62,14 @@ void CEngine::Start()
 	//	apa++;
 	//}
 
+	std::thread inputThread(&CInputManager::Start, myInputManager);
+
 	while (myWindow->IsOpen() == true)
 	{
 		myWindow->Update();
 		myLogicTimer->Update();
+
+		myInputManager->DispatchMessages();
 
 		if (myUpdateCallback)
 		{
@@ -84,6 +88,9 @@ void CEngine::Start()
 
 		myGraphicsFramework->Present();
 	}
+
+	myInputManager->Stop();
+	inputThread.join();
 }
 
 void CEngine::Shutdown()
@@ -163,4 +170,10 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	myInputManager = new CInputManager(*myWindow);
 
 	return true;
+}
+
+IInputListener::eResult CEngine::TakeInput(const CInputMessage& aMessage)
+{
+	int Padsf = 0;
+	return eResult::ePassOn;
 }

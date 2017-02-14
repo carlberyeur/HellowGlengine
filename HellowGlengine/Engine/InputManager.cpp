@@ -47,14 +47,24 @@ void CInputManager::DispatchMessages()
 	}
 
 	myCopyMutex.lock();
+	myHasFresh = false;
 	myReadBuffer = myWriteBuffer;
 	myCopyMutex.unlock();
+
+	CInputMessage mouseMoved(CInputMessage::eType::eMouseMoved, static_cast<short>(myMouseDelta.x), static_cast<short>(myMouseDelta.y));
+	for (IInputListener* listener : myInputListeners)
+	{
+		if (listener->TakeInput(mouseMoved) == IInputListener::eResult::eStop)
+		{
+			break;
+		}
+	}
 
 	for (CInputMessage message : myReadBuffer)
 	{
 		for (IInputListener* listener : myInputListeners)
 		{
-			if (listener->TakeInput(message) == IInputListener::eResult::eStop)
+			if (listener->TakeInput(message) == IInputListener::eResult::eStop) //TODO: console will break for key presses and then scene might not recieve mouse messages
 			{
 				break;
 			}
@@ -64,10 +74,16 @@ void CInputManager::DispatchMessages()
 
 void CInputManager::Update()
 {
+	if (!myInputWrapper->Update())
+	{
+		return;
+	}
+
 	myCopyMutex.lock();
 
 	if (myInputWrapper->GetKeysPressed(myKeyList))
 	{
+		myHasFresh = true;
 		for (unsigned char keyPressed : myKeyList)
 		{
 			CInputMessage keyPressedMessage(CInputMessage::eType::eKeyboardPressed, keyPressed);
@@ -77,12 +93,25 @@ void CInputManager::Update()
 
 	if (myInputWrapper->GetKeysReleased(myKeyList))
 	{
+		myHasFresh = true;
 		for (unsigned char keyReleased : myKeyList)
 		{
 			CInputMessage keyReleasedMessage(CInputMessage::eType::eKeyboardPressed, keyReleased);
 			myWriteBuffer.TryAdd(std::move(keyReleasedMessage));
 		}
 	}
+
+	myLastMousePosition = myMousePosition;
+	myInputWrapper->GetMousePosition(myMousePosition);
+	myMouseDelta += myMousePosition - myLastMousePosition;
+
+	//if (myMousePosition != myLastMousePosition)
+	//{
+	//	CU::Vector2i mouseDelta = myMousePosition - myLastMousePosition;
+
+	//	CInputMessage mouseMovedMessage(CInputMessage::eType::eMouseMoved, mouseDelta.x, mouseDelta.y);
+	//	myWriteBuffer.TryAdd(std::move(mouseMovedMessage));
+	//}
 
 	myCopyMutex.unlock();
 }

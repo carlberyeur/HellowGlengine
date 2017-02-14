@@ -121,22 +121,21 @@ namespace CU
 
 	bool CDirectInputWrapper::Update()
 	{
-		if (myIsInitialized == true)
+		if (!myIsInitialized)
 		{
-			bool result = true;
-
-			result = ReadKeyboard();
-			if (result == false)
-			{
-				return false;
-			}
-
-			result = ReadMouse();
-			if (result == false)
-			{
-				return false;
-			}
+			return false;
 		}
+
+		if (!ReadKeyboard())
+		{
+			return false;
+		}
+
+		if (!ReadMouse())
+		{
+			return false;
+		}
+
 		return true;
 	}
 

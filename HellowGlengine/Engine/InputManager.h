@@ -32,6 +32,10 @@ private:
 
 	std::mutex myCopyMutex;
 
+	CU::Vector2i myMousePosition;
+	CU::Vector2i myLastMousePosition;
+	CU::Vector2i myMouseDelta;
+
 	CU::GrowingArray<IInputListener*> myInputListeners;
 	CU::GrowingArray<unsigned char> myKeyList;
 

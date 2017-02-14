@@ -177,6 +177,9 @@
     <ClInclude Include="ConstexprString.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="TaskPool.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -226,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskPool.cpp">
+      <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

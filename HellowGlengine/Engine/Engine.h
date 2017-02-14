@@ -1,5 +1,7 @@
 #pragma once
 
+#include "InputListener.h"
+
 namespace CU
 {
 	class Time;
@@ -10,7 +12,7 @@ class IOSWindow;
 class IGraphicsFramework;
 class CInputManager;
 
-class CEngine
+class CEngine : public IInputListener
 {
 public:
 	struct SCreationParameters
@@ -61,4 +63,6 @@ private:
 	CU::CStopWatch* myRenderTimer;
 
 	static CEngine* ourInstance;
+
+	eResult TakeInput(const CInputMessage& aMessage) override;
 };
