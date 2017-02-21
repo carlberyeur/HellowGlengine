@@ -11,6 +11,7 @@ CInputManager::CInputManager(IOSWindow& aWindow)
 	: myInputListeners(8u)
 	, myKeyList(8u)
 	, myIsStarted(false)
+	, myHasTakenInput(false)
 {
 	assert(!ourInstance);
 	ourInstance = this;
@@ -41,15 +42,10 @@ void CInputManager::Stop()
 
 void CInputManager::DispatchMessages()
 {
-	if (!myHasFresh)
+	if (!myHasTakenInput)
 	{
 		return;
 	}
-
-	myCopyMutex.lock();
-	myHasFresh = false;
-	myReadBuffer = myWriteBuffer;
-	myCopyMutex.unlock();
 
 	CInputMessage mouseMoved(CInputMessage::eType::eMouseMoved, static_cast<short>(myMouseDelta.x), static_cast<short>(myMouseDelta.y));
 	for (IInputListener* listener : myInputListeners)
@@ -60,7 +56,7 @@ void CInputManager::DispatchMessages()
 		}
 	}
 
-	for (CInputMessage message : myReadBuffer)
+	for (const CInputMessage& message : myBuffers[myRead])
 	{
 		for (IInputListener* listener : myInputListeners)
 		{
@@ -70,6 +66,17 @@ void CInputManager::DispatchMessages()
 			}
 		}
 	}
+
+	myBuffers[myRead].RemoveAll();
+	myHasTakenInput = false;
+
+	//myCopyMutex.lock();
+
+	//unsigned char read = myRead;
+	//myRead = myFree;
+	//myFree = read;
+
+	//myCopyMutex.unlock();
 }
 
 void CInputManager::Update()
@@ -79,25 +86,38 @@ void CInputManager::Update()
 		return;
 	}
 
-	myCopyMutex.lock();
+	if (!myHasTakenInput && !myBuffers[myWrite].Empty())
+	{
+		//myCopyMutex.lock();
+
+		unsigned char write = myWrite;
+		myWrite = myRead;
+		myRead = write;
+		//unsigned char free = myFree;
+		//myFree = myRead;
+		//myRead = myWrite;
+		//myWrite = free;
+
+		//myCopyMutex.unlock();
+	}
+
+	//myCopyMutex.lock();
 
 	if (myInputWrapper->GetKeysPressed(myKeyList))
 	{
-		myHasFresh = true;
 		for (unsigned char keyPressed : myKeyList)
 		{
 			CInputMessage keyPressedMessage(CInputMessage::eType::eKeyboardPressed, keyPressed);
-			myWriteBuffer.TryAdd(std::move(keyPressedMessage));
+			myBuffers[myWrite].TryAdd(std::move(keyPressedMessage));
 		}
 	}
 
 	if (myInputWrapper->GetKeysReleased(myKeyList))
 	{
-		myHasFresh = true;
 		for (unsigned char keyReleased : myKeyList)
 		{
 			CInputMessage keyReleasedMessage(CInputMessage::eType::eKeyboardPressed, keyReleased);
-			myWriteBuffer.TryAdd(std::move(keyReleasedMessage));
+			myBuffers[myWrite].TryAdd(std::move(keyReleasedMessage));
 		}
 	}
 
@@ -113,7 +133,7 @@ void CInputManager::Update()
 	//	myWriteBuffer.TryAdd(std::move(mouseMovedMessage));
 	//}
 
-	myCopyMutex.unlock();
+	//myCopyMutex.unlock();
 }
 
 bool CInputManager::InitInputWrapper(void* aHWND, void* aHInstance)

@@ -27,8 +27,7 @@ public:
 	bool InitInputWrapper(void* aHWND, void* aHInstance);
 
 private:
-	CU::VectorOnStack<CInputMessage, 16, short, false> myWriteBuffer;
-	CU::VectorOnStack<CInputMessage, 16, short, false> myReadBuffer;
+	CU::StaticArray<CU::VectorOnStack<CInputMessage, 16, short, false>, 3> myBuffers;
 
 	std::mutex myCopyMutex;
 
@@ -41,8 +40,12 @@ private:
 
 	CU::CDirectInputWrapper* myInputWrapper;
 
+	unsigned char myRead;
+	unsigned char myWrite;
+	unsigned char myFree;
+
+	bool myHasTakenInput;
 	bool myIsStarted;
-	bool myHasFresh;
 
 	static CInputManager* ourInstance;
 };

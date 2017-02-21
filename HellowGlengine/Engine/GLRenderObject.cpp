@@ -8,6 +8,7 @@
 struct VertexInput
 {
 	float x, y, z;
+	float u, v;
 };
 
 CGLRenderObject::CGLRenderObject()
@@ -53,20 +54,32 @@ bool CGLRenderObject::Init()
 	vertices[0].y = -1.0f;
 	vertices[0].z = 0.0f;
 
+	vertices[0].u = 0.0f;
+	vertices[0].v = 0.0f;
+
 	// Top left.
 	vertices[1].x = -1.0f;
 	vertices[1].y = 1.0f;
 	vertices[1].z = 0.0f;
+
+	vertices[0].u = 0.0f;
+	vertices[0].v = 1.0f;
 
 	// Top right.
 	vertices[2].x = 1.0f;
 	vertices[2].y = 1.0f;
 	vertices[2].z = 0.0f;
 
+	vertices[0].u = 1.0f;
+	vertices[0].v = 1.0f;
+
 	// Bottom right.
 	vertices[3].x = 1.0f;
 	vertices[3].y = -1.0f;
 	vertices[3].z = 0.0f;
+
+	vertices[0].u = 1.0f;
+	vertices[0].v = 0.0f;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -91,6 +104,7 @@ bool CGLRenderObject::Init()
 	glBufferData(GL_ARRAY_BUFFER, myVertexCount * sizeof(VertexInput), vertices, GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0); //position
+	glEnableVertexAttribArray(1); //uv
 
 
 
@@ -98,24 +112,24 @@ bool CGLRenderObject::Init()
 	glBindBuffer(GL_ARRAY_BUFFER, myVertexBufferID);
 	glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(VertexInput), 0);
 
-	//// Specify the location and format of the color portion of the vertex buffer.
-	//glBindBuffer(GL_ARRAY_BUFFER, myVertexBufferID);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof(VertexType), (unsigned char*)NULL + (3 * sizeof(float)));
+	// Specify the location and format of the color portion of the vertex buffer.
+	glBindBuffer(GL_ARRAY_BUFFER, myVertexBufferID);
+	glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(VertexInput), (unsigned char*)NULL + (3 * sizeof(float)));
 
 	glGenBuffers(1, &myIndexBufferID);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myIndexBufferID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, myIndexCount * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
-	myEffect = new CGLEffect();
-	myEffect->Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos);
+	//myEffect = new CGLEffect();
+	//myEffect->Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos);
 
 	return true;
 }
 
 void CGLRenderObject::Render()
 {
-	myEffect->Activate();
+	//myEffect->Activate();
 
 	glBindVertexArray(myVertexArrayID);
 	glDrawElements(GL_TRIANGLES, myIndexCount, GL_UNSIGNED_INT, 0);

@@ -43,6 +43,7 @@ CTargaLoader::eLoadResult CTargaLoader::LoadTargaTexture(const std::string& aTex
 	}
 
 	unsigned int imageSize = targaFileHeader.width * targaFileHeader.height * 4u;
+	aDataOut.Init(imageSize);
 	aDataOut.Resize(imageSize);
 
 	if (!targaFile.read(aDataOut.AsPointer(), imageSize).good())

@@ -92,6 +92,9 @@ bool CGLEffect::Init(const std::string& aVertexShaderPath, const std::string& aG
 		return false;
 	}
 
+	int samplerLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
+	glUniform1i(samplerLocation, 0);
+
 	return true;
 }
 

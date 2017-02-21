@@ -25,10 +25,12 @@ ITextureManager::eLoadResult CGLTextureManager::LoadTexture(const std::string& a
 	if (result != CTargaLoader::eLoadResult::eSuccess)
 	{
 		//HandleTargaError(result, CTargaLoader::GetLastError());
+		return eLoadResult::eFailedLoadingFile;
 	}
 
 	CGLTexture* newTexture = new CGLTexture();
 	newTexture->Init(myTextureUnit++, data.AsVoidPointer());
+	aTexturePointerOut = newTexture;
 
 	return eLoadResult::eSuccess;
 }

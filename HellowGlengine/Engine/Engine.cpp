@@ -38,6 +38,9 @@ CEngine* CEngine::GetInstancePtr()
 //temp includes
 #include "GLRenderObject.h"
 #include "GLEffect.h"
+#include "GLTexture.h"
+#include "GLTextureManager.h"
+#include "EInputLayout.h"
 
 void CEngine::Start()
 {
@@ -54,13 +57,17 @@ void CEngine::Start()
 		apa++;
 	}
 
-	//CGLEffect effect;
-	//bool coolio = effect.Init("Shaders/VS_Pos.glsl", "", "Shaders/FS_Pos.glsl", 0);
-	//if (!coolio)
-	//{
-	//	int apa = 0;
-	//	apa++;
-	//}
+	ITexture* tex;
+	CGLTextureManager man;
+	man.LoadTexture("Textures/square.tga", tex);
+
+	CGLEffect effect;
+	bool coolio = effect.Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos | eInputLayout::eInputLayout_eTex);
+	if (!coolio)
+	{
+		int apa = 0;
+		apa++;
+	}
 
 	std::thread inputThread(&CInputManager::Start, myInputManager);
 
@@ -78,7 +85,7 @@ void CEngine::Start()
 
 		myGraphicsFramework->ClearFrame();
 
-		//effect.Activate();
+		effect.Activate();
 		renderObject.Render();
 
 		if (myRenderCallback)

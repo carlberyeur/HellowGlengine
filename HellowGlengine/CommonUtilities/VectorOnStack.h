@@ -55,6 +55,7 @@ namespace CU
 		inline ObjectType& GetLast();
 		inline const ObjectType& GetLast() const;
 		inline SizeType Size() const;
+		inline bool Empty() const;
 
 		static const SizeType FoundNone = static_cast<SizeType>(-1);
 
@@ -381,6 +382,12 @@ namespace CU
 	inline SizeType VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::Size() const
 	{
 		return mySize;
+	}
+
+	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>
+	inline bool VectorOnStack<ObjectType, Capacity, SizeType, UseSafeModeFlag>::Empty() const
+	{
+		return mySize == 0;
 	}
 
 	template<typename ObjectType, int Capacity, typename SizeType, bool UseSafeModeFlag>

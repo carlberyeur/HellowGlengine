@@ -9,7 +9,8 @@ public:
 	{
 		eSuccess,
 		eFileNotFound,
-		eInvalidArgument
+		eInvalidArgument,
+		eFailedLoadingFile
 	};
 
 	ITextureManager();
