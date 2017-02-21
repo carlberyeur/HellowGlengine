@@ -59,3 +59,9 @@
 #endif // FLOOPY
 
 #define FLOOPY(TYPE, NUMBER) for(TYPE i = 0; i < (NUMBER); ++i) BEGIN
+
+#ifdef BREAK_POINT_HERE
+#undef BREAK_POINT_HERE
+#endif // BREAK_POINT_HERE
+
+#define BREAK_POINT_HERE int br = 0; br++

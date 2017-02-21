@@ -157,7 +157,7 @@
     <ClInclude Include="QuickSort.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="ReverseGrowingArray.h" />
-    <ClInclude Include="SmartPointer.h" />
+    <ClInclude Include="SharedPointer.h" />
     <ClInclude Include="StaticArray.h" />
     <ClInclude Include="StaticMemoryPool.h" />
     <ClInclude Include="StaticTypeTraits.h" />
@@ -170,6 +170,7 @@
     <ClInclude Include="ThreadNamer.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="UniquePointer.h" />
     <ClInclude Include="vector2.h" />
     <ClInclude Include="vector3.h" />
     <ClInclude Include="vector4.h" />

@@ -7,7 +7,6 @@
 
 CEngine::SCreationParameters::eCreationFlags GetOperatingSystem();
 
-
 int wmain(int argc, wchar_t* argv[])
 {
 	int exitResult = EXIT_FAILURE;

@@ -7,12 +7,8 @@
 
 #include "targetver.h"
 
-#include <cstdio>
-#include <cstdlib>
-#include <functional>
-#include <string>
-#include <map>
-
+#include "../CommonUtilities/CommonSTL.h"
+#include "../CommonUtilities/CommonCommonUtilities.h"
 #include "../CommonUtilities/CommonMacros.h"
 #include "../CommonUtilities/StopWatch.h"
 #include "../CommonUtilities/Time.h"

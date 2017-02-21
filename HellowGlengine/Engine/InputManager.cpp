@@ -11,12 +11,15 @@ CInputManager::CInputManager(IOSWindow& aWindow)
 	: myInputListeners(8u)
 	, myKeyList(8u)
 	, myIsStarted(false)
-	, myHasTakenInput(false)
+	, myHasInputToDispatch(false)
 {
 	assert(!ourInstance);
 	ourInstance = this;
 
-	aWindow.InitInputWrapper(*this);
+	if (!aWindow.InitInputWrapper(*this))
+	{
+		DL_MESSAGE_BOX("Failed to initialize input wrapper");
+	}
 }
 
 CInputManager::~CInputManager()
@@ -42,7 +45,7 @@ void CInputManager::Stop()
 
 void CInputManager::DispatchMessages()
 {
-	if (!myHasTakenInput)
+	if (!myHasInputToDispatch)
 	{
 		return;
 	}
@@ -68,15 +71,7 @@ void CInputManager::DispatchMessages()
 	}
 
 	myBuffers[myRead].RemoveAll();
-	myHasTakenInput = false;
-
-	//myCopyMutex.lock();
-
-	//unsigned char read = myRead;
-	//myRead = myFree;
-	//myFree = read;
-
-	//myCopyMutex.unlock();
+	myHasInputToDispatch = false;
 }
 
 void CInputManager::Update()
@@ -86,7 +81,7 @@ void CInputManager::Update()
 		return;
 	}
 
-	if (!myHasTakenInput && !myBuffers[myWrite].Empty())
+	if (!myHasInputToDispatch && !myBuffers[myWrite].Empty())
 	{
 		//myCopyMutex.lock();
 
@@ -125,6 +120,11 @@ void CInputManager::Update()
 	myInputWrapper->GetMousePosition(myMousePosition);
 	myMouseDelta += myMousePosition - myLastMousePosition;
 
+	if (!myBuffers[myWrite].Empty())
+	{
+		myHasInputToDispatch = true;
+	}
+
 	//if (myMousePosition != myLastMousePosition)
 	//{
 	//	CU::Vector2i mouseDelta = myMousePosition - myLastMousePosition;
@@ -139,5 +139,5 @@ void CInputManager::Update()
 bool CInputManager::InitInputWrapper(void* aHWND, void* aHInstance)
 {
 	myInputWrapper = new CU::CDirectInputWrapper();
-	return myInputWrapper && myInputWrapper->Init(static_cast<HINSTANCE>(aHInstance), static_cast<HWND>(aHWND));
+	return myInputWrapper.IsValid() && myInputWrapper->Init(static_cast<HINSTANCE>(aHInstance), static_cast<HWND>(aHWND));
 }

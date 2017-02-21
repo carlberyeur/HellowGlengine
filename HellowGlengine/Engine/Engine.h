@@ -49,20 +49,19 @@ private:
 	~CEngine();
 
 	bool InternalInit(const SCreationParameters& aCreationParameters);
+	eResult TakeInput(const CInputMessage& aMessage) override;
 
 	std::function<void(void)> myInitCallback;
 	std::function<void(const CU::Time)> myUpdateCallback;
 	std::function<void(void)> myRenderCallback;
 
-	IOSWindow* myWindow;
-	IGraphicsFramework* myGraphicsFramework;
+	CU::UniquePointer<IOSWindow> myWindow;
+	CU::UniquePointer<IGraphicsFramework> myGraphicsFramework;
 
-	CInputManager* myInputManager;
+	CU::UniquePointer<CInputManager> myInputManager;
 
-	CU::CStopWatch* myLogicTimer;
-	CU::CStopWatch* myRenderTimer;
+	CU::UniquePointer<CU::CStopWatch> myLogicTimer;
+	CU::UniquePointer<CU::CStopWatch> myRenderTimer;
 
 	static CEngine* ourInstance;
-
-	eResult TakeInput(const CInputMessage& aMessage) override;
 };

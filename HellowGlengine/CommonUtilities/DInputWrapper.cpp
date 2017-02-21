@@ -25,6 +25,7 @@ namespace CU
 
 	CDirectInputWrapper::~CDirectInputWrapper()
 	{
+		BREAK_POINT_HERE;
 	}
 
 	bool CDirectInputWrapper::Init(HINSTANCE hinstance, HWND hwnd)

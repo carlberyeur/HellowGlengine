@@ -38,13 +38,13 @@ private:
 	CU::GrowingArray<IInputListener*> myInputListeners;
 	CU::GrowingArray<unsigned char> myKeyList;
 
-	CU::CDirectInputWrapper* myInputWrapper;
+	CU::UniquePointer<CU::CDirectInputWrapper> myInputWrapper;
 
 	unsigned char myRead;
 	unsigned char myWrite;
 	unsigned char myFree;
 
-	bool myHasTakenInput;
+	bool myHasInputToDispatch;
 	bool myIsStarted;
 
 	static CInputManager* ourInstance;

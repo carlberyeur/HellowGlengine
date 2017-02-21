@@ -13,3 +13,6 @@
 #include "vector4.h"
 #include "matrix33.h"
 #include "matrix44.h"
+
+#include "UniquePointer.h"
+#include "SharedPointer.h"

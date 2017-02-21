@@ -4,19 +4,19 @@
 #include <cassert>
 #endif // !assert
 
-namespace CommonUtilities
+namespace CU
 {
 	template <typename T>
-	class SmartPointer
+	class SharedPointer
 	{
 	public:
-		inline SmartPointer();
-		inline SmartPointer(T* aObject);
-		inline SmartPointer(const SmartPointer& aSmartPointer);
-		~SmartPointer();
+		SharedPointer();
+		SharedPointer(T* aObject);
+		SharedPointer(const SharedPointer& aSmartPointer);
+		~SharedPointer();
 
-		SmartPointer& operator=(T* aObject);
-		SmartPointer& operator=(const SmartPointer& aSmartPointer);
+		SharedPointer& operator=(T* aObject);
+		SharedPointer& operator=(const SharedPointer& aSmartPointer);
 
 		inline T& operator*() const;
 		inline T* operator->() const;
@@ -24,7 +24,7 @@ namespace CommonUtilities
 
 		inline bool operator!() const;
 		inline bool operator==(const T* aObject) const;
-		inline bool operator==(const SmartPointer& aSmartPointer) const;
+		inline bool operator==(const SharedPointer& aSmartPointer) const;
 		inline bool IsValid() const;
 
 	private:
@@ -32,27 +32,27 @@ namespace CommonUtilities
 	};
 
 	template <typename T>
-	inline SmartPointer<T>::SmartPointer()
+	SharedPointer<T>::SharedPointer()
+		: myObject(nullptr)
 	{
-		myObject = nullptr;
 	}
 
 	template <typename T>
-	inline SmartPointer<T>::SmartPointer(T* aObject)
-		: SmartPointer()
+	SharedPointer<T>::SharedPointer(T* aObject)
+		: SharedPointer()
 	{
 		*this = aObject;
 	}
 
 	template <typename T>
-	inline SmartPointer<T>::SmartPointer(const SmartPointer& aSmartPointer)
-		: SmartPointer()
+	SharedPointer<T>::SharedPointer(const SharedPointer& aSmartPointer)
+		: SharedPointer()
 	{
 		*this = aSmartPointer;
 	}
 
 	template <typename T>
-	inline SmartPointer<T>::~SmartPointer()
+	SharedPointer<T>::~SharedPointer()
 	{
 		if (myObject != nullptr)
 		{
@@ -61,7 +61,7 @@ namespace CommonUtilities
 	}
 
 	template <typename T>
-	inline SmartPointer<T>& SmartPointer<T>::operator=(T* aObject)
+	inline SharedPointer<T>& SharedPointer<T>::operator=(T* aObject)
 	{
 		if (myObject != nullptr)
 		{
@@ -77,7 +77,7 @@ namespace CommonUtilities
 	}
 
 	template <typename T>
-	inline SmartPointer<T>& SmartPointer<T>::operator=(const SmartPointer& aSmartPointer)
+	inline SharedPointer<T>& SharedPointer<T>::operator=(const SharedPointer& aSmartPointer)
 	{
 		if (myObject != nullptr)
 		{
@@ -93,45 +93,45 @@ namespace CommonUtilities
 	}
 
 	template <typename T>
-	inline T& SmartPointer<T>::operator*() const
+	inline T& SharedPointer<T>::operator*() const
 	{
 		assert(myObject != nullptr && "Tried to dereference null smart pointer");
 		return *myObject;
 	}
 
 	template <typename T>
-	inline T* SmartPointer<T>::operator->() const
+	inline T* SharedPointer<T>::operator->() const
 	{
 		assert(myObject != nullptr && "Tried to dereference null smart pointer");
 		return myObject;
 	}
 
 	template<typename T>
-	inline T* SmartPointer<T>::GetRawPointer()
+	inline T* SharedPointer<T>::GetRawPointer()
 	{
 		return myObject;
 	}
 
 	template <typename T>
-	inline bool SmartPointer<T>::operator!() const
+	inline bool SharedPointer<T>::operator!() const
 	{
 		return !myObject;
 	}
 
 	template <typename T>
-	inline bool SmartPointer<T>::operator==(const T* aObject) const
+	inline bool SharedPointer<T>::operator==(const T* aObject) const
 	{
 		return myObject == aObject;
 	}
 
 	template <typename T>
-	inline bool SmartPointer<T>::operator==(const SmartPointer& aSmartPointer) const
+	inline bool SharedPointer<T>::operator==(const SharedPointer& aSmartPointer) const
 	{
 		return myObject == aSmartPointer.myObject;
 	}
 
 	template <typename T>
-	inline bool SmartPointer<T>::IsValid() const
+	inline bool SharedPointer<T>::IsValid() const
 	{
 		return myObject != nullptr;
 	}

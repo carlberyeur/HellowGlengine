@@ -65,11 +65,10 @@ void CEngine::Start()
 	bool coolio = effect.Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos | eInputLayout::eInputLayout_eTex);
 	if (!coolio)
 	{
-		int apa = 0;
-		apa++;
+		BREAK_POINT_HERE;
 	}
 
-	std::thread inputThread(&CInputManager::Start, myInputManager);
+	std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
 
 	while (myWindow->IsOpen() == true)
 	{
@@ -102,7 +101,7 @@ void CEngine::Start()
 
 void CEngine::Shutdown()
 {
-	if (myWindow)
+	if (myWindow.IsValid())
 	{
 		myWindow->Close();
 	}
@@ -112,21 +111,11 @@ CEngine::CEngine()
 	: myInitCallback(nullptr)
 	, myUpdateCallback(nullptr)
 	, myRenderCallback(nullptr)
-	, myWindow(nullptr)
-	, myGraphicsFramework(nullptr)
-	, myInputManager(nullptr)
-	, myLogicTimer(nullptr)
-	, myRenderTimer(nullptr)
 {
 }
 
 CEngine::~CEngine()
 {
-	SAFE_DELETE(myWindow);
-	SAFE_DELETE(myGraphicsFramework);
-	SAFE_DELETE(myInputManager);
-	SAFE_DELETE(myLogicTimer);
-	SAFE_DELETE(myRenderTimer);
 }
 
 bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
@@ -146,7 +135,7 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	windowCreationParameters.myIsWindowed = (aCreationParameters.myCreationFlags ^ SCreationParameters::eFullScreen) > 0u;
 	if (!myWindow->Init(windowCreationParameters))
 	{
-		SAFE_DELETE(myWindow);
+		//SAFE_DELETE(myWindow);
 		return false;
 	}
 
@@ -155,7 +144,6 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 		myGraphicsFramework = new COpenGLFramework();
 		if (!myGraphicsFramework->Init(*myWindow))
 		{
-			SAFE_DELETE(myGraphicsFramework);
 			return false;
 		}
 	}
@@ -181,6 +169,6 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 
 IInputListener::eResult CEngine::TakeInput(const CInputMessage& aMessage)
 {
-	int Padsf = 0;
+	BREAK_POINT_HERE;
 	return eResult::ePassOn;
 }

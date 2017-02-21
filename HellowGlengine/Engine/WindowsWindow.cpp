@@ -19,7 +19,7 @@ CWindowsWindow::~CWindowsWindow()
 	myHWND = nullptr;
 
 	UnregisterClass(szWindowClass, reinterpret_cast<HINSTANCE>(myHInstance));
-	myHInstance = NULL;
+	myHInstance = nullptr;
 }
 
 bool CWindowsWindow::Init(const SCreationParameters& aCreationParameters)
