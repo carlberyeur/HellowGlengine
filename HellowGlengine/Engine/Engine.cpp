@@ -141,7 +141,7 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 
 	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL)
 	{
-		myGraphicsFramework = new COpenGLFramework();
+		myGraphicsFramework = CU::MakeUnique<IGraphicsFramework, COpenGLFramework>();
 		if (!myGraphicsFramework->Init(*myWindow))
 		{
 			return false;
@@ -160,9 +160,9 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	myUpdateCallback = aCreationParameters.myUpdateCallback;
 	myRenderCallback = aCreationParameters.myRenderCallback;
 
-	myLogicTimer = new CU::CStopWatch();
+	myLogicTimer = CU::MakeUnique<CU::CStopWatch>();
 
-	myInputManager = new CInputManager(*myWindow);
+	myInputManager = CU::MakeUnique<CInputManager>(*myWindow);
 
 	return true;
 }

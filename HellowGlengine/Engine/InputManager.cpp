@@ -138,6 +138,6 @@ void CInputManager::Update()
 
 bool CInputManager::InitInputWrapper(void* aHWND, void* aHInstance)
 {
-	myInputWrapper = new CU::CDirectInputWrapper();
+	myInputWrapper = CU::MakeUnique<CU::CDirectInputWrapper>();
 	return myInputWrapper.IsValid() && myInputWrapper->Init(static_cast<HINSTANCE>(aHInstance), static_cast<HWND>(aHWND));
 }

@@ -9,10 +9,9 @@ namespace CU
 	template<typename ObjectType>
 	struct DefaultDeleter
 	{
-		static void Destroy(ObjectType*& aObject)
+		__forceinline static void Destroy(ObjectType* aObject)
 		{
 			delete aObject;
-			aObject = nullptr;
 		}
 	};
 
@@ -27,7 +26,7 @@ namespace CU
 		~UniquePointer();
 
 		UniquePointer& operator=(ObjectType* aObject);
-		UniquePointer& operator=(UniquePointer&& aTemporary);
+		__forceinline UniquePointer& operator=(UniquePointer&& aTemporary);
 		UniquePointer& operator=(const UniquePointer& aCopy) = delete;
 
 		inline ObjectType& operator*() const;
@@ -40,7 +39,7 @@ namespace CU
 		inline bool IsValid() const;
 
 	private:
-		void Destroy();
+		__forceinline void Destroy();
 
 		ObjectType* myObject;
 	};
@@ -53,15 +52,15 @@ namespace CU
 
 	template <typename ObjectType, typename Deleter>
 	UniquePointer<ObjectType, Deleter>::UniquePointer(ObjectType* aObject)
-		: UniquePointer()
+		: myObject(aObject)
 	{
-		*this = aObject;
 	}
 
 	template<typename ObjectType, typename Deleter>
 	UniquePointer<ObjectType, Deleter>::UniquePointer(UniquePointer&& aTemporary)
+		: myObject(aTemporary.myObject)
 	{
-		*this = std::move(aSmartPointer);
+		aTemporary.myObject = nullptr;
 	}
 
 	template <typename ObjectType, typename Deleter>
@@ -73,16 +72,24 @@ namespace CU
 	template <typename ObjectType, typename Deleter>
 	inline UniquePointer<ObjectType, Deleter>& UniquePointer<ObjectType, Deleter>::operator=(ObjectType* aObject)
 	{
-		Destroy();
+		if (myObject)
+		{
+			Destroy();
+		}
+
 		myObject = aObject;
 
 		return *this;
 	}
 
 	template<typename ObjectType, typename Deleter>
-	inline UniquePointer<ObjectType, Deleter>& UniquePointer<ObjectType, Deleter>::operator=(UniquePointer&& aTemporary)
+	__forceinline UniquePointer<ObjectType, Deleter>& UniquePointer<ObjectType, Deleter>::operator=(UniquePointer&& aTemporary)
 	{
-		Destroy();
+		if (myObject)
+		{
+			Destroy();
+		}
+
 		myObject = aTemporary.myObject;
 		aTemporary.myObject = nullptr;
 
@@ -133,9 +140,21 @@ namespace CU
 		return myObject != nullptr;
 	}
 
-	template<typename ObjectType, typename Deleter>
-	inline void UniquePointer<ObjectType, Deleter>::Destroy()
+	template <typename ObjectType, typename Deleter>
+	__forceinline  void UniquePointer<ObjectType, Deleter>::Destroy()
 	{
 		Deleter::Destroy(myObject);
+	}
+
+	template <typename ObjectType, typename... Args>
+	UniquePointer<ObjectType> MakeUnique(Args&&... aArgs)
+	{
+		return (UniquePointer<ObjectType>(new ObjectType(std::forward<Args>(aArgs)...)));
+	}
+
+	template <typename ObjectType, typename Derived, typename... Args>
+	UniquePointer<ObjectType> MakeUnique(Args&&... aArgs)
+	{
+		return (UniquePointer<ObjectType>(new Derived(std::forward<Args>(aArgs)...)));
 	}
 }

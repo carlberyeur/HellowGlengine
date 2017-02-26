@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "WindowFactory.h"
 
-IOSWindow* CWindowFactory::CreateWindow(const unsigned int aEngineCreationFlags)
+CU::UniquePointer<IOSWindow> CWindowFactory::CreateWindow(const unsigned int aEngineCreationFlags)
 {
-	IOSWindow* window = nullptr;
+	CU::UniquePointer<IOSWindow> window;
 	if (aEngineCreationFlags & CEngine::SCreationParameters::eWindows)
 	{
-		window = new CWindowsWindow();
+		window = CU::MakeUnique<IOSWindow, CWindowsWindow>();
 	}
 	else if (aEngineCreationFlags & CEngine::SCreationParameters::eCreationFlags::eLinux)
 	{

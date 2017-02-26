@@ -5,5 +5,5 @@ class IOSWindow;
 class CWindowFactory
 {
 public:
-	static IOSWindow* CreateWindow(const unsigned int aEngineCreationFlags);
+	static CU::UniquePointer<IOSWindow> CreateWindow(const unsigned int aEngineCreationFlags);
 };
