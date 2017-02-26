@@ -183,6 +183,9 @@
     <ClInclude Include="SharedPointer.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="EMouseButtons.h">
+      <Filter>Input\DirectInput</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

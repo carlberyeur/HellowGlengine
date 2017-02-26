@@ -4,14 +4,17 @@
 #include "InputListener.h"
 
 #include "../CommonUtilities/DInputWrapper.h"
+#include "../CommonUtilities/EMouseButtons.h"
 
 CInputManager* CInputManager::ourInstance(nullptr);
 
 CInputManager::CInputManager(IOSWindow& aWindow)
 	: myInputListeners(8u)
 	, myKeyList(8u)
-	, myIsStarted(false)
+	, myRead(0)
+	, myWrite(1)
 	, myHasInputToDispatch(false)
+	, myIsStarted(false)
 {
 	assert(!ourInstance);
 	ourInstance = this;
@@ -50,20 +53,11 @@ void CInputManager::DispatchMessages()
 		return;
 	}
 
-	CInputMessage mouseMoved(CInputMessage::eType::eMouseMoved, static_cast<short>(myMouseDelta.x), static_cast<short>(myMouseDelta.y));
-	for (IInputListener* listener : myInputListeners)
-	{
-		if (listener->TakeInput(mouseMoved) == IInputListener::eResult::eStop)
-		{
-			break;
-		}
-	}
-
 	for (const CInputMessage& message : myBuffers[myRead])
 	{
 		for (IInputListener* listener : myInputListeners)
 		{
-			if (listener->TakeInput(message) == IInputListener::eResult::eStop) //TODO: console will break for key presses and then scene might not recieve mouse messages
+			if (listener->TakeInput(message) == IInputListener::eResult::eStop)
 			{
 				break;
 			}
@@ -83,21 +77,31 @@ void CInputManager::Update()
 
 	if (!myHasInputToDispatch && !myBuffers[myWrite].Empty())
 	{
-		//myCopyMutex.lock();
+		if (myMouseDelta.Length2() > 0.001f)
+		{
+			CInputMessage mouseMovedMessage(CInputMessage::eType::eMouseMoved, myMouseDelta.x, myMouseDelta.y);
+			myBuffers[myWrite].TryAdd(std::move(mouseMovedMessage));
+		}
 
 		unsigned char write = myWrite;
 		myWrite = myRead;
 		myRead = write;
-		//unsigned char free = myFree;
-		//myFree = myRead;
-		//myRead = myWrite;
-		//myWrite = free;
 
-		//myCopyMutex.unlock();
+		myHasInputToDispatch = true;
 	}
 
-	//myCopyMutex.lock();
+	UpdateKeyboard();
+	UpdateMouse();
+}
 
+bool CInputManager::InitInputWrapper(void* aHWND, void* aHInstance)
+{
+	myInputWrapper = CU::MakeUnique<CU::CDirectInputWrapper>();
+	return myInputWrapper.IsValid() && myInputWrapper->Init(static_cast<HINSTANCE>(aHInstance), static_cast<HWND>(aHWND));
+}
+
+void CInputManager::UpdateKeyboard()
+{
 	if (myInputWrapper->GetKeysPressed(myKeyList))
 	{
 		for (unsigned char keyPressed : myKeyList)
@@ -111,33 +115,34 @@ void CInputManager::Update()
 	{
 		for (unsigned char keyReleased : myKeyList)
 		{
-			CInputMessage keyReleasedMessage(CInputMessage::eType::eKeyboardPressed, keyReleased);
+			CInputMessage keyReleasedMessage(CInputMessage::eType::eKeyboardReleased, keyReleased);
 			myBuffers[myWrite].TryAdd(std::move(keyReleasedMessage));
+		}
+	}
+}
+
+void CInputManager::UpdateMouse()
+{
+	for (int i = 0; i < static_cast<int>(CU::eMouseButton::eLength); ++i)
+	{
+		CU::eMouseButton button = static_cast<CU::eMouseButton>(i);
+
+		if (myInputWrapper->IsMouseButtonPressed(button))
+		{
+			CInputMessage mousePressedMessage(CInputMessage::eType::eMousePressed, i);
+			myBuffers[myWrite].TryAdd(std::move(mousePressedMessage));
+		}
+
+		if (myInputWrapper->IsMouseButtonReleased(button))
+		{
+			CInputMessage mouseReleasedMessage(CInputMessage::eType::eMouseReleased, i);
+			myBuffers[myWrite].TryAdd(std::move(mouseReleasedMessage));
 		}
 	}
 
 	myLastMousePosition = myMousePosition;
-	myInputWrapper->GetMousePosition(myMousePosition);
-	myMouseDelta += myMousePosition - myLastMousePosition;
-
-	if (!myBuffers[myWrite].Empty())
+	if (myInputWrapper->GetMousePosition(myMousePosition))
 	{
-		myHasInputToDispatch = true;
+		myMouseDelta += myMousePosition - myLastMousePosition;
 	}
-
-	//if (myMousePosition != myLastMousePosition)
-	//{
-	//	CU::Vector2i mouseDelta = myMousePosition - myLastMousePosition;
-
-	//	CInputMessage mouseMovedMessage(CInputMessage::eType::eMouseMoved, mouseDelta.x, mouseDelta.y);
-	//	myWriteBuffer.TryAdd(std::move(mouseMovedMessage));
-	//}
-
-	//myCopyMutex.unlock();
-}
-
-bool CInputManager::InitInputWrapper(void* aHWND, void* aHInstance)
-{
-	myInputWrapper = CU::MakeUnique<CU::CDirectInputWrapper>();
-	return myInputWrapper.IsValid() && myInputWrapper->Init(static_cast<HINSTANCE>(aHInstance), static_cast<HWND>(aHWND));
 }

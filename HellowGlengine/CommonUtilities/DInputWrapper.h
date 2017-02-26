@@ -7,7 +7,7 @@
 
 namespace CU
 {
-	enum class eMouseButtons;
+	enum class eMouseButton;
 	
 	template<typename T>
 	class Vector2;
@@ -19,11 +19,10 @@ namespace CU
 		~CDirectInputWrapper();
 
 		bool Init(HINSTANCE hinstance, HWND hwnd);
-		void Shutdown();
 		bool Update();
 
 		void GetMousePosition(int& aX, int& aY) const;
-		void GetMousePosition(Vector2<int>& aMousePosition) const;
+		bool GetMousePosition(Vector2<int>& aMousePosition) const;
 		int GetMousePositionX() const;
 		int GetMousePositionY() const;
 		int GetMouseRelativePositionX() const;
@@ -35,9 +34,9 @@ namespace CU
 		bool IsKeyboardKeyPressed(unsigned char aKey) const;
 		bool IsKeyboardKeyReleased(unsigned char aKey) const;
 
-		bool IsMouseButtonDown(eMouseButtons aButton) const;
-		bool IsMouseButtonPressed(eMouseButtons aButton) const;
-		bool IsMouseButtonReleased(eMouseButtons aButton) const;
+		bool IsMouseButtonDown(eMouseButton aButton) const;
+		bool IsMouseButtonPressed(eMouseButton aButton) const;
+		bool IsMouseButtonReleased(eMouseButton aButton) const;
 
 		int GetMouseWheelPos() const;
 

@@ -25,7 +25,25 @@ namespace CU
 
 	CDirectInputWrapper::~CDirectInputWrapper()
 	{
-		BREAK_POINT_HERE;
+		if (myMouse != nullptr)
+		{
+			myMouse->Unacquire();
+			myMouse->Release();
+			myMouse = nullptr;
+		}
+
+		if (myKeyboard != nullptr)
+		{
+			myKeyboard->Unacquire();
+			myKeyboard->Release();
+			myKeyboard = nullptr;
+		}
+
+		if (myDirectInputInterface != nullptr)
+		{
+			myDirectInputInterface->Release();
+			myDirectInputInterface = nullptr;
+		}
 	}
 
 	bool CDirectInputWrapper::Init(HINSTANCE hinstance, HWND hwnd)
@@ -97,29 +115,6 @@ namespace CU
 		return true;
 	}
 
-	void CDirectInputWrapper::Shutdown()
-	{
-		if (myMouse != nullptr)
-		{
-			myMouse->Unacquire();
-			myMouse->Release();
-			myMouse = nullptr;
-		}
-
-		if (myKeyboard != nullptr)
-		{
-			myKeyboard->Unacquire();
-			myKeyboard->Release();
-			myKeyboard = nullptr;
-		}
-
-		if (myDirectInputInterface != nullptr)
-		{
-			myDirectInputInterface->Release();
-			myDirectInputInterface = nullptr;
-		}
-	}
-
 	bool CDirectInputWrapper::Update()
 	{
 		if (!myIsInitialized)
@@ -148,8 +143,19 @@ namespace CU
 		aY = point.y;
 	}
 
-	void CDirectInputWrapper::GetMousePosition(Vector2<int>& /*aMousePosition*/) const
+	bool CDirectInputWrapper::GetMousePosition(Vector2<int>& aMousePosition) const
 	{
+		POINT point;
+		GetCursorPos(&point);
+
+		if (point.x != aMousePosition.x || point.y != aMousePosition.y)
+		{
+			aMousePosition.x = point.x;
+			aMousePosition.y = point.y;
+			return true;
+		}
+
+		return false;
 	}
 
 	int CDirectInputWrapper::GetMousePositionX() const
@@ -196,17 +202,17 @@ namespace CU
 		return KEYBOARDKEYDOWN(aKey, myPreviousKeyboardState) && KEYBOARDKEYUP(aKey, myKeyboardState);
 	}
 
-	bool CDirectInputWrapper::IsMouseButtonDown(eMouseButtons aButton) const
+	bool CDirectInputWrapper::IsMouseButtonDown(eMouseButton aButton) const
 	{
 		return MOUSEBUTTONDOWN(aButton, myMouseState);
 	}
 
-	bool CDirectInputWrapper::IsMouseButtonPressed(eMouseButtons aButton) const
+	bool CDirectInputWrapper::IsMouseButtonPressed(eMouseButton aButton) const
 	{
 		return MOUSEBUTTONDOWN(aButton, myMouseState) && MOUSEBUTTONUP(aButton, myPreviousMouseState);
 	}
 
-	bool CDirectInputWrapper::IsMouseButtonReleased(eMouseButtons aButton) const
+	bool CDirectInputWrapper::IsMouseButtonReleased(eMouseButton aButton) const
 	{
 		return MOUSEBUTTONDOWN(aButton, myPreviousMouseState) && MOUSEBUTTONUP(aButton, myMouseState);
 	}

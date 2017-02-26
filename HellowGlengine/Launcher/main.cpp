@@ -49,5 +49,10 @@ CEngine::SCreationParameters::eCreationFlags GetOperatingSystem()
 	return CEngine::SCreationParameters::eCreationFlags::eWindows;
 #elif defined(_LINUX)
 	return  CEngine::SCreationParameters::eCreationFlags::eLinux;
+#elif defined(_APPLE_)
+	return CEngine::SCreationParameters::eCreationFlags::eMac;
+#else
+#error "What operating system is this?"
+	return  CEngine::SCreationParameters::eCreationFlags::eLinux;
 #endif // _WIN32
 }

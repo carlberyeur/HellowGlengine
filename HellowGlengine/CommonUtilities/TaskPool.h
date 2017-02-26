@@ -1,6 +1,11 @@
 #pragma once
 
-namespace TaskPool
+class IWork;
+
+namespace WorkPool
 {
-	bool AddWork();
+	bool Init();
+	void Shutdown();
+	void Process();
+	bool AddWork(CU::UniquePointer<IWork> aWork);
 };

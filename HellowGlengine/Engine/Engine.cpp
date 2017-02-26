@@ -135,7 +135,6 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	windowCreationParameters.myIsWindowed = (aCreationParameters.myCreationFlags ^ SCreationParameters::eFullScreen) > 0u;
 	if (!myWindow->Init(windowCreationParameters))
 	{
-		//SAFE_DELETE(myWindow);
 		return false;
 	}
 
@@ -163,12 +162,12 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	myLogicTimer = CU::MakeUnique<CU::CStopWatch>();
 
 	myInputManager = CU::MakeUnique<CInputManager>(*myWindow);
+	Subscribe();
 
 	return true;
 }
 
 IInputListener::eResult CEngine::TakeInput(const CInputMessage& aMessage)
 {
-	BREAK_POINT_HERE;
 	return eResult::ePassOn;
 }

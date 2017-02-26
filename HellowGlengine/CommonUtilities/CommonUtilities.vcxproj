@@ -134,6 +134,7 @@
     <ClInclude Include="AlarmClock.h" />
     <ClInclude Include="Binder.h" />
     <ClInclude Include="ConstexprString.h" />
+    <ClInclude Include="EMouseButtons.h" />
     <ClInclude Include="MemberFunction.h" />
     <ClInclude Include="CommandLineParser.h" />
     <ClInclude Include="CommonCommonUtilities.h" />
