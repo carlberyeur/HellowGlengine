@@ -110,7 +110,7 @@ bool CWindowsWindow::RegisterWindowsWindow(void* aHInstance)
 	wcex.lpszClassName = szWindowClass;
 	wcex.hIconSm = LoadIcon((HINSTANCE)aHInstance, 0);
 
-	ATOM result = RegisterClassExW(&wcex);
+	ATOM result = RegisterClassEx(&wcex);
 	if (result == 0)
 	{
 		assert(!"Failed to register Window Class");
@@ -122,7 +122,7 @@ bool CWindowsWindow::RegisterWindowsWindow(void* aHInstance)
 
 bool CWindowsWindow::InitHWND(void* aHInstance, const unsigned int aWindowWidth, const unsigned int aWindowHeight)
 {
-	myHWND = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+	myHWND = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT, aWindowWidth, aWindowHeight, nullptr, nullptr, (HINSTANCE)aHInstance, nullptr);
 
 	if (myHWND == nullptr)

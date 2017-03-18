@@ -48,7 +48,7 @@ extern "C"
 #define DL_PRINT_VECTOR3F(A_VECTOR) DL_PRINT("%f, %f, %f", A_VECTOR.x, A_VECTOR.y, A_VECTOR.z)
 #define DL_PRINT_WARNING(message, ...) DL_Debug::Debug::GetInstance()->SetConsoleColor(DL_Debug::CONSOLE_TEXT_COLOR_YELLOW); DL_Debug::Debug::GetInstance()->PrintMessage(message, __VA_ARGS__); DL_Debug::Debug::GetInstance()->SetConsoleColor(DL_Debug::CONSOLE_TEXT_COLOR_WHITE)
 #define DL_WRITELOG(logtype, message, ...) DL_Debug::Debug::GetInstance()->WriteLog(logtype, message, __VA_ARGS__); DL_PRINT(message, __VA_ARGS__)
-#define DL_MESSAGE_BOX(message, ...) DL_Debug::Debug::GetInstance()->ShowMessageBox(message, __FILE__, __LINE__, __VA_ARGS__)
+#define DL_MESSAGE_BOX(message, ...) DL_Debug::Debug::GetInstance()->ShowMessageBox(message, __VA_ARGS__)
 #define DL_FATAL_ERROR(message, ...) DL_ASSERT(message, __VA_ARGS__)
 #else //!_RETAIL_BUILD
 #define DL_ASSERT(message, ...) (message)

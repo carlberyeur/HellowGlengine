@@ -92,22 +92,16 @@ bool CGLEffect::Init(const std::string& aVertexShaderPath, const std::string& aG
 		return false;
 	}
 
-	//int samplerLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
-	//glUniform1i(samplerLocation, 0);
-
 	return true;
 }
 
 void CGLEffect::Activate()
 {
 	glUseProgram(myShaderProgram);
-	unsigned error = glGetError();
 	int samplerLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
-	error = glGetError();
 	if (samplerLocation != -1)
 	{
 		glUniform1i(samplerLocation, 0);
-		error = glGetError();
 	}
 }
 
@@ -190,27 +184,14 @@ bool CGLEffect::LinkShader(const unsigned int aShaderProgram)
 #include <iostream>
 void output_error(unsigned shaderId, char *)
 {
-	int logSize;
-	char* infoLog;
+	int logSize = 0;
+	std::string infoLog;
 
-
-	// Get the size of the string containing the information log for the failed shader compilation message.
 	glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &logSize);
 
-	// Increment the size by one to handle also the null terminator.
-	logSize++;
+	infoLog.resize(logSize + 1);
 
-	// Create a char buffer to hold the info log.
-	infoLog = new char[logSize];
-	if (!infoLog)
-	{
-		return;
-	}
-
-	// Now retrieve the info log.
-	glGetShaderInfoLog(shaderId, logSize, NULL, infoLog);
-
-	// Open a file to write the error message to.
-	std::cout << infoLog << std::endl;
-
+	glGetShaderInfoLog(shaderId, logSize, nullptr, &infoLog[0]);
+	
+	DL_MESSAGE_BOX("Failed to compile shader: %s", infoLog.c_str());
 }

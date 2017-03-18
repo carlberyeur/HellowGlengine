@@ -21,6 +21,7 @@ bool CEngine::CreateInstance(const SCreationParameters& aCreationParameters)
 
 void CEngine::DestroyInstance()
 {
+	assert(ourInstance != nullptr && "Engine not created (is NULL)");
 	SAFE_DELETE(ourInstance);
 }
 
