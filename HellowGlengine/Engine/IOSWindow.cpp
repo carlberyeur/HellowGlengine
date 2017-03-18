@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "IOSWindow.h"
 
-IOSWindow::IOSWindow()
+IWindow::IWindow()
 	: myIsOpen(false)
 {
 }
 
-IOSWindow::~IOSWindow()
+IWindow::~IWindow()
 {
 }

@@ -2,7 +2,7 @@
 
 #include "InputMessage.h"
 
-class IOSWindow;
+class IWindow;
 class IInputListener;
 
 namespace CU
@@ -15,7 +15,7 @@ class CInputManager
 public:
 	friend class IInputListener;
 
-	CInputManager(IOSWindow& aWindow);
+	CInputManager(IWindow& aWindow);
 	~CInputManager();
 
 	void Start();
@@ -31,6 +31,8 @@ private:
 	void UpdateMouse();
 
 	CU::StaticArray<CU::VectorOnStack<CInputMessage, 16, short, false>, 2> myBuffers;
+
+	CU::CStopWatch mySleepTimer;
 
 	CU::GrowingArray<IInputListener*> myInputListeners;
 	CU::GrowingArray<unsigned char> myKeyList;

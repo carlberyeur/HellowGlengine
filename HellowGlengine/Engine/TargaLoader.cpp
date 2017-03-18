@@ -20,7 +20,7 @@ CTargaLoader::~CTargaLoader()
 {
 }
 
-CTargaLoader::eLoadResult CTargaLoader::LoadTargaTexture(const std::string& aTexturePath, CU::GrowingArray<char>& aDataOut)
+CTargaLoader::eLoadResult CTargaLoader::LoadTargaTexture(const std::string& aTexturePath, CU::GrowingArray<char>& aDataOut, CU::Vector2ui& aTextureSizeOut)
 {
 	if (aTexturePath.empty()) return eLoadResult::eInvalidPath;
 
@@ -42,7 +42,13 @@ CTargaLoader::eLoadResult CTargaLoader::LoadTargaTexture(const std::string& aTex
 		return eLoadResult::eBPPNot32;
 	}
 
+	aTextureSizeOut.Set(targaFileHeader.width, targaFileHeader.height);
 	unsigned int imageSize = targaFileHeader.width * targaFileHeader.height * 4u;
+	if (imageSize == 0)
+	{
+		return eLoadResult::eImageSizeZero;
+	}
+
 	aDataOut.Init(imageSize);
 	aDataOut.Resize(imageSize);
 
@@ -50,8 +56,6 @@ CTargaLoader::eLoadResult CTargaLoader::LoadTargaTexture(const std::string& aTex
 	{
 		return eLoadResult::eFailedReadingImageData;
 	}
-
-	targaFile.close();
 
 	return eLoadResult::eSuccess;
 }

@@ -156,6 +156,7 @@
     <ClInclude Include="GLRenderObject.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GLTextureManager.h" />
+    <ClInclude Include="GraphicsFrameworkFactory.h" />
     <ClInclude Include="IEffect.h" />
     <ClInclude Include="IGraphicsFramework.h" />
     <ClInclude Include="InputListener.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="GLRenderObject.cpp" />
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GLTextureManager.cpp" />
+    <ClCompile Include="GraphicsFrameworkFactory.cpp" />
     <ClCompile Include="IEffect.cpp" />
     <ClCompile Include="IGraphicsFramework.cpp" />
     <ClCompile Include="InputListener.cpp" />

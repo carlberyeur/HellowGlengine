@@ -1,7 +1,7 @@
 #pragma once
 #include "IGraphicsFramework.h"
 
-class IOSWindow;
+class IWindow;
 
 class COpenGLFramework : public IGraphicsFramework
 {
@@ -9,7 +9,7 @@ public:
 	COpenGLFramework();
 	~COpenGLFramework();
 
-	bool Init(IOSWindow& aWindow) override;
+	bool Init(IWindow& aWindow) override;
 	void ClearFrame() override;
 	void Present() override;
 	void UpdateWindowSize() override;

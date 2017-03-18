@@ -8,7 +8,7 @@ namespace CU
 	class CStopWatch;
 }
 
-class IOSWindow;
+class IWindow;
 class IGraphicsFramework;
 class CInputManager;
 
@@ -27,7 +27,7 @@ public:
 		};
 
 		std::function<void(void)> myInitCallback;
-		std::function<void(const CU::Time)> myUpdateCallback;
+		std::function<bool(const CU::Time)> myUpdateCallback;
 		std::function<void(void)> myRenderCallback;
 
 		unsigned int myWindowHeight;
@@ -44,6 +44,9 @@ public:
 	void Start();
 	void Shutdown();
 
+	void Update();
+	void Render();
+
 private:
 	CEngine();
 	~CEngine();
@@ -52,10 +55,10 @@ private:
 	eResult TakeInput(const CInputMessage& aMessage) override;
 
 	std::function<void(void)> myInitCallback;
-	std::function<void(const CU::Time)> myUpdateCallback;
+	std::function<bool(const CU::Time)> myUpdateCallback;
 	std::function<void(void)> myRenderCallback;
 
-	CU::UniquePointer<IOSWindow> myWindow;
+	CU::UniquePointer<IWindow> myWindow;
 	CU::UniquePointer<IGraphicsFramework> myGraphicsFramework;
 
 	CU::UniquePointer<CInputManager> myInputManager;

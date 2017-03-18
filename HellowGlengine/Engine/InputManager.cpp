@@ -8,7 +8,7 @@
 
 CInputManager* CInputManager::ourInstance(nullptr);
 
-CInputManager::CInputManager(IOSWindow& aWindow)
+CInputManager::CInputManager(IWindow& aWindow)
 	: myInputListeners(8u)
 	, myKeyList(8u)
 	, myRead(0)
@@ -35,8 +35,17 @@ void CInputManager::Start()
 {
 	myIsStarted = true;
 
+	mySleepTimer.Init();
 	while (myIsStarted)
 	{
+		mySleepTimer.Update();
+		if (mySleepTimer.GetLifeTime().Get<CU::MilliSeconds>() < 16.f)
+		{
+			std::this_thread::yield();
+			continue;
+		}
+
+		mySleepTimer.Restart();
 		Update();
 	}
 }
@@ -79,7 +88,7 @@ void CInputManager::Update()
 	{
 		if (myMouseDelta.Length2() > 0.001f)
 		{
-			CInputMessage mouseMovedMessage(CInputMessage::eType::eMouseMoved, myMouseDelta.x, myMouseDelta.y);
+			CInputMessage mouseMovedMessage(CInputMessage::eType::eMouseMoved, static_cast<short>(myMouseDelta.x), static_cast<short>(myMouseDelta.y));
 			myBuffers[myWrite].TryAdd(std::move(mouseMovedMessage));
 		}
 

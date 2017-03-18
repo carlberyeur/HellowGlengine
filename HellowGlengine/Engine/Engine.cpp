@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "Engine.h"
 
 #include "WindowFactory.h"
+#include "GraphicsFrameworkFactory.h"
 #include "InputManager.h"
 
 CEngine* CEngine::ourInstance = nullptr;
@@ -36,11 +36,24 @@ CEngine* CEngine::GetInstancePtr()
 }
 
 //temp includes
+#include "OpenGLFramework.h"
+#include <Windows.h>
+#include <gl/GL.h>
+#include "wglext.h"
+#include "glext.h"
+
+#undef CreateWindow
+
 #include "GLRenderObject.h"
 #include "GLEffect.h"
 #include "GLTexture.h"
 #include "GLTextureManager.h"
 #include "EInputLayout.h"
+
+CGLRenderObject renderObject;
+CGLEffect effect;
+ITexture* tex;
+GLenum error;
 
 void CEngine::Start()
 {
@@ -49,7 +62,6 @@ void CEngine::Start()
 		myInitCallback();
 	}
 
-	CGLRenderObject renderObject;
 	bool cool = renderObject.Init();
 	if (!cool)
 	{
@@ -57,11 +69,9 @@ void CEngine::Start()
 		apa++;
 	}
 
-	ITexture* tex;
 	CGLTextureManager man;
 	man.LoadTexture("Textures/square.tga", tex);
 
-	CGLEffect effect;
 	bool coolio = effect.Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos | eInputLayout::eInputLayout_eTex);
 	if (!coolio)
 	{
@@ -72,27 +82,8 @@ void CEngine::Start()
 
 	while (myWindow->IsOpen() == true)
 	{
-		myWindow->Update();
-		myLogicTimer->Update();
-
-		myInputManager->DispatchMessages();
-
-		if (myUpdateCallback)
-		{
-			myUpdateCallback(myLogicTimer->GetDeltaTime());
-		}
-
-		myGraphicsFramework->ClearFrame();
-
-		effect.Activate();
-		renderObject.Render();
-
-		if (myRenderCallback)
-		{
-			myRenderCallback();
-		}
-
-		myGraphicsFramework->Present();
+		Update();
+		Render();
 	}
 
 	myInputManager->Stop();
@@ -105,6 +96,37 @@ void CEngine::Shutdown()
 	{
 		myWindow->Close();
 	}
+}
+
+void CEngine::Update()
+{
+	myWindow->Update();
+	myLogicTimer->Update();
+
+	myInputManager->DispatchMessages();
+
+	if (myUpdateCallback)
+	{
+		if (!myUpdateCallback(myLogicTimer->GetDeltaTime()))
+		{
+			myWindow->Close();
+		}
+	}
+}
+
+void CEngine::Render()
+{
+	myGraphicsFramework->ClearFrame();
+
+	effect.Activate();
+	renderObject.Render();
+
+	if (myRenderCallback)
+	{
+		myRenderCallback();
+	}
+
+	myGraphicsFramework->Present();
 }
 
 CEngine::CEngine()
@@ -129,28 +151,17 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 		return false;
 	}
 
-	IOSWindow::SCreationParameters windowCreationParameters = {};
+	IWindow::SCreationParameters windowCreationParameters = {};
 	windowCreationParameters.myWindowWidth = aCreationParameters.myWindowWidth;
 	windowCreationParameters.myWindowHeight = aCreationParameters.myWindowHeight;
-	windowCreationParameters.myIsWindowed = (aCreationParameters.myCreationFlags ^ SCreationParameters::eFullScreen) > 0u;
+	windowCreationParameters.myIsWindowed = (aCreationParameters.myCreationFlags & SCreationParameters::eFullScreen) > 0u;
 	if (!myWindow->Init(windowCreationParameters))
 	{
 		return false;
 	}
 
-	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL)
-	{
-		myGraphicsFramework = CU::MakeUnique<IGraphicsFramework, COpenGLFramework>();
-		if (!myGraphicsFramework->Init(*myWindow))
-		{
-			return false;
-		}
-	}
-	else if (aCreationParameters.myCreationFlags & SCreationParameters::eDX)
-	{
-		return false; // not implemented
-	}
-	else
+	myGraphicsFramework = CGraphicsFrameworkFactory::CreateFramework(aCreationParameters.myCreationFlags, *myWindow);
+	if (!myGraphicsFramework)
 	{
 		return false;
 	}
@@ -167,7 +178,7 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	return true;
 }
 
-IInputListener::eResult CEngine::TakeInput(const CInputMessage& aMessage)
+IInputListener::eResult CEngine::TakeInput(const CInputMessage& /*aMessage*/)
 {
 	return eResult::ePassOn;
 }

@@ -14,9 +14,9 @@ public:
 	~CGame();
 
 	void Init();
-	void Update(const CU::Time& aDeltaTime);
+	bool Update(const CU::Time& aDeltaTime);
 	void Render();
 
 private:
-	CStateStack* myStateStack;
+	CU::UniquePointer<CStateStack> myStateStack;
 };

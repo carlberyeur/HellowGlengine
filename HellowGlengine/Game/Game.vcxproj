@@ -186,6 +186,9 @@
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{66fe1115-7ac7-43e1-8398-a1ae3222a5c6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Physics\Physics.vcxproj">
+      <Project>{a31994c3-934a-466a-b6c9-7d22c6b45122}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\PythonWrapper\PythonWrapper.vcxproj">
       <Project>{ebef882b-ea2e-45e0-ac9a-74a4f0bd2e78}</Project>
     </ProjectReference>

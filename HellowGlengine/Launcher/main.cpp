@@ -11,6 +11,7 @@ int wmain(int argc, wchar_t* argv[])
 {
 	int exitResult = EXIT_FAILURE;
 	CommandLineManager<wchar_t>::CreateInstance(argc, argv);
+	DL_Debug::Debug::CreateInstance();
 
 	{
 		CGame game;
@@ -38,6 +39,7 @@ int wmain(int argc, wchar_t* argv[])
 	CEngine::GetInstance().Shutdown();
 	CEngine::DestroyInstance();
 
+	DL_Debug::Debug::DestroyInstance();
 	CommandLineManager<wchar_t>::DestroyInstance();
 
 	return exitResult;

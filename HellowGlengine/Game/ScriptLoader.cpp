@@ -24,7 +24,7 @@ namespace ScriptLoader
 #include <iostream>
 PyObject* PythonExtension(PyObject* /*aSelf*/, PyObject* aArgs)
 {
-	const char* strarg;
+	const char* strarg = nullptr;
 	PyArg_ParseTuple(aArgs, "s", &strarg);
 	PyErr_Print();
 	std::cout << "in c function" << std::endl;

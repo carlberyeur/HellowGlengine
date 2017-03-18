@@ -32,7 +32,7 @@ COpenGLFramework::~COpenGLFramework()
 {
 }
 
-bool COpenGLFramework::Init(IOSWindow& aWindow)
+bool COpenGLFramework::Init(IWindow& aWindow)
 {
 	if (aWindow.LoadExtensionList(*this) == false)
 	{
@@ -145,6 +145,18 @@ bool COpenGLFramework::Init(IOSWindow& aWindow)
 	{
 		return false;
 	}
+
+	glClearDepth(1.0f);
+
+	// Enable depth testing.
+	glEnable(GL_DEPTH_TEST);
+
+	// Set the polygon winding to front facing for the left handed system.
+	glFrontFace(GL_CW);
+
+	// Enable back face culling.
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	return true;
 }

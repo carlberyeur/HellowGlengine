@@ -1,9 +1,9 @@
 #pragma once
 
-class IOSWindow;
+class IWindow;
 
 class CWindowFactory
 {
 public:
-	static CU::UniquePointer<IOSWindow> CreateWindow(const unsigned int aEngineCreationFlags);
+	static CU::UniquePointer<IWindow> CreateWindow(const unsigned int aEngineCreationFlags);
 };

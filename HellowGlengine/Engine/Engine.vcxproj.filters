@@ -62,6 +62,9 @@
     <ClCompile Include="InputListener.cpp">
       <Filter>InputManager</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsFrameworkFactory.cpp">
+      <Filter>GraficsFramework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="InputListener.h">
       <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsFrameworkFactory.h">
+      <Filter>GraficsFramework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

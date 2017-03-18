@@ -1,6 +1,6 @@
 #pragma once
 
-class IOSWindow
+class IWindow
 {
 public:
 	struct SCreationParameters
@@ -25,8 +25,8 @@ public:
 		};
 	};
 
-	IOSWindow();
-	virtual ~IOSWindow();
+	IWindow();
+	virtual ~IWindow();
 
 	virtual bool Init(const SCreationParameters& aCreationParameters) = 0;
 	virtual bool LoadExtensionList(class COpenGLFramework& aHWND) = 0;
@@ -40,12 +40,12 @@ protected:
 	bool myIsOpen;
 };
 
-inline bool IOSWindow::IsOpen() const
+inline bool IWindow::IsOpen() const
 {
 	return myIsOpen;
 }
 
-inline void IOSWindow::Close()
+inline void IWindow::Close()
 {
 	myIsOpen = false;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "IOSWindow.h"
 
-class CWindowsWindow : public IOSWindow
+class CWindowsWindow : public IWindow
 {
 public:
 	CWindowsWindow();

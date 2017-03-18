@@ -14,7 +14,8 @@ public:
 	CGLTexture();
 	~CGLTexture();
 
-	eLoadResult Init(const unsigned int aTextureUnit, const void* aPixelData);
+	eLoadResult Init(const unsigned int aTextureUnit, const void* aPixelData, CU::Vector2ui& aTextureSize);
+	void SetTexture() override;
 
 private:
 	unsigned int myTextureID;

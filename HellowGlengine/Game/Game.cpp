@@ -13,20 +13,21 @@
 
 #include "ScriptLoader.h"
 
+#include "../Physics/PhysicsEngine.h"
+#include "PlayState.h"
+
 CGame::CGame()
-	: myStateStack(nullptr)
 {
 }
 
 CGame::~CGame()
 {
-	SAFE_DELETE(myStateStack);
 }
 
 void CGame::Init()
 {
 	CPythonWrapper pythonWrapper(CommandLineManagerW::GetInstance()->GetArgV()[0], ScriptLoader::InitPythonModules);
-
+	CPhysicsEngine engine2;
 
 	CPythonModule module;
 	if (pythonWrapper.ImportModule("hello_wendy_program", module))
@@ -40,12 +41,18 @@ void CGame::Init()
 		function(args.AsTuple());
 	}
 
-	myStateStack = new CStateStack();
+	myStateStack = CU::MakeUnique<CStateStack>();
+	myStateStack->Push(*new CPlayState(*myStateStack));
 }
 
-void CGame::Update(const CU::Time& aDeltaTime)
+bool CGame::Update(const CU::Time& aDeltaTime)
 {
-	myStateStack->Update(aDeltaTime);
+	if (!myStateStack->Update(aDeltaTime))
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void CGame::Render()

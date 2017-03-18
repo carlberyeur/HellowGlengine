@@ -9,13 +9,14 @@ public:
 		eInvalidPath,
 		eFailedReadingHeader,
 		eBPPNot32,
+		eImageSizeZero,
 		eFailedReadingImageData
 	};
 
 	CTargaLoader();
 	~CTargaLoader();
 
-	static eLoadResult LoadTargaTexture(const std::string& aTexturePath, CU::GrowingArray<char>& aDataOut);
+	static eLoadResult LoadTargaTexture(const std::string& aTexturePath, CU::GrowingArray<char>& aDataOut, CU::Vector2ui& aTextureSizeOut);
 	static const std::string& GetLastError();
 
 private:

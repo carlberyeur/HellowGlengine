@@ -4,9 +4,6 @@
     <Filter Include="Precompiled">
       <UniqueIdentifier>{5df0b704-a962-4024-a930-cec8d7fe080f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{18af4a85-8419-4a17-8798-147d72faaf36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="StateStack">
       <UniqueIdentifier>{28355575-8e44-450e-94c5-e67a5ab6ff44}</UniqueIdentifier>
     </Filter>
@@ -48,9 +45,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Precompiled</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="ScriptLoader.h">
       <Filter>ScriptLoader</Filter>
     </ClInclude>
@@ -81,14 +75,14 @@
     <ClInclude Include="ScriptComponent.h">
       <Filter>GameObject\Component\ScriptComponent</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>GameObject\Component\SpriteComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Precompiled</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="ScriptLoader.cpp">
       <Filter>ScriptLoader</Filter>
@@ -117,6 +111,9 @@
     <ClCompile Include="ScriptComponent.cpp">
       <Filter>GameObject\Component\ScriptComponent</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>GameObject\Component\SpriteComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp" />
   </ItemGroup>
 </Project>

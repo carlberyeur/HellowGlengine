@@ -15,7 +15,7 @@ CGLTexture::~CGLTexture()
 	glDeleteTextures(1, &myTextureID);
 }
 
-CGLTexture::eLoadResult CGLTexture::Init(const unsigned int aTextureUnit, const void* aPixelData)
+CGLTexture::eLoadResult CGLTexture::Init(const unsigned int aTextureUnit, const void* aPixelData, CU::Vector2ui& aTextureSize)
 {
 	if (aPixelData == nullptr)
 	{
@@ -26,6 +26,8 @@ CGLTexture::eLoadResult CGLTexture::Init(const unsigned int aTextureUnit, const 
 	{
 		return eLoadResult::eInvalidTextureUnit;
 	}
+
+	myPixelSize = aTextureSize;
 
 	// Set the unique texture unit in which to store the data.
 	glActiveTexture(GL_TEXTURE0 + aTextureUnit);
@@ -52,4 +54,15 @@ CGLTexture::eLoadResult CGLTexture::Init(const unsigned int aTextureUnit, const 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	return eLoadResult::eSuccess;
+}
+
+void CGLTexture::SetTexture()
+{	// Set the texture in the pixel shader to use the data from the first texture unit.
+	//location = OpenGL->glGetUniformLocation(m_shaderProgram, "albedoTexture");
+	//if (location == -1)
+	//{
+	//	return false;
+	//}
+	//OpenGL->glUniform1i(location, textureUnit);
+	//glUniform1i(0);
 }

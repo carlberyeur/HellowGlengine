@@ -186,6 +186,9 @@
     <ClInclude Include="EMouseButtons.h">
       <Filter>Input\DirectInput</Filter>
     </ClInclude>
+    <ClInclude Include="WorkQueue.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -237,6 +240,9 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="TaskPool.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkQueue.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>

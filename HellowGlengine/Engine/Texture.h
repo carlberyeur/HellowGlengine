@@ -7,6 +7,8 @@ public:
 	ITexture();
 	virtual ~ITexture();
 
+	virtual void SetTexture() = 0;
+
 	inline CU::Vector2ui GetTextureSize() const;
 
 protected:

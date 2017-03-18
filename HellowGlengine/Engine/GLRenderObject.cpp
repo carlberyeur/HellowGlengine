@@ -62,24 +62,24 @@ bool CGLRenderObject::Init()
 	vertices[1].y = 1.0f;
 	vertices[1].z = 0.0f;
 
-	vertices[0].u = 0.0f;
-	vertices[0].v = 1.0f;
+	vertices[1].u = 0.0f;
+	vertices[1].v = 1.0f;
 
 	// Top right.
 	vertices[2].x = 1.0f;
 	vertices[2].y = 1.0f;
 	vertices[2].z = 0.0f;
 
-	vertices[0].u = 1.0f;
-	vertices[0].v = 1.0f;
+	vertices[2].u = 1.0f;
+	vertices[2].v = 1.0f;
 
 	// Bottom right.
 	vertices[3].x = 1.0f;
 	vertices[3].y = -1.0f;
 	vertices[3].z = 0.0f;
 
-	vertices[0].u = 1.0f;
-	vertices[0].v = 0.0f;
+	vertices[3].u = 1.0f;
+	vertices[3].v = 0.0f;
 
 	for (int i = 0; i < 4; i++)
 	{

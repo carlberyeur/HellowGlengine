@@ -83,7 +83,7 @@ bool CGLEffect::Init(const std::string& aVertexShaderPath, const std::string& aG
 	{
 		for (unsigned int i = 0; i < inputAttributes.Size(); ++i)
 		{
-			glBindAttribLocation(myShaderProgram, i, inputAttributes[i].c_str());
+			glBindAttribLocation(myShaderProgram, i, inputAttributes[i].c_str());//kolla att de stämmer överens
 		}
 	}
 
@@ -92,8 +92,8 @@ bool CGLEffect::Init(const std::string& aVertexShaderPath, const std::string& aG
 		return false;
 	}
 
-	int samplerLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
-	glUniform1i(samplerLocation, 0);
+	//int samplerLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
+	//glUniform1i(samplerLocation, 0);
 
 	return true;
 }
@@ -101,6 +101,14 @@ bool CGLEffect::Init(const std::string& aVertexShaderPath, const std::string& aG
 void CGLEffect::Activate()
 {
 	glUseProgram(myShaderProgram);
+	unsigned error = glGetError();
+	int samplerLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
+	error = glGetError();
+	if (samplerLocation != -1)
+	{
+		glUniform1i(samplerLocation, 0);
+		error = glGetError();
+	}
 }
 
 bool CGLEffect::GetInputLayout(const unsigned int aInputLayoutFlags, CU::GrowingArray<std::string>& aAttributes, std::string& aShaderFilePath)

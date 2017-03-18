@@ -6,15 +6,15 @@ CPythonTuple::CPythonTuple()
 }
 
 CPythonTuple::CPythonTuple(const CPythonTuple& aCopy)
-	: CPythonTuple()
+	: myTupleObject(aCopy.myTupleObject)
 {
-	*this = aCopy;
+	Py_XINCREF(myTupleObject);
 }
 
 CPythonTuple::CPythonTuple(CPythonTuple&& aTemporary)
-	: CPythonTuple()
+	: myTupleObject(aTemporary.myTupleObject)
 {
-	*this = std::move(aTemporary);
+	aTemporary.myTupleObject = nullptr;
 }
 
 CPythonTuple::~CPythonTuple()
