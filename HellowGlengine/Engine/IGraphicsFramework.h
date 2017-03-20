@@ -1,6 +1,9 @@
 #pragma once
 
 class IWindow;
+class IMeshManager;
+class ITextureManager;
+class IEffectManager;
 
 class IGraphicsFramework
 {
@@ -14,4 +17,6 @@ public:
 	virtual void UpdateWindowSize() = 0;
 
 	virtual CU::UniquePointer<ITextureManager> CreateTextureManager() const = 0;
+	virtual CU::UniquePointer<IMeshManager> CreateMeshManager() const = 0;
+	virtual CU::UniquePointer<IEffectManager> CreateEffectManager() const = 0;
 };

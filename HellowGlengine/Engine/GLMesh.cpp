@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GLRenderObject.h"
+#include "GLMesh.h"
 
 #include "GLEffect.h"
 #include "EInputLayout.h"
@@ -11,7 +11,7 @@ struct VertexInput
 	float u, v;
 };
 
-CGLRenderObject::CGLRenderObject()
+CGLMesh::CGLMesh()
 	: myVertexCount(0)
 	, myIndexCount(0)
 	, myVertexArrayID(0u)
@@ -20,7 +20,7 @@ CGLRenderObject::CGLRenderObject()
 {
 }
 
-CGLRenderObject::CGLRenderObject(CGLRenderObject& aCopy)
+CGLMesh::CGLMesh(CGLMesh& aCopy)
 	: myVertexCount(aCopy.myVertexCount)
 	, myIndexCount(aCopy.myIndexCount)
 	, myVertexArrayID(aCopy.myVertexArrayID)
@@ -34,12 +34,12 @@ CGLRenderObject::CGLRenderObject(CGLRenderObject& aCopy)
 	aCopy.myIndexBufferID = 0;
 }
 
-CGLRenderObject::~CGLRenderObject()
+CGLMesh::~CGLMesh()
 {
 	Destroy();
 }
 
-CGLRenderObject& CGLRenderObject::operator=(CGLRenderObject& aCopy)
+CGLMesh& CGLMesh::operator=(CGLMesh& aCopy)
 {
 	Destroy();
 
@@ -61,7 +61,7 @@ CGLRenderObject& CGLRenderObject::operator=(CGLRenderObject& aCopy)
 	return *this;
 }
 
-bool CGLRenderObject::Init()
+bool CGLMesh::Init()
 {
 	myVertexCount = 4;
 	myIndexCount = 6;
@@ -144,15 +144,15 @@ bool CGLRenderObject::Init()
 	return true;
 }
 
-bool CGLRenderObject::Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices)
+bool CGLMesh::Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices)
 {
 	myVertexCount = aVertices.Size();
 	myIndexCount = 6;
 
 	unsigned int indices[6];
 
-	indices[0] = 0;  // Bottom left.
-	indices[1] = 1;  // Top left.
+	indices[0] = 0;  // Top left.
+	indices[1] = 1;  // Bottom left.
 	indices[2] = 3;  // Bottom right.
 	indices[3] = 3;  // Bottom right.
 	indices[4] = 1;  // Top left.
@@ -175,7 +175,7 @@ bool CGLRenderObject::Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices)
 
 	// Specify the location and format of the color portion of the vertex buffer.
 	glBindBuffer(GL_ARRAY_BUFFER, myVertexBufferID);
-	glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(SSpriteVertex), (unsigned char*)0 + (3 * sizeof(float)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof(SSpriteVertex), (unsigned char*)0 + (4 * sizeof(float)));
 
 	glGenBuffers(1, &myIndexBufferID);
 
@@ -185,13 +185,13 @@ bool CGLRenderObject::Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices)
 	return true;
 }
 
-void CGLRenderObject::Render()
+void CGLMesh::Render()
 {
 	glBindVertexArray(myVertexArrayID);
 	glDrawElements(GL_TRIANGLES, myIndexCount, GL_UNSIGNED_INT, 0);
 }
 
-void CGLRenderObject::Destroy()
+void CGLMesh::Destroy()
 {
 	if (myVertexBufferID != 0)
 	{

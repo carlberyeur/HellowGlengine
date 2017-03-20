@@ -5,7 +5,9 @@
 #include "wglext.h"
 #include "glext.h"
 
-#include "TextureManager.h"
+#include "GLMeshManager.h"
+#include "GLTextureManager.h"
+#include "GLEffectManager.h"
 
 #pragma comment(lib, "opengl32.lib")
 #ifdef _AMD64_
@@ -180,7 +182,17 @@ void COpenGLFramework::UpdateWindowSize()
 	throw std::logic_error("The method or operation is not implemented.");
 }
 
+CU::UniquePointer<IMeshManager> COpenGLFramework::CreateMeshManager() const
+{
+	return CU::MakeUnique<CGLMeshManager>();
+}
+
 CU::UniquePointer<ITextureManager> COpenGLFramework::CreateTextureManager() const
 {
-	return ITextureManager::Create(*this);
+	return CU::MakeUnique<CGLTextureManager>();
+}
+
+CU::UniquePointer<IEffectManager> COpenGLFramework::CreateEffectManager() const
+{
+	return CU::MakeUnique<CGLEffectManager>();
 }

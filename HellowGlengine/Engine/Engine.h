@@ -52,7 +52,9 @@ public:
 	void Render();
 
 	inline IGraphicsFramework& GetGraphicsFramework();
+	inline IMeshManager& GetMeshManager();
 	inline ITextureManager& GetTextureManager();
+	inline IEffectManager& GetEffectManager();
 	
 	inline CU::Vector2ui GetWindowSize() const;
 	inline CU::Vector2f GetWindowSizeF() const;
@@ -71,9 +73,9 @@ private:
 	CU::UniquePointer<IWindow> myWindow;
 	CU::UniquePointer<IGraphicsFramework> myGraphicsFramework;
 
-	//CU::UniquePointer<IMeshManager> myMeshManager;
+	CU::UniquePointer<IMeshManager> myMeshManager;
 	CU::UniquePointer<ITextureManager> myTextureManager;
-	//CU::UniquePointer<IEffectManager> myEffectManager;
+	CU::UniquePointer<IEffectManager> myEffectManager;
 	CU::UniquePointer<CInputManager> myInputManager;
 
 	CU::UniquePointer<CU::CStopWatch> myLogicTimer;
@@ -89,9 +91,19 @@ inline IGraphicsFramework& CEngine::GetGraphicsFramework()
 	return *myGraphicsFramework;
 }
 
+inline IMeshManager& CEngine::GetMeshManager()
+{
+	return *myMeshManager;
+}
+
 inline ITextureManager& CEngine::GetTextureManager()
 {
 	return *myTextureManager;
+}
+
+inline IEffectManager& CEngine::GetEffectManager()
+{
+	return *myEffectManager;
 }
 
 inline CU::Vector2ui CEngine::GetWindowSize() const

@@ -38,12 +38,6 @@ CEngine* CEngine::GetInstancePtr()
 }
 
 //temp includes
-#include "GLRenderObject.h"
-#include "GLEffect.h"
-#include "GLTexture.h"
-#include "GLTextureManager.h"
-#include "EInputLayout.h"
-
 #include "GLSprite.h"
 CGLSprite* sprite = nullptr;
 CGLSprite* sprite2 = nullptr;
@@ -154,7 +148,10 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 
 	myLogicTimer = CU::MakeUnique<CU::CStopWatch>();
 
-	myTextureManager = ITextureManager::Create(*myGraphicsFramework);
+	myMeshManager = myGraphicsFramework->CreateMeshManager();
+	myTextureManager = myGraphicsFramework->CreateTextureManager();
+	myEffectManager = myGraphicsFramework->CreateEffectManager();
+
 	myInputManager = CU::MakeUnique<CInputManager>(*myWindow);
 	Subscribe();
 

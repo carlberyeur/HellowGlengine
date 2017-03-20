@@ -6,7 +6,6 @@ CRenderer::CRenderer()
 {
 }
 
-
 CRenderer::~CRenderer()
 {
 }

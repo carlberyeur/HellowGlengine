@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GLSprite.h"
+#include "MeshManager.h"
 #include "TextureManager.h"
 
 #include "OpenGLFramework.h"
@@ -8,15 +9,16 @@
 #include "wglext.h"
 #include "glext.h"
 
-#include "GLRenderObject.h"
+#include "GLMesh.h"
 #include "GLEffect.h"
 #include "GLTexture.h"
 #include "EInputLayout.h"
 
 CGLSprite::CGLSprite()
 {
-	myRenderObject = new CGLRenderObject();
-	myRenderObject->Init();
+	CEngine& engine = CEngine::GetInstance();
+
+	myMesh = engine.GetMeshManager().CreateQuad();
 
 	ITexture* tex = nullptr;
 	CEngine::GetInstance().GetTextureManager().LoadTexture("Textures/square.tga", tex);
@@ -43,5 +45,5 @@ void CGLSprite::Render(const CU::Vector2f aPosition)
 	mySetPositionUniform(CU::Vector3f(aPosition, 0));
 	mySetSizeUniform(myTexture->GetTextureSizeF() / CEngine::GetInstance().GetWindowSizeF());
 
-	myRenderObject->Render();
+	myMesh->Render();
 }

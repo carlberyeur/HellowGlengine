@@ -200,9 +200,6 @@
     <ClCompile Include="StringHelper.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="CommandLineParser.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="AlarmClock.cpp">
       <Filter>Time</Filter>
     </ClCompile>

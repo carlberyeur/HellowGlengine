@@ -6,11 +6,11 @@ struct SSpriteVertex
 	CU::Vector2f uv;
 };
 
-class IRenderObject
+class IMesh
 {
 public:
-	IRenderObject();
-	virtual ~IRenderObject();
+	IMesh();
+	virtual ~IMesh();
 
 	virtual bool Init() = 0;
 	virtual bool Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices) = 0;

@@ -1,10 +1,5 @@
 #pragma once
 
-#include <map>
-#include <string>
-
-#include "GrowingArray.h"
-
 template<typename CHAR_TYPE>
 struct GetStringVersion;
 

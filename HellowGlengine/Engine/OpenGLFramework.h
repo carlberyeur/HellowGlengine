@@ -16,8 +16,10 @@ public:
 
 	bool LoadExtensionList(void* aHwnd);
 
+	CU::UniquePointer<IMeshManager> CreateMeshManager() const override;
 	CU::UniquePointer<ITextureManager> CreateTextureManager() const override;
-
+	CU::UniquePointer<IEffectManager> CreateEffectManager() const override;
+	
 private:
 	void* myDeviceContext;
 	void* myRenderingContext;

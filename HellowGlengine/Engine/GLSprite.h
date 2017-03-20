@@ -1,6 +1,6 @@
 #pragma once
 
-class IRenderObject;
+class IMesh;
 class ITexture;
 class IEffect;
 
@@ -17,7 +17,7 @@ private:
 	std::function<void(CU::Vector2f)> mySetSizeUniform;
 	std::function<void(int)> mySetTextureUniform;
 
-	CU::UniquePointer<IRenderObject> myRenderObject;
+	CU::UniquePointer<IMesh> myMesh;
 	CU::UniquePointer<ITexture> myTexture;
 	CU::UniquePointer<IEffect> myEffect;
 };

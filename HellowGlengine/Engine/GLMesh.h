@@ -1,14 +1,14 @@
 #pragma once
-#include "RenderObject.h"
+#include "Mesh.h"
 
-class CGLRenderObject :	public IRenderObject
+class CGLMesh :	public IMesh
 {
 public:
-	CGLRenderObject();
-	CGLRenderObject(CGLRenderObject& aCopy);
-	~CGLRenderObject();
+	CGLMesh();
+	CGLMesh(CGLMesh& aCopy);
+	~CGLMesh();
 
-	CGLRenderObject& operator=(CGLRenderObject& aCopy);
+	CGLMesh& operator=(CGLMesh& aCopy);
 
 	bool Init() override;
 	bool Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices);

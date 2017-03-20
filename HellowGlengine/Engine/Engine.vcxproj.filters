@@ -29,12 +29,6 @@
     <ClCompile Include="GLTexture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
-    <ClCompile Include="RenderObject.cpp">
-      <Filter>RenderObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GLRenderObject.cpp">
-      <Filter>RenderObject</Filter>
-    </ClCompile>
     <ClCompile Include="GLEffect.cpp">
       <Filter>Effect</Filter>
     </ClCompile>
@@ -67,6 +61,20 @@
     </ClCompile>
     <ClCompile Include="GLSprite.cpp" />
     <ClCompile Include="IRenderable.cpp" />
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="GLMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshManager.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="GLEffectManager.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
+    <ClCompile Include="GLMeshManager.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -102,12 +110,6 @@
     </ClInclude>
     <ClInclude Include="GLTexture.h">
       <Filter>Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderObject.h">
-      <Filter>RenderObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GLRenderObject.h">
-      <Filter>RenderObject</Filter>
     </ClInclude>
     <ClInclude Include="IEffect.h">
       <Filter>Effect</Filter>
@@ -147,6 +149,20 @@
     </ClInclude>
     <ClInclude Include="GLSprite.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="Mesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="GLMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshManager.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="GLEffectManager.h" />
+    <ClInclude Include="EffectManager.h" />
+    <ClInclude Include="GLMeshManager.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -157,9 +173,6 @@
     </Filter>
     <Filter Include="Texture">
       <UniqueIdentifier>{130946b6-f84e-40a5-91e7-dbcb5394c4c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject">
-      <UniqueIdentifier>{e47dc726-aa4c-455b-8ae9-b588a1ebf561}</UniqueIdentifier>
     </Filter>
     <Filter Include="Effect">
       <UniqueIdentifier>{64a1f16d-cc43-4e5e-b833-f5631796fc05}</UniqueIdentifier>
@@ -172,6 +185,9 @@
     </Filter>
     <Filter Include="InputManager">
       <UniqueIdentifier>{4714d9be-d2a2-440a-8e54-1349b106ccc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{e47dc726-aa4c-455b-8ae9-b588a1ebf561}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

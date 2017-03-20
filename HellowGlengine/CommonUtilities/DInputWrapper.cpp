@@ -230,7 +230,7 @@ namespace CU
 		{
 			if ((myKeyboardState[i] & 0x80) && (myPreviousKeyboardState[i] ^ myKeyboardState[i]))
 			{
-				aKeysPressed.Add(i);
+				aKeysPressed.Add(static_cast<unsigned char>(i));
 			}
 		}
 
@@ -245,7 +245,7 @@ namespace CU
 		{
 			if ((myPreviousKeyboardState[i] & 0x80) && (myPreviousKeyboardState[i] ^ myKeyboardState[i]))
 			{
-				aKeysReleased.Add(i);
+				aKeysReleased.Add(static_cast<unsigned char>(i));
 			}
 		}
 

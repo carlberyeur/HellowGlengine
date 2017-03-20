@@ -15,7 +15,7 @@ CGLTextureManager::~CGLTextureManager()
 
 ITextureManager::eLoadResult CGLTextureManager::LoadTexture(const std::string& aTexturePath, ITexture*& aTexturePointerOut)
 {
-	if (aTexturePath.empty() /*|| !aTexturePointerOut*/)
+	if (aTexturePath.empty())
 	{
 		return eLoadResult::eInvalidArgument;
 	}

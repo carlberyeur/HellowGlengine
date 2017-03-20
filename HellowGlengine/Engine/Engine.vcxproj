@@ -149,11 +149,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EInputLayout.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GLEffect.h" />
+    <ClInclude Include="GLEffectManager.h" />
     <ClInclude Include="glext.h" />
-    <ClInclude Include="GLRenderObject.h" />
+    <ClInclude Include="GLMesh.h" />
+    <ClInclude Include="GLMeshManager.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GLTextureManager.h" />
     <ClInclude Include="GraphicsFrameworkFactory.h" />
@@ -163,11 +166,12 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputMessage.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="MeshManager.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="GLSprite.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="RenderObject.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="OpenGLExtensions.h" />
     <ClInclude Include="OpenGLFramework.h" />
     <ClInclude Include="stdafx.h" />
@@ -179,9 +183,12 @@
     <ClInclude Include="WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GLEffect.cpp" />
-    <ClCompile Include="GLRenderObject.cpp" />
+    <ClCompile Include="GLEffectManager.cpp" />
+    <ClCompile Include="GLMesh.cpp" />
+    <ClCompile Include="GLMeshManager.cpp" />
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GLTextureManager.cpp" />
     <ClCompile Include="GraphicsFrameworkFactory.cpp" />
@@ -191,11 +198,12 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="InputMessage.cpp" />
     <ClCompile Include="IRenderable.cpp" />
+    <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="GLSprite.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RenderObject.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="LoadExtensions.cpp" />
     <ClCompile Include="OpenGLFramework.cpp" />
     <ClCompile Include="stdafx.cpp">
