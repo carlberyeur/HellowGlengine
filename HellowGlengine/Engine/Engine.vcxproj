@@ -162,7 +162,9 @@
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputMessage.h" />
-    <ClInclude Include="IOSWindow.h" />
+    <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="GLSprite.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderObject.h" />
@@ -188,7 +190,9 @@
     <ClCompile Include="InputListener.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="InputMessage.cpp" />
-    <ClCompile Include="IOSWindow.cpp" />
+    <ClCompile Include="IRenderable.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="GLSprite.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderObject.cpp" />

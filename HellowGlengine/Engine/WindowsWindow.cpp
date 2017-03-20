@@ -154,10 +154,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-	case WM_MOVE:
-		break;
-	case WM_MOVING:
-		break;
 	case WM_SIZE:
 	{
 		RECT rect = {};
@@ -168,13 +164,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_ENTERSIZEMOVE:
 		break;
+	case WM_EXITSIZEMOVE:
+		break;
 	case WM_KILLFOCUS:
 		//PostMaster::GetInstance().SendLetter(Message(eMessageType::eLostFocus, Event()));
 		break;
 	case WM_SETFOCUS:
 		//PostMaster::GetInstance().SendLetter(Message(eMessageType::eGotFocus, Event()));
-		break;
-	case WM_EXITSIZEMOVE:
 		break;
 	case WM_PAINT:
 	{

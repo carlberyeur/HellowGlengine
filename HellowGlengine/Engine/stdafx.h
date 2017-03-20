@@ -16,4 +16,3 @@
 #include "Engine.h"
 #include "OpenGLFramework.h"
 #include "WindowsWindow.h"
-

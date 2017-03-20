@@ -25,10 +25,14 @@ namespace CU
 		UniquePointer();
 		UniquePointer(ObjectType* aObject);
 		UniquePointer(UniquePointer&& aTemporary);
+
+		template <typename Derived, typename DerivedDeleter>
+		__forceinline UniquePointer(UniquePointer<Derived, DerivedDeleter>&& aTemporary);
 		UniquePointer(const UniquePointer& aCopy) = delete;
 		~UniquePointer();
 
 		__forceinline UniquePointer& operator=(UniquePointer&& aTemporary);
+
 		template <typename Derived, typename DerivedDeleter>
 		__forceinline UniquePointer& operator=(UniquePointer<Derived, DerivedDeleter>&& aTemporary);
 
@@ -65,6 +69,14 @@ namespace CU
 
 	template<typename ObjectType, typename Deleter>
 	UniquePointer<ObjectType, Deleter>::UniquePointer(UniquePointer&& aTemporary)
+		: myObject(aTemporary.myObject)
+	{
+		aTemporary.myObject = nullptr;
+	}
+
+	template<typename ObjectType, typename Deleter>
+	template<typename Derived, typename DerivedDeleter>
+	__forceinline UniquePointer<ObjectType, Deleter>::UniquePointer(UniquePointer<Derived, DerivedDeleter>&& aTemporary)
 		: myObject(aTemporary.myObject)
 	{
 		aTemporary.myObject = nullptr;

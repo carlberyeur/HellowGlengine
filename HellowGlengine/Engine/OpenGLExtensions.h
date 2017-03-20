@@ -40,6 +40,7 @@ extern PFNGLACTIVETEXTUREPROC glActiveTexture;
 extern PFNGLUNIFORM1IPROC glUniform1i;
 extern PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 extern PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
+extern PFNGLUNIFORM3FVPROC glUniform2fv;
 extern PFNGLUNIFORM3FVPROC glUniform3fv;
 extern PFNGLUNIFORM4FVPROC glUniform4fv;
 

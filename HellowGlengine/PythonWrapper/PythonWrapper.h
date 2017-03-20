@@ -25,4 +25,3 @@ private:
 	static std::string ourLastError;
 	static CPythonWrapper* ourInstance;
 };
-

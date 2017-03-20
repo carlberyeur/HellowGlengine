@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "WindowFactory.h"
 
-CU::UniquePointer<IWindow> CWindowFactory::CreateWindow(const unsigned int aEngineCreationFlags)
+CU::UniquePointer<IWindow> CWindowFactory::Create(const unsigned int aEngineCreationFlags)
 {
 	CU::UniquePointer<IWindow> window;
 	if (aEngineCreationFlags & CEngine::SCreationParameters::eWindows)

@@ -1,5 +1,5 @@
 #pragma once
-#include "IOSWindow.h"
+#include "Window.h"
 
 class CWindowsWindow : public IWindow
 {

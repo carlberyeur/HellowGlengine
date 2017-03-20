@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "IOSWindow.h"
+#include "Window.h"
 
 IWindow::IWindow()
 	: myIsOpen(false)

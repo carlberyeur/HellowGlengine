@@ -42,6 +42,7 @@ PFNGLACTIVETEXTUREPROC glActiveTexture;
 PFNGLUNIFORM1IPROC glUniform1i;
 PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
+PFNGLUNIFORM3FVPROC glUniform2fv;
 PFNGLUNIFORM3FVPROC glUniform3fv;
 PFNGLUNIFORM4FVPROC glUniform4fv;
 
@@ -284,6 +285,12 @@ bool COpenGLFramework::LoadExtensionList(void* aHwnd)
 
 	glDisableVertexAttribArray = (PFNGLDISABLEVERTEXATTRIBARRAYPROC)wglGetProcAddress("glDisableVertexAttribArray");
 	if (!glDisableVertexAttribArray)
+	{
+		return false;
+	}
+
+	glUniform2fv = (PFNGLUNIFORM2FVPROC)wglGetProcAddress("glUniform2fv");
+	if (!glUniform2fv)
 	{
 		return false;
 	}

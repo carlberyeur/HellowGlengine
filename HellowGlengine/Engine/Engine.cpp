@@ -2,6 +2,7 @@
 
 #include "WindowFactory.h"
 #include "GraphicsFrameworkFactory.h"
+#include "TextureManager.h"
 #include "InputManager.h"
 
 CEngine* CEngine::ourInstance = nullptr;
@@ -37,24 +38,15 @@ CEngine* CEngine::GetInstancePtr()
 }
 
 //temp includes
-#include "OpenGLFramework.h"
-#include <Windows.h>
-#include <gl/GL.h>
-#include "wglext.h"
-#include "glext.h"
-
-#undef CreateWindow
-
 #include "GLRenderObject.h"
 #include "GLEffect.h"
 #include "GLTexture.h"
 #include "GLTextureManager.h"
 #include "EInputLayout.h"
 
-CGLRenderObject renderObject;
-CGLEffect effect;
-ITexture* tex;
-GLenum error;
+#include "GLSprite.h"
+CGLSprite* sprite = nullptr;
+CGLSprite* sprite2 = nullptr;
 
 void CEngine::Start()
 {
@@ -63,21 +55,8 @@ void CEngine::Start()
 		myInitCallback();
 	}
 
-	bool cool = renderObject.Init();
-	if (!cool)
-	{
-		int apa = 0;
-		apa++;
-	}
-
-	CGLTextureManager man;
-	man.LoadTexture("Textures/square.tga", tex);
-
-	bool coolio = effect.Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos | eInputLayout::eInputLayout_eTex);
-	if (!coolio)
-	{
-		BREAK_POINT_HERE;
-	}
+	sprite = new CGLSprite();
+	sprite2 = new CGLSprite();
 
 	std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
 
@@ -119,8 +98,8 @@ void CEngine::Render()
 {
 	myGraphicsFramework->ClearFrame();
 
-	effect.Activate();
-	renderObject.Render();
+	sprite->Render({ 0.25f, 0.5f });
+	sprite2->Render({ 0.5f, 0.5f });
 
 	if (myRenderCallback)
 	{
@@ -146,7 +125,9 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 	if (aCreationParameters.myCreationFlags & SCreationParameters::eWindows && aCreationParameters.myCreationFlags & SCreationParameters::eLinux) return false;
 	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL && aCreationParameters.myCreationFlags & SCreationParameters::eDX) return false;
 
-	myWindow = CWindowFactory::CreateWindow(aCreationParameters.myCreationFlags);
+	myWindowSize.Set(aCreationParameters.myWindowWidth, aCreationParameters.myWindowHeight);
+
+	myWindow = CWindowFactory::Create(aCreationParameters.myCreationFlags);
 	if (!myWindow)
 	{
 		return false;
@@ -173,6 +154,7 @@ bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
 
 	myLogicTimer = CU::MakeUnique<CU::CStopWatch>();
 
+	myTextureManager = ITextureManager::Create(*myGraphicsFramework);
 	myInputManager = CU::MakeUnique<CInputManager>(*myWindow);
 	Subscribe();
 

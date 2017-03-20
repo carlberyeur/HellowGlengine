@@ -10,6 +10,10 @@ namespace CU
 
 class IWindow;
 class IGraphicsFramework;
+
+class IMeshManager;
+class ITextureManager;
+class IEffectManager;
 class CInputManager;
 
 class CEngine : public IInputListener
@@ -47,6 +51,12 @@ public:
 	void Update();
 	void Render();
 
+	inline IGraphicsFramework& GetGraphicsFramework();
+	inline ITextureManager& GetTextureManager();
+	
+	inline CU::Vector2ui GetWindowSize() const;
+	inline CU::Vector2f GetWindowSizeF() const;
+
 private:
 	CEngine();
 	~CEngine();
@@ -61,10 +71,35 @@ private:
 	CU::UniquePointer<IWindow> myWindow;
 	CU::UniquePointer<IGraphicsFramework> myGraphicsFramework;
 
+	//CU::UniquePointer<IMeshManager> myMeshManager;
+	CU::UniquePointer<ITextureManager> myTextureManager;
+	//CU::UniquePointer<IEffectManager> myEffectManager;
 	CU::UniquePointer<CInputManager> myInputManager;
 
 	CU::UniquePointer<CU::CStopWatch> myLogicTimer;
 	CU::UniquePointer<CU::CStopWatch> myRenderTimer;
 
+	CU::Vector2ui myWindowSize;
+
 	static CEngine* ourInstance;
 };
+
+inline IGraphicsFramework& CEngine::GetGraphicsFramework()
+{
+	return *myGraphicsFramework;
+}
+
+inline ITextureManager& CEngine::GetTextureManager()
+{
+	return *myTextureManager;
+}
+
+inline CU::Vector2ui CEngine::GetWindowSize() const
+{
+	return myWindowSize;
+}
+
+inline CU::Vector2f CEngine::GetWindowSizeF() const
+{
+	return CU::Vector2f(myWindowSize);
+}

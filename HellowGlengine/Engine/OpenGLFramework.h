@@ -16,6 +16,8 @@ public:
 
 	bool LoadExtensionList(void* aHwnd);
 
+	CU::UniquePointer<ITextureManager> CreateTextureManager() const override;
+
 private:
 	void* myDeviceContext;
 	void* myRenderingContext;

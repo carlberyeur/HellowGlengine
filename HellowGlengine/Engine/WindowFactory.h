@@ -5,5 +5,5 @@ class IWindow;
 class CWindowFactory
 {
 public:
-	static CU::UniquePointer<IWindow> CreateWindow(const unsigned int aEngineCreationFlags);
+	static CU::UniquePointer<IWindow> Create(const unsigned int aEngineCreationFlags);
 };

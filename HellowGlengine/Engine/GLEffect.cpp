@@ -12,6 +12,9 @@ CGLEffect::CGLEffect()
 	, myFragmentShader(0u)
 	, myShaderProgram(0u)
 {
+	myTextureLocation = -1;
+	myPositionLocation = -1;
+	mySizeLocation = -1;
 }
 
 CGLEffect::~CGLEffect()
@@ -92,17 +95,87 @@ bool CGLEffect::Init(const std::string& aVertexShaderPath, const std::string& aG
 		return false;
 	}
 
+	//myTextureLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
+	//
+	//if (myTextureLocation == -1)
+	//{
+	//	return false;
+	//}
+
+	//myPositionLocation = glGetUniformLocation(myShaderProgram, "spritePosition");
+
+	//if (myPositionLocation == -1)
+	//{
+	//	//return false;
+	//}
+
+	//mySizeLocation = glGetUniformLocation(myShaderProgram, "spriteSize");
+
+	//if (mySizeLocation == -1)
+	//{
+	//	return false;
+	//}
+
 	return true;
 }
 
 void CGLEffect::Activate()
 {
 	glUseProgram(myShaderProgram);
-	int samplerLocation = glGetUniformLocation(myShaderProgram, "albedoTexture");
-	if (samplerLocation != -1)
+
+	//if (myTextureLocation != -1)
+	//{
+	//	glUniform1i(myTextureLocation, 0);
+	//}
+
+	//if (myPositionLocation != -1)
+	//{
+	//	float position[3] = { 0.5f, 0.5f, 0.f };
+	//	glUniform3fv(myPositionLocation, 1, position);
+	//	std::bind(glUniform3fv, myPositionLocation, 1, position);
+	//}
+
+	//if (mySizeLocation != -1)
+	//{
+	//	float size[2] = { 256.f / 1920.f, 256.f / 1080.f };
+	//	glUniform2fv(mySizeLocation, 1, size);
+	//}
+}
+
+std::function<void(int)> CGLEffect::BindUniformInt(const std::string& aUniformName) const
+{
+	int intLocation = glGetUniformLocation(myShaderProgram, aUniformName.c_str());
+
+	if (intLocation == -1)
 	{
-		glUniform1i(samplerLocation, 0);
+		return std::function<void(int)>();
 	}
+
+	return std::bind(glUniform1i, intLocation, std::placeholders::_1);
+}
+
+std::function<void(CU::Vector2f)> CGLEffect::BindUniformVector2(const std::string& aUniformName) const
+{
+	int vectorLocation = glGetUniformLocation(myShaderProgram, aUniformName.c_str());
+
+	if (vectorLocation == -1)
+	{
+		return std::function<void(CU::Vector2f)>();
+	}
+
+	return [vectorLocation](CU::Vector2f aVector2) { glUniform2fv(vectorLocation, 1, aVector2.vector); };
+}
+
+std::function<void(const CU::Vector3f&)> CGLEffect::BindUniformVector3(const std::string& aUniformName) const
+{
+	int vectorLocation = glGetUniformLocation(myShaderProgram, aUniformName.c_str());
+
+	if (vectorLocation == -1)
+	{
+		return std::function<void(const CU::Vector3f&)>();
+	}
+
+	return [vectorLocation](const CU::Vector3f& aVector3) { glUniform3fv(vectorLocation, 1, aVector3.vector); };
 }
 
 bool CGLEffect::GetInputLayout(const unsigned int aInputLayoutFlags, CU::GrowingArray<std::string>& aAttributes, std::string& aShaderFilePath)
@@ -143,7 +216,6 @@ bool CGLEffect::ReadShaderFile(const std::string& aShaderPath, std::string& aFil
 
 	return !aFileContentOut.empty();
 }
-void output_error(unsigned shaderid, char* filename);
 
 bool CGLEffect::CompileShader(const std::string& aFileContent, const unsigned int aShaderStage, unsigned int& aShaderIDOut)
 {
@@ -157,9 +229,12 @@ bool CGLEffect::CompileShader(const std::string& aFileContent, const unsigned in
 	glGetShaderiv(aShaderIDOut, GL_COMPILE_STATUS, &compileStatus);
 	if (compileStatus != 1)
 	{
-		output_error(aShaderIDOut, nullptr);
-		//get error message
-		//output error message
+		int logSize = 0;
+		std::string infoLog;
+		glGetShaderiv(aShaderIDOut, GL_INFO_LOG_LENGTH, &logSize);
+		infoLog.resize(logSize + 1);
+		glGetShaderInfoLog(aShaderIDOut, logSize, nullptr, &infoLog[0]);
+		DL_MESSAGE_BOX("Failed to compile shader: %s", infoLog.c_str());
 		return false;
 	}
 
@@ -174,24 +249,14 @@ bool CGLEffect::LinkShader(const unsigned int aShaderProgram)
 	glGetProgramiv(aShaderProgram, GL_LINK_STATUS, &linkStatus);
 	if (linkStatus != 1)
 	{
-		//get error message
-		//output error message
+		int logSize = 0;
+		std::string infoLog;
+		glGetProgramiv(aShaderProgram, GL_INFO_LOG_LENGTH, &logSize);
+		infoLog.resize(logSize + 1);
+		glGetProgramInfoLog(aShaderProgram, logSize, nullptr, &infoLog[0]);
+		DL_MESSAGE_BOX("Failed to link shader: %s", infoLog.c_str());
 		return false;
 	}
 
 	return true;
-}
-#include <iostream>
-void output_error(unsigned shaderId, char *)
-{
-	int logSize = 0;
-	std::string infoLog;
-
-	glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &logSize);
-
-	infoLog.resize(logSize + 1);
-
-	glGetShaderInfoLog(shaderId, logSize, nullptr, &infoLog[0]);
-	
-	DL_MESSAGE_BOX("Failed to compile shader: %s", infoLog.c_str());
 }

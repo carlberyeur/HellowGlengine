@@ -12,14 +12,6 @@ struct TargaHeader
 
 std::string CTargaLoader::ourLastError("");
 
-CTargaLoader::CTargaLoader()
-{
-}
-
-CTargaLoader::~CTargaLoader()
-{
-}
-
 CTargaLoader::eLoadResult CTargaLoader::LoadTargaTexture(const std::string& aTexturePath, CU::GrowingArray<char>& aDataOut, CU::Vector2ui& aTextureSizeOut)
 {
 	if (aTexturePath.empty()) return eLoadResult::eInvalidPath;

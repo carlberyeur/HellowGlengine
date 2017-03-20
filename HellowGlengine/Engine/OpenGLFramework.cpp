@@ -5,6 +5,8 @@
 #include "wglext.h"
 #include "glext.h"
 
+#include "TextureManager.h"
+
 #pragma comment(lib, "opengl32.lib")
 #ifdef _AMD64_
 //#pragma comment(lib, "../Dependencies/glew2.0.0/lib/Release/x64/glew32.lib")
@@ -176,4 +178,9 @@ void COpenGLFramework::Present()
 void COpenGLFramework::UpdateWindowSize()
 {
 	throw std::logic_error("The method or operation is not implemented.");
+}
+
+CU::UniquePointer<ITextureManager> COpenGLFramework::CreateTextureManager() const
+{
+	return ITextureManager::Create(*this);
 }
