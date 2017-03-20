@@ -32,9 +32,6 @@
     <ClCompile Include="GLEffect.cpp">
       <Filter>Effect</Filter>
     </ClCompile>
-    <ClCompile Include="IEffect.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -59,7 +56,6 @@
     <ClCompile Include="Window.cpp">
       <Filter>Window</Filter>
     </ClCompile>
-    <ClCompile Include="GLSprite.cpp" />
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="Mesh.cpp">
       <Filter>Mesh</Filter>
@@ -70,11 +66,22 @@
     <ClCompile Include="MeshManager.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="GLEffectManager.cpp" />
-    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="GLMeshManager.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="GLEffectManager.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GLConstantBuffer.cpp">
+      <Filter>Effect\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -111,9 +118,6 @@
     <ClInclude Include="GLTexture.h">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="IEffect.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
     <ClInclude Include="GLEffect.h">
       <Filter>Effect</Filter>
     </ClInclude>
@@ -147,7 +151,6 @@
     <ClInclude Include="Window.h">
       <Filter>Window</Filter>
     </ClInclude>
-    <ClInclude Include="GLSprite.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="Mesh.h">
       <Filter>Mesh</Filter>
@@ -158,11 +161,28 @@
     <ClInclude Include="MeshManager.h">
       <Filter>Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="GLEffectManager.h" />
-    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="GLMeshManager.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="GLEffectManager.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GLConstantBuffer.h">
+      <Filter>Effect\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstantBuffer.h">
+      <Filter>Effect\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="IConstantBuffer.h">
+      <Filter>Effect\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -188,6 +208,9 @@
     </Filter>
     <Filter Include="Mesh">
       <UniqueIdentifier>{e47dc726-aa4c-455b-8ae9-b588a1ebf561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\ConstantBuffer">
+      <UniqueIdentifier>{c4290ce4-8a73-4af7-9124-039b88d37345}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -2,6 +2,8 @@
 
 #include "WindowFactory.h"
 #include "GraphicsFrameworkFactory.h"
+#include "MeshManager.h"
+#include "EffectManager.h"
 #include "TextureManager.h"
 #include "InputManager.h"
 
@@ -38,9 +40,9 @@ CEngine* CEngine::GetInstancePtr()
 }
 
 //temp includes
-#include "GLSprite.h"
-CGLSprite* sprite = nullptr;
-CGLSprite* sprite2 = nullptr;
+#include "Sprite.h"
+CSprite* sprite = nullptr;
+CSprite* sprite2 = nullptr;
 
 void CEngine::Start()
 {
@@ -49,8 +51,10 @@ void CEngine::Start()
 		myInitCallback();
 	}
 
-	sprite = new CGLSprite();
-	sprite2 = new CGLSprite();
+	sprite = new CSprite();
+	sprite->Init("Textures/square2.tga");
+	sprite2 = new CSprite();
+	sprite2->Init("Textures/square.tga");
 
 	std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
 

@@ -4,18 +4,25 @@ class IMesh;
 class ITexture;
 class IEffect;
 
-class CGLSprite
+template <typename T>
+class CConstantBuffer;
+
+class CSprite
 {
 public:
-	CGLSprite();
-	~CGLSprite();
+	CSprite();
+	~CSprite();
 
+	void Init(const std::string& aTexturePath);
 	void Render(const CU::Vector2f aPosition);
 
 private:
 	std::function<void(const CU::Vector3f&)> mySetPositionUniform;
 	std::function<void(CU::Vector2f)> mySetSizeUniform;
-	std::function<void(int)> mySetTextureUniform;
+
+	CConstantBuffer<CU::Vector3f>* myPositionSlot;
+	CConstantBuffer<CU::Vector2f>* mySizeSlot;
+	CConstantBuffer<int>* myTextureSlot;
 
 	CU::UniquePointer<IMesh> myMesh;
 	CU::UniquePointer<ITexture> myTexture;

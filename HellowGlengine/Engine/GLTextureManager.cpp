@@ -30,7 +30,7 @@ ITextureManager::eLoadResult CGLTextureManager::LoadTexture(const std::string& a
 	}
 
 	CGLTexture* newTexture = new CGLTexture();
-	newTexture->Init(myTextureUnit++, data.AsVoidPointer(), textureSize);
+	newTexture->Init(myTextureUnit, data.AsVoidPointer(), textureSize);
 	aTexturePointerOut = newTexture;
 
 	return eLoadResult::eSuccess;

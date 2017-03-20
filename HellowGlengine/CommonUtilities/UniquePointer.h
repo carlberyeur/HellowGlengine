@@ -43,8 +43,12 @@ namespace CU
 		inline ObjectType* GetRawPointer();
 
 		inline bool operator!() const;
+		inline bool operator==(std::nullptr_t) const;
 		inline bool operator==(const ObjectType* aObject) const;
 		inline bool operator==(const UniquePointer& aSmartPointer) const;
+		inline bool operator!=(std::nullptr_t) const;
+		inline bool operator!=(const ObjectType* aObject) const;
+		inline bool operator!=(const UniquePointer& aSmartPointer) const;
 		inline bool IsValid() const;
 
 		inline void SafeDelete();
@@ -144,6 +148,12 @@ namespace CU
 	}
 
 	template <typename ObjectType, typename Deleter>
+	inline bool UniquePointer<ObjectType, Deleter>::operator==(std::nullptr_t) const
+	{
+		return myObject == nullptr;
+	}
+
+	template <typename ObjectType, typename Deleter>
 	inline bool UniquePointer<ObjectType, Deleter>::operator==(const ObjectType* aObject) const
 	{
 		return myObject == aObject;
@@ -153,6 +163,24 @@ namespace CU
 	inline bool UniquePointer<ObjectType, Deleter>::operator==(const UniquePointer& aSmartPointer) const
 	{
 		return myObject == aSmartPointer.myObject;
+	}
+
+	template <typename ObjectType, typename Deleter>
+	inline bool UniquePointer<ObjectType, Deleter>::operator!=(std::nullptr_t) const
+	{
+		return myObject != nullptr;
+	}
+
+	template <typename ObjectType, typename Deleter>
+	inline bool UniquePointer<ObjectType, Deleter>::operator!=(const ObjectType* aObject) const
+	{
+		return myObject != aObject;
+	}
+
+	template <typename ObjectType, typename Deleter>
+	inline bool UniquePointer<ObjectType, Deleter>::operator!=(const UniquePointer& aSmartPointer) const
+	{
+		return myObject != aSmartPointer.myObject;
 	}
 
 	template <typename ObjectType, typename Deleter>
