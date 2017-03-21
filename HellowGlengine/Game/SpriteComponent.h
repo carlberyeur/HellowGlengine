@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 
+class CSpriteInstance;
+
 class CSpriteComponent : public IComponent
 {
 public:
@@ -9,6 +11,10 @@ public:
 	~CSpriteComponent();
 
 	CSpriteComponent& operator=(const CSpriteComponent& aCopy);
-
 	IComponent* Copy() override;
+
+	void Render();
+
+private:
+	CU::UniquePointer<CSpriteInstance> mySpriteInstance;
 };

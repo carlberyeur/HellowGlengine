@@ -62,6 +62,7 @@ namespace CU
 		iterator rend();
 		const_iterator rend() const;
 
+		inline void Add();
 		inline void Add(const ObjectType& aObject);
 		inline void Add(ObjectType&& aObject);
 		inline void Add(const GrowingArray& aArray);
@@ -326,6 +327,14 @@ namespace CU
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
 		return (myArray - 1);
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Add()
+	{
+		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
+		ObjectType object;
+		Add(std::move(object));
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>

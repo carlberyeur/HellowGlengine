@@ -56,7 +56,6 @@
     <ClCompile Include="Window.cpp">
       <Filter>Window</Filter>
     </ClCompile>
-    <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="Mesh.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
@@ -81,7 +80,15 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteInstance.cpp">
+      <Filter>Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderable.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -151,7 +158,6 @@
     <ClInclude Include="Window.h">
       <Filter>Window</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderable.h" />
     <ClInclude Include="Mesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
@@ -182,7 +188,15 @@
     <ClInclude Include="Effect.h">
       <Filter>Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteInstance.h">
+      <Filter>Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderable.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -211,6 +225,9 @@
     </Filter>
     <Filter Include="Effect\ConstantBuffer">
       <UniqueIdentifier>{c4290ce4-8a73-4af7-9124-039b88d37345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite">
+      <UniqueIdentifier>{21ba6cca-c088-47f9-8dae-2ef2068f22f7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

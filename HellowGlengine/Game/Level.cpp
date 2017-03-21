@@ -12,6 +12,7 @@ CLevel::~CLevel()
 
 void CLevel::Init(const std::string& /*aLevelPath*/)
 {
+	myGameObjects.Add();
 }
 
 void CLevel::Update(const CU::Time& /*aDeltaTime*/)

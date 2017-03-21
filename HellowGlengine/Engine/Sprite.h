@@ -11,6 +11,7 @@ class CSprite
 {
 public:
 	CSprite();
+	CSprite(CSprite& aCopy);
 	~CSprite();
 
 	void Init(const std::string& aTexturePath);

@@ -23,12 +23,12 @@ namespace CU
 		friend class UniquePointer;
 
 		UniquePointer();
+		UniquePointer(const UniquePointer& aCopy) = delete;
 		UniquePointer(ObjectType* aObject);
 		UniquePointer(UniquePointer&& aTemporary);
 
 		template <typename Derived, typename DerivedDeleter>
 		__forceinline UniquePointer(UniquePointer<Derived, DerivedDeleter>&& aTemporary);
-		UniquePointer(const UniquePointer& aCopy) = delete;
 		~UniquePointer();
 
 		__forceinline UniquePointer& operator=(UniquePointer&& aTemporary);

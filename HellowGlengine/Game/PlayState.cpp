@@ -15,6 +15,7 @@ CPlayState::~CPlayState()
 
 void CPlayState::Init()
 {
+	myLevel->Init("");
 }
 
 eStateStatus CPlayState::Update(const CU::Time& aDeltaTime)

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SpriteComponent.h"
-
+#include "../Engine/SpriteInstance.h"
 
 CSpriteComponent::CSpriteComponent()
 {
@@ -15,9 +15,9 @@ CSpriteComponent::~CSpriteComponent()
 {
 }
 
-CSpriteComponent& CSpriteComponent::operator=(const CSpriteComponent& /*aCopy*/)
+CSpriteComponent& CSpriteComponent::operator=(const CSpriteComponent& aCopy)
 {
-	//copy data here
+	mySpriteInstance = CU::MakeUnique<CSpriteInstance>(*aCopy.mySpriteInstance);
 
 	return *this;
 }
@@ -26,4 +26,9 @@ IComponent* CSpriteComponent::Copy()
 {
 	CSpriteComponent* copy = new CSpriteComponent(*this);
 	return copy;
+}
+
+void CSpriteComponent::Render()
+{
+	mySpriteInstance->Render();
 }

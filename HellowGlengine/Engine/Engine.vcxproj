@@ -170,6 +170,7 @@
     <ClInclude Include="InputMessage.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="SpriteInstance.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextureManager.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="InputMessage.cpp" />
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="SpriteInstance.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextureManager.cpp" />

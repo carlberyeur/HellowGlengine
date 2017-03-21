@@ -17,6 +17,22 @@ CSprite::CSprite()
 {
 }
 
+CSprite::CSprite(CSprite& aCopy)
+	: CSprite()
+{
+	CEngine& engine = CEngine::GetInstance();
+
+	myMesh = engine.GetMeshManager().CreateQuad();
+
+	myTexture = std::move(aCopy.myTexture);
+
+	myEffect = engine.GetEffectManager().CreateEffect(eEffectType::eSprite);
+
+	myPositionSlot = myEffect->GetConstantBuffer<CU::Vector3f>("spritePosition");
+	mySizeSlot = myEffect->GetConstantBuffer<CU::Vector2f>("spriteSize");
+	myTextureSlot = myEffect->GetConstantBuffer<int>("albedoTexture");
+}
+
 CSprite::~CSprite()
 {
 }
