@@ -46,6 +46,15 @@
     <Filter Include="Utilities\Common">
       <UniqueIdentifier>{38621218-3a74-4c3e-bdd0-4b58548ba3d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Serialization\Serializer">
+      <UniqueIdentifier>{8b71429a-778d-4150-a9a8-439d64f44844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Serialization\Serializer\Loader">
+      <UniqueIdentifier>{7b3dd6e3-eec8-4bae-bad3-9860029daf2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Serialization\Serializer\Saver">
+      <UniqueIdentifier>{b909459f-d269-43e6-8d4b-2382674da0d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -186,6 +195,15 @@
     <ClInclude Include="EMouseButtons.h">
       <Filter>Input\DirectInput</Filter>
     </ClInclude>
+    <ClInclude Include="Serializer.h">
+      <Filter>Serialization\Serializer</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializerLoader.h">
+      <Filter>Serialization\Serializer\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="SerilizerSaver.h">
+      <Filter>Serialization\Serializer\Saver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -235,6 +253,15 @@
     </ClCompile>
     <ClCompile Include="TaskPool.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Serializer.cpp">
+      <Filter>Serialization\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="SerializerLoader.cpp">
+      <Filter>Serialization\Serializer\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="SerilizerSaver.cpp">
+      <Filter>Serialization\Serializer\Saver</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

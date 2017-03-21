@@ -163,6 +163,9 @@
     <ClInclude Include="QuickSort.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="ReverseGrowingArray.h" />
+    <ClInclude Include="Serializer.h" />
+    <ClInclude Include="SerializerLoader.h" />
+    <ClInclude Include="SerilizerSaver.h" />
     <ClInclude Include="SharedPointer.h" />
     <ClInclude Include="StaticArray.h" />
     <ClInclude Include="StaticMemoryPool.h" />
@@ -192,6 +195,9 @@
     <ClCompile Include="MemoryLeekLogger.cpp" />
     <ClCompile Include="MemoryManagedObject.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Serializer.cpp" />
+    <ClCompile Include="SerializerLoader.cpp" />
+    <ClCompile Include="SerilizerSaver.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
