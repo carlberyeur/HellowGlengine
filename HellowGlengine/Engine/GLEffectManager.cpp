@@ -12,14 +12,14 @@ CGLEffectManager::~CGLEffectManager()
 {
 }
 
-CU::UniquePointer<IEffect> CGLEffectManager::CreateEffect(const eEffectType aType)
+CU::SharedPointer<IEffect> CGLEffectManager::CreateEffect(const eEffectType aType)
 {
-	CU::UniquePointer<IEffect> effect;
+	CU::SharedPointer<IEffect> effect;
 
 	switch (aType)
 	{
 	case eEffectType::eSprite:
-		effect = CU::MakeUnique<CGLEffect>();
+		effect = new CGLEffect();
 		effect->Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos | eInputLayout::eInputLayout_eTex);
 		break;
 	}

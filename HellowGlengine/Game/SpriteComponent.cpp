@@ -6,6 +6,12 @@ CSpriteComponent::CSpriteComponent()
 {
 }
 
+CSpriteComponent::CSpriteComponent(const std::string& aSpritePath)
+{
+	mySpriteInstance = new CSpriteInstance();
+	mySpriteInstance->Init(aSpritePath);
+}
+
 CSpriteComponent::CSpriteComponent(const CSpriteComponent& aCopy)
 {
 	*this = aCopy;
@@ -26,6 +32,11 @@ IComponent* CSpriteComponent::Copy()
 {
 	CSpriteComponent* copy = new CSpriteComponent(*this);
 	return copy;
+}
+
+void CSpriteComponent::Init()
+{
+	mySpriteInstance->SetPosition(GetParent()->GetPosition());
 }
 
 void CSpriteComponent::Render()

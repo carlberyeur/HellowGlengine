@@ -6,7 +6,7 @@ struct SSpriteVertex
 	CU::Vector2f uv;
 };
 
-class IMesh
+class IMesh : public CU::IMemoryManagedObject
 {
 public:
 	IMesh();

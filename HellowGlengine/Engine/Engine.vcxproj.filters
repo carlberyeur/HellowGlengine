@@ -197,6 +197,7 @@
     <ClInclude Include="IRenderable.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="RenderCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">

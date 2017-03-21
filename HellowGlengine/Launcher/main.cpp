@@ -39,6 +39,8 @@ int wmain(int argc, wchar_t* argv[])
 	CEngine::GetInstance().Shutdown();
 	CEngine::DestroyInstance();
 
+	CU::IMemoryManagedObject::CollectRemainingGarbage();
+
 	DL_Debug::Debug::DestroyInstance();
 	CommandLineManager<wchar_t>::DestroyInstance();
 

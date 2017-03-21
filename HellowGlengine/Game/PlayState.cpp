@@ -15,6 +15,7 @@ CPlayState::~CPlayState()
 
 void CPlayState::Init()
 {
+	myLevel = new CLevel();
 	myLevel->Init("");
 }
 

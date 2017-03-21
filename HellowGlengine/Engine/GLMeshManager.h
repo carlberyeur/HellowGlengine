@@ -7,5 +7,5 @@ public:
 	CGLMeshManager();
 	~CGLMeshManager();
 
-	CU::UniquePointer<IMesh> CreateQuad() override;
+	CU::SharedPointer<IMesh> CreateQuad() override;
 };

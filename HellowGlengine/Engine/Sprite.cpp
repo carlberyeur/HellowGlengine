@@ -17,20 +17,14 @@ CSprite::CSprite()
 {
 }
 
-CSprite::CSprite(CSprite& aCopy)
-	: CSprite()
+CSprite::CSprite(const CSprite& aCopy)
+	: myMesh(aCopy.myMesh)
+	, myTexture(aCopy.myTexture)
+	, myEffect(aCopy.myEffect)
+	, myPositionSlot(aCopy.myPositionSlot)
+	, mySizeSlot(aCopy.mySizeSlot)
+	, myTextureSlot(aCopy.myTextureSlot)
 {
-	CEngine& engine = CEngine::GetInstance();
-
-	myMesh = engine.GetMeshManager().CreateQuad();
-
-	myTexture = std::move(aCopy.myTexture);
-
-	myEffect = engine.GetEffectManager().CreateEffect(eEffectType::eSprite);
-
-	myPositionSlot = myEffect->GetConstantBuffer<CU::Vector3f>("spritePosition");
-	mySizeSlot = myEffect->GetConstantBuffer<CU::Vector2f>("spriteSize");
-	myTextureSlot = myEffect->GetConstantBuffer<int>("albedoTexture");
 }
 
 CSprite::~CSprite()
@@ -43,9 +37,9 @@ void CSprite::Init(const std::string& aTexturePath)
 
 	myMesh = engine.GetMeshManager().CreateQuad();
 
-	ITexture* tex = nullptr;
-	CEngine::GetInstance().GetTextureManager().LoadTexture(aTexturePath, tex);
-	myTexture = CU::UniquePointer<ITexture>(tex);
+	ITextureManager::eLoadResult textureResult = ITextureManager::eLoadResult::eSuccess;
+	myTexture = engine.GetTextureManager().LoadTexture(aTexturePath, textureResult);
+	//error checking
 
 	myEffect = engine.GetEffectManager().CreateEffect(eEffectType::eSprite);
 

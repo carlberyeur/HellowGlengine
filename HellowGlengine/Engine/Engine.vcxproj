@@ -170,6 +170,7 @@
     <ClInclude Include="InputMessage.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="RenderCommand.h" />
     <ClInclude Include="SpriteInstance.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Sprite.h" />

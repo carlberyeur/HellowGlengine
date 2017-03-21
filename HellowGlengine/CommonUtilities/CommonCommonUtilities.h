@@ -14,5 +14,6 @@
 #include "matrix33.h"
 #include "matrix44.h"
 
+#include "MemoryManagedObject.h"
 #include "UniquePointer.h"
 #include "SharedPointer.h"

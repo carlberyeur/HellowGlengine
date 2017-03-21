@@ -7,11 +7,13 @@ class CSpriteComponent : public IComponent
 {
 public:
 	CSpriteComponent();
+	CSpriteComponent(const std::string& aSpritePath);
 	CSpriteComponent(const CSpriteComponent& aCopy);
 	~CSpriteComponent();
 
 	CSpriteComponent& operator=(const CSpriteComponent& aCopy);
 	IComponent* Copy() override;
+	void Init() override;
 
 	void Render();
 

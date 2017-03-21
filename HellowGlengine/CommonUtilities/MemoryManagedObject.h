@@ -21,5 +21,7 @@ namespace CU
 
 		static GrowingArray<IMemoryManagedObject*> ourLiveObjects;
 		static GrowingArray<IMemoryManagedObject*> ourDeadObjects;
+
+		static unsigned int ourHighestLiveObjects;
 	};
 }

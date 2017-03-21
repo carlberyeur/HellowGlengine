@@ -7,5 +7,5 @@ public:
 	CGLEffectManager();
 	~CGLEffectManager();
 
-	CU::UniquePointer<IEffect> CreateEffect(const eEffectType aType) override;
+	CU::SharedPointer<IEffect> CreateEffect(const eEffectType aType) override;
 };

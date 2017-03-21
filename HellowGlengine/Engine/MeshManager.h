@@ -8,5 +8,5 @@ public:
 	IMeshManager();
 	virtual ~IMeshManager();
 
-	virtual CU::UniquePointer<IMesh> CreateQuad() = 0;
+	virtual CU::SharedPointer<IMesh> CreateQuad() = 0;
 };

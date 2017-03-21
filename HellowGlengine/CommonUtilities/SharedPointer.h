@@ -12,10 +12,12 @@ namespace CU
 	public:
 		SharedPointer();
 		SharedPointer(T* aObject);
+		SharedPointer(SharedPointer&& aTemporary);
 		SharedPointer(const SharedPointer& aSmartPointer);
 		~SharedPointer();
 
 		SharedPointer& operator=(T* aObject);
+		SharedPointer& operator=(SharedPointer&& aTemporary);
 		SharedPointer& operator=(const SharedPointer& aSmartPointer);
 
 		inline T& operator*() const;
@@ -42,6 +44,13 @@ namespace CU
 		: SharedPointer()
 	{
 		*this = aObject;
+	}
+
+	template<typename T>
+	inline SharedPointer<T>::SharedPointer(SharedPointer && aTemporary)
+		: myObject(aTemporary.myObject)
+	{
+		aTemporary.myObject = nullptr;
 	}
 
 	template <typename T>
@@ -72,6 +81,20 @@ namespace CU
 		{
 			myObject->AddRef();
 		}
+
+		return *this;
+	}
+
+	template<typename T>
+	inline SharedPointer<T>& SharedPointer<T>::operator=(SharedPointer&& aTemporary)
+	{
+		if (myObject != nullptr)
+		{
+			myObject->DecRef();
+		}
+
+		myObject = aTemporary.myObject;
+		aTemporary.myObject = nullptr;
 
 		return *this;
 	}

@@ -18,3 +18,8 @@ void IComponent::Init()
 void IComponent::Recieve(const SComponentMessage& /*aMessage*/)
 {
 }
+
+CGameObject* IComponent::GetParent()
+{
+	return myParent;
+}

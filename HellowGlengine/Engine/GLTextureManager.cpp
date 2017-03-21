@@ -35,3 +35,36 @@ ITextureManager::eLoadResult CGLTextureManager::LoadTexture(const std::string& a
 
 	return eLoadResult::eSuccess;
 }
+
+CU::SharedPointer<ITexture> CGLTextureManager::LoadTexture(const std::string& aTexturePath, eLoadResult& aLoadResultOut)
+{
+	CU::SharedPointer<ITexture> texture;
+
+	if (aTexturePath.empty())
+	{
+		aLoadResultOut = eLoadResult::eInvalidArgument;
+		return texture;
+	}
+
+	CU::Vector2ui textureSize;
+	CU::GrowingArray<char> data;
+	CTargaLoader::eLoadResult result = CTargaLoader::LoadTargaTexture(aTexturePath, data, textureSize);
+	if (result != CTargaLoader::eLoadResult::eSuccess)
+	{
+		//HandleTargaError(result, CTargaLoader::GetLastError());
+		aLoadResultOut = eLoadResult::eFailedLoadingFile;
+		return texture;
+	}
+
+	CGLTexture* newTexture = new CGLTexture();
+	if (newTexture->Init(myTextureUnit, data.AsVoidPointer(), textureSize) != CGLTexture::eLoadResult::eSuccess)
+	{
+		return texture;
+	}
+
+	texture = newTexture;
+
+	aLoadResultOut = eLoadResult::eSuccess;
+
+	return texture;
+}

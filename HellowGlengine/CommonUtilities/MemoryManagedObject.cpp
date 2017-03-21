@@ -5,6 +5,7 @@ namespace CU
 {
 	GrowingArray<IMemoryManagedObject*> IMemoryManagedObject::ourLiveObjects(32);
 	GrowingArray<IMemoryManagedObject*> IMemoryManagedObject::ourDeadObjects(32);
+	unsigned int IMemoryManagedObject::ourHighestLiveObjects(0u);
 
 	void IMemoryManagedObject::CollectGarbage()
 	{
@@ -23,9 +24,11 @@ namespace CU
 	}
 
 	IMemoryManagedObject::IMemoryManagedObject()
-		: myRefCount(1)
+		: myRefCount(0)
 	{
 		ourLiveObjects.Add(this);
+
+		if (ourLiveObjects.Size() > ourHighestLiveObjects) ourHighestLiveObjects = ourLiveObjects.Size();
 	}
 
 	IMemoryManagedObject::~IMemoryManagedObject()

@@ -13,4 +13,6 @@
 #include "../CommonUtilities/CommonCommonUtilities.h"
 #include "../CommonUtilities/CommonMacros.h"
 
+#include "GameObject.h"
+
 // TODO: reference additional headers your program requires here

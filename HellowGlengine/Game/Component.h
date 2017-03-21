@@ -10,12 +10,14 @@ public:
 	IComponent();
 	virtual ~IComponent();
 
-	virtual void Init();
 	virtual void Recieve(const SComponentMessage& aMessage);
-
 	virtual IComponent* Copy() = 0;
 
+	CGameObject* GetParent();
+
 private:
+	virtual void Init();
+
 	CGameObject* myParent;
 };
 

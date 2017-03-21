@@ -10,9 +10,9 @@ CGLMeshManager::~CGLMeshManager()
 {
 }
 
-CU::UniquePointer<IMesh> CGLMeshManager::CreateQuad()
+CU::SharedPointer<IMesh> CGLMeshManager::CreateQuad()
 {
-	CU::UniquePointer<IMesh> mesh = CU::MakeUnique<CGLMesh>();
+	CU::SharedPointer<IMesh> mesh = new CGLMesh();
 
 	SSpriteVertex vertices[4];
 
@@ -53,5 +53,5 @@ CU::UniquePointer<IMesh> CGLMeshManager::CreateQuad()
 		return mesh;
 	}
 	
-	return CU::UniquePointer<IMesh>();
+	return CU::SharedPointer<IMesh>();
 }

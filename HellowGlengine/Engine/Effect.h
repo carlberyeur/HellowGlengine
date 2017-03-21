@@ -5,7 +5,7 @@ class IConstantBuffer;
 template <typename T>
 class CConstantBuffer;
 
-class IEffect
+class IEffect : public CU::IMemoryManagedObject
 {
 public:
 	IEffect();

@@ -13,5 +13,5 @@ public:
 	IEffectManager();
 	virtual ~IEffectManager();
 
-	virtual CU::UniquePointer<IEffect> CreateEffect(const eEffectType aType) = 0;
+	virtual CU::SharedPointer<IEffect> CreateEffect(const eEffectType aType) = 0;
 };
