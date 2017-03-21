@@ -82,6 +82,9 @@ namespace CU
 
 		inline ObjectType& GetLast();
 		inline const ObjectType& GetLast() const;
+		inline ObjectType& GetFirst();
+		inline const ObjectType& GetFirst() const;
+		
 		inline ObjectType* AsPointer(const SizeType aIndex = 0);
 		inline const ObjectType* AsPointer(const SizeType aIndex = 0) const;
 		inline void* AsVoidPointer(const SizeType aIndex = 0);
@@ -545,6 +548,22 @@ namespace CU
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
 		return myArray[mySize - 1];
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	inline ObjectType& GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::GetFirst()
+	{
+		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
+		assert((0 < mySize) && "GrowingArray is empty");
+		return myArray[0];
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	inline const ObjectType& GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::GetFirst() const
+	{
+		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
+		assert((0 < mySize) && "GrowingArray is empty");
+		return myArray[0];
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>

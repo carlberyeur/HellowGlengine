@@ -11,5 +11,5 @@ public:
 	bool InitWorld(const CU::Vector2f aGravity);
 
 private:
-	CU::UniquePointer<b2World> myWorld;
+	//CU::UniquePointer<b2World> myWorld;
 };

@@ -45,7 +45,7 @@ void CGame::Init()
 	myStateStack->Push(*new CPlayState(*myStateStack));
 }
 
-bool CGame::Update(const CU::Time& aDeltaTime)
+bool CGame::Update(const CU::Time aDeltaTime)
 {
 	if (!myStateStack->Update(aDeltaTime))
 	{
