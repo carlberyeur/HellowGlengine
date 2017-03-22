@@ -1,8 +1,11 @@
 #pragma once
 
-class IRenderable
+namespace wendy
 {
-public:
-	IRenderable();
-	virtual ~IRenderable();
-};
+	class IRenderable
+	{
+	public:
+		IRenderable();
+		virtual ~IRenderable();
+	};
+}

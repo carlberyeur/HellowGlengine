@@ -1,22 +1,25 @@
 #pragma once
 
-class IWindow;
-class IMeshManager;
-class ITextureManager;
-class IEffectManager;
-
-class IGraphicsFramework
+namespace wendy
 {
-public:
-	IGraphicsFramework();
-	virtual ~IGraphicsFramework();
+	class IWindow;
+	class IMeshManager;
+	class ITextureManager;
+	class IEffectManager;
 
-	virtual bool Init(IWindow& aWindow) = 0;
-	virtual void ClearFrame() = 0;
-	virtual void Present() = 0;
-	virtual void UpdateWindowSize() = 0;
+	class IGraphicsFramework
+	{
+	public:
+		IGraphicsFramework();
+		virtual ~IGraphicsFramework();
 
-	virtual CU::UniquePointer<ITextureManager> CreateTextureManager() const = 0;
-	virtual CU::UniquePointer<IMeshManager> CreateMeshManager() const = 0;
-	virtual CU::UniquePointer<IEffectManager> CreateEffectManager() const = 0;
-};
+		virtual bool Init(IWindow& aWindow) = 0;
+		virtual void ClearFrame() = 0;
+		virtual void Present() = 0;
+		virtual void UpdateWindowSize() = 0;
+
+		virtual CU::UniquePointer<ITextureManager> CreateTextureManager() const = 0;
+		virtual CU::UniquePointer<IMeshManager> CreateMeshManager() const = 0;
+		virtual CU::UniquePointer<IEffectManager> CreateEffectManager() const = 0;
+	};
+}

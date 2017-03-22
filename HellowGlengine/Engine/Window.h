@@ -1,51 +1,54 @@
 #pragma once
 
-class IWindow
+namespace wendy
 {
-public:
-	struct SCreationParameters
+	class IWindow
 	{
-		unsigned int myWindowWidth;
-		unsigned int myWindowHeight;
-		bool myIsWindowed;
-
-		union
+	public:
+		struct SCreationParameters
 		{
-			struct SWindows
-			{
-				void* myHWND;
-				void* myHInstance;
+			unsigned int myWindowWidth;
+			unsigned int myWindowHeight;
+			bool myIsWindowed;
 
-			} myWindowsParameters;
-
-			struct SLinuxParameters
+			union
 			{
-				int myGarbage;
-			} myLinuxParameters;
+				struct SWindows
+				{
+					void* myHWND;
+					void* myHInstance;
+
+				} myWindowsParameters;
+
+				struct SLinuxParameters
+				{
+					int myGarbage;
+				} myLinuxParameters;
+			};
 		};
+
+		IWindow();
+		virtual ~IWindow();
+
+		virtual bool Init(const SCreationParameters& aCreationParameters) = 0;
+		virtual bool LoadExtensionList(class COpenGLFramework& aHWND) = 0;
+		virtual bool InitInputWrapper(class CInputManager& aInputManager) = 0;
+		virtual void Update() = 0;
+
+		inline bool IsOpen() const;
+		inline void Close();
+
+	protected:
+		bool myIsOpen;
 	};
 
-	IWindow();
-	virtual ~IWindow();
+	inline bool IWindow::IsOpen() const
+	{
+		return myIsOpen;
+	}
 
-	virtual bool Init(const SCreationParameters& aCreationParameters) = 0;
-	virtual bool LoadExtensionList(class COpenGLFramework& aHWND) = 0;
-	virtual bool InitInputWrapper(class CInputManager& aInputManager) = 0;
-	virtual void Update() = 0;
-
-	inline bool IsOpen() const;
-	inline void Close();
-
-protected:
-	bool myIsOpen;
-};
-
-inline bool IWindow::IsOpen() const
-{
-	return myIsOpen;
-}
-
-inline void IWindow::Close()
-{
-	myIsOpen = false;
+	inline void IWindow::Close()
+	{
+		myIsOpen = false;
+	}
 }

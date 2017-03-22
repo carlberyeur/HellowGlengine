@@ -21,12 +21,12 @@ void CPlayState::Init()
 
 eStateStatus CPlayState::Update(const CU::Time& aDeltaTime)
 {
-	if (myLevel)
+	if (!!myLevel)
 	{
 		myLevel->Update(aDeltaTime);
 	}
 	
-	if (myScene)
+	if (!!myScene)
 	{
 		myScene->Update(aDeltaTime);
 	}
@@ -36,7 +36,7 @@ eStateStatus CPlayState::Update(const CU::Time& aDeltaTime)
 
 void CPlayState::Render()
 {
-	if (myScene)
+	if (!!myScene)
 	{
 		myScene->Render();
 	}

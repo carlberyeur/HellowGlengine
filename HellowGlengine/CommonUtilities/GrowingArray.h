@@ -68,9 +68,9 @@ namespace CU
 		inline void Add(const GrowingArray& aArray);
 		inline void AddChunk(const void* aChunkPointer, const SizeType aByteSize);
 		inline void Insert(const SizeType aIndex, const ObjectType& aObject);
-		inline void Remove(const ObjectType& aObject);
+		inline bool Remove(const ObjectType& aObject);
 		inline void RemoveAtIndex(const SizeType aIndex);
-		inline void RemoveCyclic(const ObjectType& aObject);
+		inline bool RemoveCyclic(const ObjectType& aObject);
 		inline void RemoveCyclicAtIndex(const SizeType aIndex);
 		inline void RemoveChunk(void* aChunkPointer, const SizeType aByteSize);
 
@@ -418,7 +418,7 @@ namespace CU
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Remove(const ObjectType& aObject)
+	inline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Remove(const ObjectType& aObject)
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
 
@@ -426,7 +426,9 @@ namespace CU
 		if (index != FoundNone)
 		{
 			RemoveAtIndex(index);
+			return true;
 		}
+		return false;
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
@@ -483,7 +485,7 @@ namespace CU
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::RemoveCyclic(const ObjectType& aObject)
+	inline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::RemoveCyclic(const ObjectType& aObject)
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
 
@@ -491,7 +493,10 @@ namespace CU
 		if (index != FoundNone)
 		{
 			RemoveCyclicAtIndex(index);
+			return true;
 		}
+
+		return false;
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>

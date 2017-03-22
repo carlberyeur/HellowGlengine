@@ -4,25 +4,28 @@
 
 #include "EInputLayout.h"
 
-CGLEffectManager::CGLEffectManager()
+namespace wendy
 {
-}
-
-CGLEffectManager::~CGLEffectManager()
-{
-}
-
-CU::SharedPointer<IEffect> CGLEffectManager::CreateEffect(const eEffectType aType)
-{
-	CU::SharedPointer<IEffect> effect;
-
-	switch (aType)
+	CGLEffectManager::CGLEffectManager()
 	{
-	case eEffectType::eSprite:
-		effect = new CGLEffect();
-		effect->Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos | eInputLayout::eInputLayout_eTex);
-		break;
 	}
 
-	return effect;
+	CGLEffectManager::~CGLEffectManager()
+	{
+	}
+
+	CU::SharedPointer<IEffect> CGLEffectManager::CreateEffect(const eEffectType aType)
+	{
+		CU::SharedPointer<IEffect> effect;
+
+		switch (aType)
+		{
+		case eEffectType::eSprite:
+			effect = new CGLEffect();
+			effect->Init("Shaders/VS_", "", "Shaders/FS_", eInputLayout::eInputLayout_ePos | eInputLayout::eInputLayout_eTex);
+			break;
+		}
+
+		return effect;
+	}
 }

@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "IGraphicsFramework.h"
 
-IGraphicsFramework::IGraphicsFramework()
+namespace wendy
 {
-}
+	IGraphicsFramework::IGraphicsFramework()
+	{
+	}
 
-IGraphicsFramework::~IGraphicsFramework()
-{
+	IGraphicsFramework::~IGraphicsFramework()
+	{
+	}
 }

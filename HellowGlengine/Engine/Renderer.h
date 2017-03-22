@@ -1,8 +1,22 @@
 #pragma once
 
-class CRenderer
+namespace wendy
 {
-public:
-	CRenderer();
-	~CRenderer();
-};
+	class IRenderCommand;
+
+	class CRenderer
+	{
+	public:
+		CRenderer();
+		~CRenderer();
+
+		void AddRenderCommand(IRenderCommand* aRenderCommand);
+		void Render();
+
+	private:
+		void DoRenderQueue();
+
+	private:
+		CU::GrowingArray<IRenderCommand*> myRenderQueue;
+	};
+}

@@ -5,164 +5,170 @@
 #include "MeshManager.h"
 #include "EffectManager.h"
 #include "TextureManager.h"
+#include "SpriteManager.h"
 #include "InputManager.h"
-
-CEngine* CEngine::ourInstance = nullptr;
-
-bool CEngine::CreateInstance(const SCreationParameters& aCreationParameters)
-{
-	assert(ourInstance == nullptr && "Engine should not be created twice!");
-	ourInstance = new CEngine();
-	
-	if (ourInstance != nullptr)
-	{
-		return ourInstance->InternalInit(aCreationParameters);
-	}
-
-	return false;
-}
-
-void CEngine::DestroyInstance()
-{
-	assert(ourInstance != nullptr && "Engine not created (is NULL)");
-	SAFE_DELETE(ourInstance);
-}
-
-CEngine& CEngine::GetInstance()
-{
-	assert(ourInstance != nullptr && "Engine not created (is NULL)");
-	return *ourInstance;
-}
-
-CEngine* CEngine::GetInstancePtr()
-{
-	return ourInstance;
-}
 
 //temp includes
 #include "Sprite.h"
-CSprite* sprite = nullptr;
-CSprite* sprite2 = nullptr;
 
-void CEngine::Start()
+namespace wendy
 {
-	if (myInitCallback)
+	CEngine* CEngine::ourInstance = nullptr;
+
+	bool CEngine::CreateInstance(const SCreationParameters& aCreationParameters)
 	{
-		myInitCallback();
+		assert(ourInstance == nullptr && "Engine should not be created twice!");
+		ourInstance = new CEngine();
+
+		if (ourInstance != nullptr)
+		{
+			return ourInstance->InternalInit(aCreationParameters);
+		}
+
+		return false;
 	}
 
-	sprite = new CSprite();
-	sprite->Init("Textures/square2.tga");
-	sprite2 = new CSprite();
-	sprite2->Init("Textures/square.tga");
-
-	std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
-
-	while (myWindow->IsOpen() == true)
+	void CEngine::DestroyInstance()
 	{
-		Update();
-		Render();
+		assert(ourInstance != nullptr && "Engine not created (is NULL)");
+		SAFE_DELETE(ourInstance);
 	}
 
-	myInputManager->Stop();
-	inputThread.join();
-}
-
-void CEngine::Shutdown()
-{
-	if (myWindow.IsValid())
+	CEngine& CEngine::GetInstance()
 	{
-		myWindow->Close();
+		assert(ourInstance != nullptr && "Engine not created (is NULL)");
+		return *ourInstance;
 	}
-}
 
-void CEngine::Update()
-{
-	myWindow->Update();
-	myLogicTimer->Update();
-
-	myInputManager->DispatchMessages();
-
-	if (myUpdateCallback)
+	CEngine* CEngine::GetInstancePtr()
 	{
-		if (!myUpdateCallback(myLogicTimer->GetDeltaTime()))
+		return ourInstance;
+	}
+
+	CSprite* sprite = nullptr;
+	CSprite* sprite2 = nullptr;
+
+	void CEngine::Start()
+	{
+		if (myInitCallback)
+		{
+			myInitCallback();
+		}
+
+		sprite = new CSprite();
+		sprite->Init("Textures/square2.tga");
+		sprite2 = new CSprite();
+		sprite2->Init("Textures/square.tga");
+
+		std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
+
+		while (myWindow->IsOpen() == true)
+		{
+			Update();
+			Render();
+		}
+
+		myInputManager->Stop();
+		inputThread.join();
+	}
+
+	void CEngine::Shutdown()
+	{
+		if (myWindow.IsValid())
 		{
 			myWindow->Close();
 		}
 	}
-}
 
-void CEngine::Render()
-{
-	myGraphicsFramework->ClearFrame();
-
-	sprite->Render({ 0.25f, 0.5f });
-	sprite2->Render({ 0.5f, 0.5f });
-
-	if (myRenderCallback)
+	void CEngine::Update()
 	{
-		myRenderCallback();
+		myWindow->Update();
+		myLogicTimer->Update();
+
+		myInputManager->DispatchMessages();
+
+		if (myUpdateCallback)
+		{
+			if (!myUpdateCallback(myLogicTimer->GetDeltaTime()))
+			{
+				myWindow->Close();
+			}
+		}
 	}
 
-	myGraphicsFramework->Present();
-}
-
-CEngine::CEngine()
-	: myInitCallback(nullptr)
-	, myUpdateCallback(nullptr)
-	, myRenderCallback(nullptr)
-{
-}
-
-CEngine::~CEngine()
-{
-}
-
-bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
-{
-	if (aCreationParameters.myCreationFlags & SCreationParameters::eWindows && aCreationParameters.myCreationFlags & SCreationParameters::eLinux) return false;
-	if (aCreationParameters.myCreationFlags & SCreationParameters::eGL && aCreationParameters.myCreationFlags & SCreationParameters::eDX) return false;
-
-	myWindowSize.Set(aCreationParameters.myWindowWidth, aCreationParameters.myWindowHeight);
-
-	myWindow = CWindowFactory::Create(aCreationParameters.myCreationFlags);
-	if (!myWindow)
+	void CEngine::Render()
 	{
-		return false;
+		myGraphicsFramework->ClearFrame();
+
+		sprite->Render({ 0.25f, 0.5f });
+		sprite2->Render({ 0.5f, 0.5f });
+
+		if (myRenderCallback)
+		{
+			myRenderCallback();
+		}
+
+		myGraphicsFramework->Present();
 	}
 
-	IWindow::SCreationParameters windowCreationParameters = {};
-	windowCreationParameters.myWindowWidth = aCreationParameters.myWindowWidth;
-	windowCreationParameters.myWindowHeight = aCreationParameters.myWindowHeight;
-	windowCreationParameters.myIsWindowed = (aCreationParameters.myCreationFlags & SCreationParameters::eFullScreen) > 0u;
-	if (!myWindow->Init(windowCreationParameters))
+	CEngine::CEngine()
+		: myInitCallback(nullptr)
+		, myUpdateCallback(nullptr)
+		, myRenderCallback(nullptr)
 	{
-		return false;
 	}
 
-	myGraphicsFramework = CGraphicsFrameworkFactory::CreateFramework(aCreationParameters.myCreationFlags, *myWindow);
-	if (!myGraphicsFramework)
+	CEngine::~CEngine()
 	{
-		return false;
 	}
 
-	myInitCallback = aCreationParameters.myInitCallback;
-	myUpdateCallback = aCreationParameters.myUpdateCallback;
-	myRenderCallback = aCreationParameters.myRenderCallback;
+	bool CEngine::InternalInit(const SCreationParameters& aCreationParameters)
+	{
+		if (aCreationParameters.myCreationFlags & SCreationParameters::eWindows && aCreationParameters.myCreationFlags & SCreationParameters::eLinux) return false;
+		if (aCreationParameters.myCreationFlags & SCreationParameters::eGL && aCreationParameters.myCreationFlags & SCreationParameters::eDX) return false;
 
-	myLogicTimer = CU::MakeUnique<CU::CStopWatch>();
+		myWindowSize.Set(aCreationParameters.myWindowWidth, aCreationParameters.myWindowHeight);
 
-	myMeshManager = myGraphicsFramework->CreateMeshManager();
-	myTextureManager = myGraphicsFramework->CreateTextureManager();
-	myEffectManager = myGraphicsFramework->CreateEffectManager();
+		myWindow = CWindowFactory::Create(aCreationParameters.myCreationFlags);
+		if (!myWindow)
+		{
+			return false;
+		}
 
-	myInputManager = CU::MakeUnique<CInputManager>(*myWindow);
-	Subscribe();
+		IWindow::SCreationParameters windowCreationParameters = {};
+		windowCreationParameters.myWindowWidth = aCreationParameters.myWindowWidth;
+		windowCreationParameters.myWindowHeight = aCreationParameters.myWindowHeight;
+		windowCreationParameters.myIsWindowed = (aCreationParameters.myCreationFlags & SCreationParameters::eFullScreen) > 0u;
+		if (!myWindow->Init(windowCreationParameters))
+		{
+			return false;
+		}
 
-	return true;
-}
+		myGraphicsFramework = CGraphicsFrameworkFactory::CreateFramework(aCreationParameters.myCreationFlags, *myWindow);
+		if (!myGraphicsFramework)
+		{
+			return false;
+		}
 
-IInputListener::eResult CEngine::TakeInput(const CInputMessage& /*aMessage*/)
-{
-	return eResult::ePassOn;
+		myInitCallback = aCreationParameters.myInitCallback;
+		myUpdateCallback = aCreationParameters.myUpdateCallback;
+		myRenderCallback = aCreationParameters.myRenderCallback;
+
+		myLogicTimer = CU::MakeUnique<CU::CStopWatch>();
+
+		myMeshManager = myGraphicsFramework->CreateMeshManager();
+		myTextureManager = myGraphicsFramework->CreateTextureManager();
+		myEffectManager = myGraphicsFramework->CreateEffectManager();
+		mySpriteManager = CU::MakeUnique<CSpriteManager>();
+
+		myInputManager = CU::MakeUnique<CInputManager>(*myWindow);
+		Subscribe();
+
+		return true;
+	}
+
+	IInputListener::eResult CEngine::TakeInput(const CInputMessage& /*aMessage*/)
+	{
+		return eResult::ePassOn;
+	}
 }

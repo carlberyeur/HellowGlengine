@@ -205,9 +205,9 @@ namespace CU
 		Deleter::Destroy(myObject);
 	}
 
-	template <typename ObjectType, typename... Args>
-	UniquePointer<ObjectType> MakeUnique(Args&&... aArgs)
+	template <typename ObjectType, typename Deleter = DefaultDeleter<ObjectType>, typename... Args>
+	UniquePointer<ObjectType, typename Deleter> MakeUnique(Args&&... aArgs)
 	{
-		return (UniquePointer<ObjectType>(new ObjectType(std::forward<Args>(aArgs)...)));
+		return (UniquePointer<ObjectType, Deleter>(new ObjectType(std::forward<Args>(aArgs)...)));
 	}
 }

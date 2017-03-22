@@ -1,25 +1,27 @@
 #pragma once
 
-class CInputMessage;
-
-class IInputListener
+namespace wendy
 {
-public:
-	friend class CInputManager;
-	enum class eResult
+	class CInputMessage;
+
+	class IInputListener
 	{
-		ePassOn,
-		eStop
+	public:
+		friend class CInputManager;
+		enum class eResult
+		{
+			ePassOn,
+			eStop
+		};
+
+		IInputListener();
+		~IInputListener();
+
+		void Subscribe();
+		virtual eResult TakeInput(const CInputMessage& aMessage) = 0;
+
+	private:
+		int myPriority;
+		bool mySubscribed;
 	};
-
-	IInputListener();
-	~IInputListener();
-
-	void Subscribe();
-	virtual eResult TakeInput(const CInputMessage& aMessage) = 0;
-
-private:
-	int myPriority;
-	bool mySubscribed;
-};
-
+}

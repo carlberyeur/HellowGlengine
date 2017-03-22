@@ -2,10 +2,13 @@
 #include "MeshManager.h"
 
 
-IMeshManager::IMeshManager()
+namespace wendy
 {
-}
+	IMeshManager::IMeshManager()
+	{
+	}
 
-IMeshManager::~IMeshManager()
-{
+	IMeshManager::~IMeshManager()
+	{
+	}
 }

@@ -2,12 +2,15 @@
 
 #include "IConstantBuffer.h"
 
-template <typename T>
-class CConstantBuffer : public IConstantBuffer
+namespace wendy
 {
-public:
-	CConstantBuffer() {}
-	virtual ~CConstantBuffer() {}
+	template <typename T>
+	class CConstantBuffer : public IConstantBuffer
+	{
+	public:
+		CConstantBuffer() {}
+		virtual ~CConstantBuffer() {}
 
-	virtual void SetData(const T& aData) = 0;
-};
+		virtual void SetData(const T& aData) = 0;
+	};
+}

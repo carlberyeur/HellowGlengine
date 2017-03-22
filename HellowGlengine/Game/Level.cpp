@@ -8,6 +8,7 @@ CLevel::CLevel()
 
 CLevel::~CLevel()
 {
+	BREAK_POINT_HERE;
 }
 
 #include "SpriteComponent.h"

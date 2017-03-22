@@ -1,26 +1,29 @@
 #pragma once
 #include "Mesh.h"
 
-class CGLMesh :	public IMesh
+namespace wendy
 {
-public:
-	CGLMesh();
-	CGLMesh(CGLMesh& aCopy);
-	~CGLMesh();
+	class CGLMesh : public IMesh
+	{
+	public:
+		CGLMesh();
+		CGLMesh(CGLMesh& aCopy);
+		~CGLMesh();
 
-	CGLMesh& operator=(CGLMesh& aCopy);
+		CGLMesh& operator=(CGLMesh& aCopy);
 
-	bool Init() override;
-	bool Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices);
-	void Render() override;
+		bool Init() override;
+		bool Init(const CU::StaticArray<SSpriteVertex, 4>& aVertices);
+		void Render() override;
 
-	void Destroy();
+		void Destroy();
 
-private:
-	int myVertexCount;
-	int myIndexCount;
+	private:
+		int myVertexCount;
+		int myIndexCount;
 
-	unsigned int myVertexArrayID;
-	unsigned int myVertexBufferID;
-	unsigned int myIndexBufferID;
-};
+		unsigned int myVertexArrayID;
+		unsigned int myVertexBufferID;
+		unsigned int myIndexBufferID;
+	};
+}

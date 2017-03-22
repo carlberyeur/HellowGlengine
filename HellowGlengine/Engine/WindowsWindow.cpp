@@ -4,150 +4,154 @@
 #include <Windows.h>
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
 const wchar_t szWindowClass[] = L"OpenGL testing";
 const wchar_t szTitle[] = L"HellopenGL";
 
-CWindowsWindow::CWindowsWindow()
-	: myHWND(nullptr)
-	, myHInstance(nullptr)
+namespace wendy
 {
-}
-
-CWindowsWindow::~CWindowsWindow()
-{
-	DestroyWindow(reinterpret_cast<HWND>(myHWND));
-	myHWND = nullptr;
-
-	UnregisterClass(szWindowClass, reinterpret_cast<HINSTANCE>(myHInstance));
-	myHInstance = nullptr;
-}
-
-bool CWindowsWindow::Init(const SCreationParameters& aCreationParameters)
-{
-	myHInstance = aCreationParameters.myWindowsParameters.myHInstance;
-	myHInstance = GetModuleHandle(nullptr);
-
-	if (RegisterWindowsWindow(myHInstance) == false)
+	CWindowsWindow::CWindowsWindow()
+		: myHWND(nullptr)
+		, myHInstance(nullptr)
 	{
-		return false;
-	}
-	
-	if (InitHWND(myHInstance, aCreationParameters.myWindowWidth, aCreationParameters.myWindowHeight) == false)
-	{
-		return false;
 	}
 
-	return true;
-}
-
-void CWindowsWindow::Update()
-{
-	MSG windowsMessage = {};
-	if (PeekMessage(&windowsMessage, nullptr, 0, 0, PM_REMOVE))
+	CWindowsWindow::~CWindowsWindow()
 	{
-		TranslateMessage(&windowsMessage);
-		DispatchMessage(&windowsMessage);
-	}
-}
+		DestroyWindow(reinterpret_cast<HWND>(myHWND));
+		myHWND = nullptr;
 
-bool CWindowsWindow::LoadExtensionList(COpenGLFramework& aOpenGLFramework)
-{
-	// Get the instance of this application.
-	HINSTANCE hinstance = GetModuleHandle(NULL);
-
-	// Give the application a name.
-	const wchar_t* applicationName = L"temp";
-
-	WNDCLASSEX wc;
-	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	wc.lpfnWndProc = WndProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = hinstance;
-	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
-	wc.hIconSm = wc.hIcon;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	wc.lpszMenuName = NULL;
-	wc.lpszClassName = applicationName;
-	wc.cbSize = sizeof(WNDCLASSEX);
-
-	// Register the window class.
-	RegisterClassEx(&wc);
-
-	// Create a temporary window for the OpenGL extension setup.
-	HWND temphwnd = CreateWindowEx(WS_EX_APPWINDOW, applicationName, applicationName, WS_POPUP,	0, 0, 640, 480, NULL, NULL, hinstance, NULL);
-	if (temphwnd == NULL)
-	{
-		return false;
+		UnregisterClass(szWindowClass, reinterpret_cast<HINSTANCE>(myHInstance));
+		myHInstance = nullptr;
 	}
 
-	// Don't show the window.
-	ShowWindow(temphwnd, SW_HIDE);
-
-	bool success = aOpenGLFramework.LoadExtensionList(temphwnd);
-
-	DestroyWindow(temphwnd);
-
-	return success;
-}
-
-bool CWindowsWindow::RegisterWindowsWindow(void* aHInstance)
-{
-	WNDCLASSEXW wcex = {};
-
-	wcex.cbSize = sizeof(WNDCLASSEX);
-
-	wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	wcex.lpfnWndProc = &WndProc;
-	wcex.cbClsExtra = 0;
-	wcex.cbWndExtra = 0;
-	wcex.hInstance = (HINSTANCE)aHInstance;
-	wcex.hIcon = LoadIcon((HINSTANCE)aHInstance, 0);
-	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-	wcex.hbrBackground = (HBRUSH)(COLOR_BTNFACE);
-	wcex.lpszMenuName = szTitle;
-	wcex.lpszClassName = szWindowClass;
-	wcex.hIconSm = LoadIcon((HINSTANCE)aHInstance, 0);
-
-	ATOM result = RegisterClassEx(&wcex);
-	if (result == 0)
+	bool CWindowsWindow::Init(const SCreationParameters& aCreationParameters)
 	{
-		assert(!"Failed to register Window Class");
-		return false;
+		myHInstance = aCreationParameters.myWindowsParameters.myHInstance;
+		myHInstance = GetModuleHandle(nullptr);
+
+		if (RegisterWindowsWindow(myHInstance) == false)
+		{
+			return false;
+		}
+
+		if (InitHWND(myHInstance, aCreationParameters.myWindowWidth, aCreationParameters.myWindowHeight) == false)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
-	return true;
-}
-
-bool CWindowsWindow::InitHWND(void* aHInstance, const unsigned int aWindowWidth, const unsigned int aWindowHeight)
-{
-	myHWND = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, aWindowWidth, aWindowHeight, nullptr, nullptr, (HINSTANCE)aHInstance, nullptr);
-
-	if (myHWND == nullptr)
+	void CWindowsWindow::Update()
 	{
-		assert(!"Window failed to be created");
-		return false;
+		MSG windowsMessage = {};
+		if (PeekMessage(&windowsMessage, nullptr, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&windowsMessage);
+			DispatchMessage(&windowsMessage);
+		}
 	}
 
-	(void)ShowWindow((HWND)myHWND, SW_SHOW);
-	
-	myIsOpen = true;
-
-	BOOL updateWindowResult = UpdateWindow((HWND)myHWND);
-	if (updateWindowResult == FALSE)
+	bool CWindowsWindow::LoadExtensionList(COpenGLFramework& aOpenGLFramework)
 	{
-		assert(!"Window failed to be updated");
-		return false;
+		// Get the instance of this application.
+		HINSTANCE hinstance = GetModuleHandle(NULL);
+
+		// Give the application a name.
+		const wchar_t* applicationName = L"temp";
+
+		WNDCLASSEX wc;
+		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+		wc.lpfnWndProc = WndProc;
+		wc.cbClsExtra = 0;
+		wc.cbWndExtra = 0;
+		wc.hInstance = hinstance;
+		wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+		wc.hIconSm = wc.hIcon;
+		wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+		wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+		wc.lpszMenuName = NULL;
+		wc.lpszClassName = applicationName;
+		wc.cbSize = sizeof(WNDCLASSEX);
+
+		// Register the window class.
+		RegisterClassEx(&wc);
+
+		// Create a temporary window for the OpenGL extension setup.
+		HWND temphwnd = CreateWindowEx(WS_EX_APPWINDOW, applicationName, applicationName, WS_POPUP, 0, 0, 640, 480, NULL, NULL, hinstance, NULL);
+		if (temphwnd == NULL)
+		{
+			return false;
+		}
+
+		// Don't show the window.
+		ShowWindow(temphwnd, SW_HIDE);
+
+		bool success = aOpenGLFramework.LoadExtensionList(temphwnd);
+
+		DestroyWindow(temphwnd);
+
+		return success;
 	}
 
-	return true;
-}
+	bool CWindowsWindow::RegisterWindowsWindow(void* aHInstance)
+	{
+		WNDCLASSEXW wcex = {};
 
-bool CWindowsWindow::InitInputWrapper(CInputManager& aInputManager)
-{
-	return aInputManager.InitInputWrapper(myHWND, myHInstance);
+		wcex.cbSize = sizeof(WNDCLASSEX);
+
+		wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+		wcex.lpfnWndProc = &WndProc;
+		wcex.cbClsExtra = 0;
+		wcex.cbWndExtra = 0;
+		wcex.hInstance = (HINSTANCE)aHInstance;
+		wcex.hIcon = LoadIcon((HINSTANCE)aHInstance, 0);
+		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+		wcex.hbrBackground = (HBRUSH)(COLOR_BTNFACE);
+		wcex.lpszMenuName = szTitle;
+		wcex.lpszClassName = szWindowClass;
+		wcex.hIconSm = LoadIcon((HINSTANCE)aHInstance, 0);
+
+		ATOM result = RegisterClassEx(&wcex);
+		if (result == 0)
+		{
+			assert(!"Failed to register Window Class");
+			return false;
+		}
+
+		return true;
+	}
+
+	bool CWindowsWindow::InitHWND(void* aHInstance, const unsigned int aWindowWidth, const unsigned int aWindowHeight)
+	{
+		myHWND = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+			CW_USEDEFAULT, CW_USEDEFAULT, aWindowWidth, aWindowHeight, nullptr, nullptr, (HINSTANCE)aHInstance, nullptr);
+
+		if (myHWND == nullptr)
+		{
+			assert(!"Window failed to be created");
+			return false;
+		}
+
+		(void)ShowWindow((HWND)myHWND, SW_SHOW);
+
+		myIsOpen = true;
+
+		BOOL updateWindowResult = UpdateWindow((HWND)myHWND);
+		if (updateWindowResult == FALSE)
+		{
+			assert(!"Window failed to be updated");
+			return false;
+		}
+
+		return true;
+	}
+
+	bool CWindowsWindow::InitInputWrapper(CInputManager& aInputManager)
+	{
+		return aInputManager.InitInputWrapper(myHWND, myHInstance);
+	}
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -178,19 +182,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		HDC hdc = BeginPaint(hWnd, &ps);
 		TextOut(hdc, 300, 300, L"Hello Wendy!", 13);
 		EndPaint(hWnd, &ps);
+		break;
 	}
-	break;
 	//case WM_QUIT:
 	//	break;
 	case WM_CLOSE:
 	{
-		CEngine* engine = CEngine::GetInstancePtr();
+		wendy::CEngine* engine = wendy::CEngine::GetInstancePtr();
 		if (engine)
 		{
 			engine->Shutdown();
 		}
-	}
 		break;
+	}
 	case WM_CREATE:
 		break;
 	case WM_DESTROY:

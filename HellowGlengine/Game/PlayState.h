@@ -17,6 +17,6 @@ public:
 	void OnExit() override;
 
 private:
-	CScene* myScene;
-	CLevel* myLevel;
+	CU::UniquePointer<CScene> myScene;
+	CU::UniquePointer<CLevel> myLevel;
 };

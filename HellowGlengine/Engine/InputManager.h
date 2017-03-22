@@ -2,52 +2,55 @@
 
 #include "InputMessage.h"
 
-class IWindow;
-class IInputListener;
-
 namespace CU
 {
 	class CDirectInputWrapper;
 }
 
-class CInputManager
+namespace wendy
 {
-public:
-	friend class IInputListener;
+	class IWindow;
+	class IInputListener;
 
-	CInputManager(IWindow& aWindow);
-	~CInputManager();
+	class CInputManager
+	{
+	public:
+		friend class IInputListener;
 
-	void Start();
-	void Stop();
-	void DispatchMessages();
+		CInputManager(IWindow& aWindow);
+		~CInputManager();
 
-	void Update();
+		void Start();
+		void Stop();
+		void DispatchMessages();
 
-	bool InitInputWrapper(void* aHWND, void* aHInstance);
+		void Update();
 
-private:
-	void UpdateKeyboard();
-	void UpdateMouse();
+		bool InitInputWrapper(void* aHWND, void* aHInstance);
 
-	CU::StaticArray<CU::VectorOnStack<CInputMessage, 16, short, false>, 2> myBuffers;
+	private:
+		void UpdateKeyboard();
+		void UpdateMouse();
 
-	CU::CStopWatch mySleepTimer;
+		CU::StaticArray<CU::VectorOnStack<CInputMessage, 16, short, false>, 2> myBuffers;
 
-	CU::GrowingArray<IInputListener*> myInputListeners;
-	CU::GrowingArray<unsigned char> myKeyList;
+		CU::CStopWatch mySleepTimer;
 
-	CU::Vector2i myMousePosition;
-	CU::Vector2i myLastMousePosition;
-	CU::Vector2i myMouseDelta;
+		CU::GrowingArray<IInputListener*> myInputListeners;
+		CU::GrowingArray<unsigned char> myKeyList;
 
-	CU::UniquePointer<CU::CDirectInputWrapper> myInputWrapper;
+		CU::Vector2i myMousePosition;
+		CU::Vector2i myLastMousePosition;
+		CU::Vector2i myMouseDelta;
 
-	unsigned char myRead;
-	unsigned char myWrite;
+		CU::UniquePointer<CU::CDirectInputWrapper> myInputWrapper;
 
-	bool myHasInputToDispatch;
-	bool myIsStarted;
+		unsigned char myRead;
+		unsigned char myWrite;
 
-	static CInputManager* ourInstance;
-};
+		bool myHasInputToDispatch;
+		bool myIsStarted;
+
+		static CInputManager* ourInstance;
+	};
+}

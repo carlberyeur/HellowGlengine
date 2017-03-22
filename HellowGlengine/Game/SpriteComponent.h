@@ -1,7 +1,10 @@
 #pragma once
 #include "Component.h"
 
-class CSpriteInstance;
+namespace wendy
+{
+	class CSpriteInstance;
+}
 
 class CSpriteComponent : public IComponent
 {
@@ -18,5 +21,5 @@ public:
 	void Render();
 
 private:
-	CU::UniquePointer<CSpriteInstance> mySpriteInstance;
+	CU::UniquePointer<wendy::CSpriteInstance> mySpriteInstance;
 };

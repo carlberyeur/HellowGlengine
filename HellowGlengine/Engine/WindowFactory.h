@@ -1,9 +1,12 @@
 #pragma once
 
-class IWindow;
-
-class CWindowFactory
+namespace wendy
 {
-public:
-	static CU::UniquePointer<IWindow> Create(const unsigned int aEngineCreationFlags);
-};
+	class IWindow;
+
+	class CWindowFactory
+	{
+	public:
+		static CU::UniquePointer<IWindow> Create(const unsigned int aEngineCreationFlags);
+	};
+}

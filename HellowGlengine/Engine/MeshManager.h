@@ -1,12 +1,15 @@
 #pragma once
 
-class IMesh;
-
-class IMeshManager
+namespace wendy
 {
-public:
-	IMeshManager();
-	virtual ~IMeshManager();
+	class IMesh;
 
-	virtual CU::SharedPointer<IMesh> CreateQuad() = 0;
-};
+	class IMeshManager
+	{
+	public:
+		IMeshManager();
+		virtual ~IMeshManager();
+
+		virtual CU::SharedPointer<IMesh> CreateQuad() = 0;
+	};
+}

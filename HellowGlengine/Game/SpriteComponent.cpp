@@ -8,7 +8,7 @@ CSpriteComponent::CSpriteComponent()
 
 CSpriteComponent::CSpriteComponent(const std::string& aSpritePath)
 {
-	mySpriteInstance = new CSpriteInstance();
+	mySpriteInstance = new wendy::CSpriteInstance();
 	mySpriteInstance->Init(aSpritePath);
 }
 
@@ -23,7 +23,7 @@ CSpriteComponent::~CSpriteComponent()
 
 CSpriteComponent& CSpriteComponent::operator=(const CSpriteComponent& aCopy)
 {
-	mySpriteInstance = CU::MakeUnique<CSpriteInstance>(*aCopy.mySpriteInstance);
+	mySpriteInstance = CU::MakeUnique<wendy::CSpriteInstance>(*aCopy.mySpriteInstance);
 
 	return *this;
 }

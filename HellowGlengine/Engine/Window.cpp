@@ -1,11 +1,14 @@
 #include "stdafx.h"
 #include "Window.h"
 
-IWindow::IWindow()
-	: myIsOpen(false)
+namespace wendy
 {
-}
+	IWindow::IWindow()
+		: myIsOpen(false)
+	{
+	}
 
-IWindow::~IWindow()
-{
+	IWindow::~IWindow()
+	{
+	}
 }

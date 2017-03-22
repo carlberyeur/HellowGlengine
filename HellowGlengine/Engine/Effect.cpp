@@ -2,12 +2,15 @@
 #include "Effect.h"
 #include "IConstantBuffer.h"
 
-IEffect::IEffect()
-	: myConstantBuffers(2)
+namespace wendy
 {
-}
+	IEffect::IEffect()
+		: myConstantBuffers(2)
+	{
+	}
 
-IEffect::~IEffect()
-{
-	myConstantBuffers.DeleteAll();
+	IEffect::~IEffect()
+	{
+		myConstantBuffers.DeleteAll();
+	}
 }

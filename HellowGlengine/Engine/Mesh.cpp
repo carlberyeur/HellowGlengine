@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "Mesh.h"
 
-IMesh::IMesh()
+namespace wendy
 {
-}
+	IMesh::IMesh()
+	{
+	}
 
-IMesh::~IMesh()
-{
+	IMesh::~IMesh()
+	{
+	}
 }

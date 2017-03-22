@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "IRenderable.h"
 
-IRenderable::IRenderable()
+namespace wendy
 {
-}
+	IRenderable::IRenderable()
+	{
+	}
 
-IRenderable::~IRenderable()
-{
+	IRenderable::~IRenderable()
+	{
+	}
 }

@@ -1,31 +1,35 @@
 #pragma once
 
-class CSprite;
-
-class CSpriteInstance
+namespace wendy
 {
-public:
-	CSpriteInstance();
-	CSpriteInstance(const CSpriteInstance& aCopy);
-	~CSpriteInstance();
+	struct SSpriteDeleter;
+	class CSprite;
 
-	void Init(const std::string& aTexturePath);
-	void Render();
+	class CSpriteInstance
+	{
+	public:
+		CSpriteInstance();
+		CSpriteInstance(const CSpriteInstance& aCopy);
+		~CSpriteInstance();
 
-	inline void SetPosition(const CU::Vector2f aPosition);
-	inline CU::Vector2f GetPosition() const;
+		void Init(const std::string& aTexturePath);
+		void Render();
 
-private:
-	CU::Vector2f myPosition;
-	CU::UniquePointer<CSprite> mySprite;
-};
+		inline void SetPosition(const CU::Vector2f aPosition);
+		inline CU::Vector2f GetPosition() const;
 
-inline void CSpriteInstance::SetPosition(const CU::Vector2f aPosition)
-{
-	myPosition = aPosition;
-}
+	private:
+		CU::Vector2f myPosition;
+		CU::UniquePointer<CSprite, SSpriteDeleter> mySprite;
+	};
 
-inline CU::Vector2f CSpriteInstance::GetPosition() const
-{
-	return myPosition;
+	inline void CSpriteInstance::SetPosition(const CU::Vector2f aPosition)
+	{
+		myPosition = aPosition;
+	}
+
+	inline CU::Vector2f CSpriteInstance::GetPosition() const
+	{
+		return myPosition;
+	}
 }

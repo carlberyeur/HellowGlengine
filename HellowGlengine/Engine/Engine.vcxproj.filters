@@ -89,6 +89,12 @@
     <ClCompile Include="IRenderable.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSpriteCommand.cpp">
+      <Filter>Renderer\RenderCommand\RenderSprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -197,7 +203,15 @@
     <ClInclude Include="IRenderable.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="RenderCommand.h" />
+    <ClInclude Include="RenderCommand.h">
+      <Filter>Renderer\RenderCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSpriteCommand.h">
+      <Filter>Renderer\RenderCommand\RenderSprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -229,6 +243,12 @@
     </Filter>
     <Filter Include="Sprite">
       <UniqueIdentifier>{21ba6cca-c088-47f9-8dae-2ef2068f22f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\RenderCommand">
+      <UniqueIdentifier>{fd15d3fe-53e3-4395-8357-1efbaefd7152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\RenderCommand\RenderSprite">
+      <UniqueIdentifier>{17ac446f-8944-4578-90ed-eec2c599c751}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

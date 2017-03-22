@@ -1,8 +1,11 @@
 #pragma once
 
-class IConstantBuffer
+namespace wendy
 {
-public:
-	IConstantBuffer() {}
-	virtual ~IConstantBuffer() {}
-};
+	class IConstantBuffer
+	{
+	public:
+		IConstantBuffer() {}
+		virtual ~IConstantBuffer() {}
+	};
+}

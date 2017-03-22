@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "Texture.h"
 
-ITexture::ITexture()
+namespace wendy
 {
-}
+	ITexture::ITexture()
+	{
+	}
 
-ITexture::~ITexture()
-{
+	ITexture::~ITexture()
+	{
+	}
 }

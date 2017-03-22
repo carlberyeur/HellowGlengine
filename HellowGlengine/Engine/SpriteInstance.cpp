@@ -1,28 +1,31 @@
 #include "stdafx.h"
 #include "SpriteInstance.h"
 #include "Sprite.h"
+#include "SpriteManager.h"
 
-CSpriteInstance::CSpriteInstance()
+namespace wendy
 {
-}
+	CSpriteInstance::CSpriteInstance()
+	{
+	}
 
-CSpriteInstance::CSpriteInstance(const CSpriteInstance& aCopy)
-	: myPosition(aCopy.myPosition)
-	, mySprite(CU::MakeUnique<CSprite>(*aCopy.mySprite))
-{
-}
+	CSpriteInstance::CSpriteInstance(const CSpriteInstance& aCopy)
+		: myPosition(aCopy.myPosition)
+		, mySprite(CU::MakeUnique<CSprite, SSpriteDeleter>(*aCopy.mySprite))
+	{
+	}
 
-CSpriteInstance::~CSpriteInstance()
-{
-}
+	CSpriteInstance::~CSpriteInstance()
+	{
+	}
 
-void CSpriteInstance::Init(const std::string& aTexturePath)
-{
-	mySprite = CU::MakeUnique<CSprite>();
-	mySprite->Init(aTexturePath);
-}
+	void CSpriteInstance::Init(const std::string& aTexturePath)
+	{
+		mySprite = CEngine::GetInstance().GetSpriteManager().CreateSprite(aTexturePath);
+	}
 
-void CSpriteInstance::Render()
-{
-	mySprite->Render(myPosition);
+	void CSpriteInstance::Render()
+	{
+		mySprite->Render(myPosition);
+	}
 }

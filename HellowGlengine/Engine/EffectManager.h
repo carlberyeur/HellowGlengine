@@ -1,17 +1,20 @@
 #pragma once
 
-class IEffect;
-
-enum class eEffectType
+namespace wendy
 {
-	eSprite
-};
+	class IEffect;
 
-class IEffectManager
-{
-public:
-	IEffectManager();
-	virtual ~IEffectManager();
+	enum class eEffectType
+	{
+		eSprite
+	};
 
-	virtual CU::SharedPointer<IEffect> CreateEffect(const eEffectType aType) = 0;
-};
+	class IEffectManager
+	{
+	public:
+		IEffectManager();
+		virtual ~IEffectManager();
+
+		virtual CU::SharedPointer<IEffect> CreateEffect(const eEffectType aType) = 0;
+	};
+}

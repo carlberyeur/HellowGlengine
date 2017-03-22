@@ -1,16 +1,18 @@
 #pragma once
 #include "TextureManager.h"
 
-class CGLTextureManager : public ITextureManager
+namespace wendy
 {
-public:
-	CGLTextureManager();
-	~CGLTextureManager();
+	class CGLTextureManager : public ITextureManager
+	{
+	public:
+		CGLTextureManager();
+		~CGLTextureManager();
 
-	eLoadResult LoadTexture(const std::string& aTexturePath, ITexture*& aTexturePointerOut) override;
-	CU::SharedPointer<ITexture> LoadTexture(const std::string& aTexturePath, eLoadResult& aLoadResultOut) override;
+		eLoadResult LoadTexture(const std::string& aTexturePath, ITexture*& aTexturePointerOut) override;
+		CU::SharedPointer<ITexture> LoadTexture(const std::string& aTexturePath, eLoadResult& aLoadResultOut) override;
 
-private:
-	unsigned int myTextureUnit;
-};
-
+	private:
+		unsigned int myTextureUnit;
+	};
+}

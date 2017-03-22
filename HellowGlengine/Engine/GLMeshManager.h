@@ -1,11 +1,14 @@
 #pragma once
 #include "MeshManager.h"
 
-class CGLMeshManager : public IMeshManager
+namespace wendy
 {
-public:
-	CGLMeshManager();
-	~CGLMeshManager();
+	class CGLMeshManager : public IMeshManager
+	{
+	public:
+		CGLMeshManager();
+		~CGLMeshManager();
 
-	CU::SharedPointer<IMesh> CreateQuad() override;
-};
+		CU::SharedPointer<IMesh> CreateQuad() override;
+	};
+}

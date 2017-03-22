@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "EffectManager.h"
 
-IEffectManager::IEffectManager()
+namespace wendy
 {
-}
+	IEffectManager::IEffectManager()
+	{
+	}
 
-IEffectManager::~IEffectManager()
-{
+	IEffectManager::~IEffectManager()
+	{
+	}
 }

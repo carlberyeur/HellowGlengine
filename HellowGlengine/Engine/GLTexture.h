@@ -1,23 +1,25 @@
 #pragma once
 #include "Texture.h"
 
-class CGLTexture : public ITexture
+namespace wendy
 {
-public:
-	enum class eLoadResult
+	class CGLTexture : public ITexture
 	{
-		eSuccess,
-		eInvalidTextureUnit,
-		eNoPixelData
+	public:
+		enum class eLoadResult
+		{
+			eSuccess,
+			eInvalidTextureUnit,
+			eNoPixelData
+		};
+
+		CGLTexture();
+		~CGLTexture();
+
+		eLoadResult Init(const unsigned int aTextureUnit, const void* aPixelData, CU::Vector2ui& aTextureSize);
+		void SetTexture() override;
+
+	private:
+		unsigned int myTextureID;
 	};
-
-	CGLTexture();
-	~CGLTexture();
-
-	eLoadResult Init(const unsigned int aTextureUnit, const void* aPixelData, CU::Vector2ui& aTextureSize);
-	void SetTexture() override;
-
-private:
-	unsigned int myTextureID;
-};
-
+}
