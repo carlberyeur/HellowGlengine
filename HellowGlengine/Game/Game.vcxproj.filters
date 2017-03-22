@@ -79,6 +79,7 @@
       <Filter>GameObject\Component\SpriteComponent</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="LevelLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -115,5 +116,6 @@
       <Filter>GameObject\Component\SpriteComponent</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
   </ItemGroup>
 </Project>

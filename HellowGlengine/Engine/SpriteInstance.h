@@ -9,8 +9,12 @@ namespace wendy
 	{
 	public:
 		CSpriteInstance();
+		CSpriteInstance(CSpriteInstance&& aCopy);
 		CSpriteInstance(const CSpriteInstance& aCopy);
 		~CSpriteInstance();
+
+		CSpriteInstance& operator=(CSpriteInstance&& aCopy);
+		CSpriteInstance& operator=(const CSpriteInstance& aCopy);
 
 		void Init(const std::string& aTexturePath);
 		void Render();

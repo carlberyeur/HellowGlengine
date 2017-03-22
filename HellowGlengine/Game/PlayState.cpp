@@ -16,30 +16,33 @@ CPlayState::~CPlayState()
 void CPlayState::Init()
 {
 	myLevel = new CLevel();
+	if (!myLevel)
+	{
+		return;
+	}
+
+	myScene = new CScene();
+	if (!myScene)
+	{
+		return;
+	}
+
+
+
 	myLevel->Init("");
 }
 
 eStateStatus CPlayState::Update(const CU::Time& aDeltaTime)
 {
-	if (!!myLevel)
-	{
-		myLevel->Update(aDeltaTime);
-	}
-	
-	if (!!myScene)
-	{
-		myScene->Update(aDeltaTime);
-	}
+	myLevel->Update(aDeltaTime);
+	myScene->Update(aDeltaTime);
 
 	return eStateStatus::eKeep;
 }
 
 void CPlayState::Render()
 {
-	if (!!myScene)
-	{
-		myScene->Render();
-	}
+	myScene->Render();
 }
 
 void CPlayState::OnEnter()

@@ -3,6 +3,8 @@
 
 #include "StateStack.h"
 
+#pragma comment(lib, "../Dependencies/python34/libs/python34.lib")
+
 #include "../PythonWrapper/PythonWrapper.h"
 #include "../CommonUtilities/CommandLineParser.h"
 
@@ -27,7 +29,6 @@ CGame::~CGame()
 void CGame::Init()
 {
 	CPythonWrapper pythonWrapper(CommandLineManagerW::GetInstance()->GetArgV()[0], ScriptLoader::InitPythonModules);
-	CPhysicsEngine engine2;
 
 	CPythonModule module;
 	if (pythonWrapper.ImportModule("hello_wendy_program", module))
@@ -42,7 +43,12 @@ void CGame::Init()
 	}
 
 	myStateStack = CU::MakeUnique<CStateStack>();
-	myStateStack->Push(*new CPlayState(*myStateStack));
+
+	CPlayState* playState = new CPlayState(*myStateStack);
+	if (playState)
+	{
+		myStateStack->Push(*playState);
+	}
 }
 
 bool CGame::Update(const CU::Time aDeltaTime)

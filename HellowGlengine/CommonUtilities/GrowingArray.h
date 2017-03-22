@@ -80,6 +80,8 @@ namespace CU
 		inline void DeleteCyclicAtIndex(const SizeType aIndex);
 		inline SizeType Find(const ObjectType& aObject);
 
+		inline ObjectType* TryGet(const SizeType aIndex);
+		inline const ObjectType* TryGet(const SizeType aIndex) const;
 		inline ObjectType& GetLast();
 		inline const ObjectType& GetLast() const;
 		inline ObjectType& GetFirst();
@@ -108,6 +110,7 @@ namespace CU
 		__forceinline SizeType Capacity() const;
 		__forceinline bool Empty() const;
 		__forceinline bool IsInitialized() const;
+		__forceinline bool HasIndex(const SizeType aIndex) const;
 
 		static const SizeType FoundNone = static_cast<SizeType>(-1);
 
@@ -542,6 +545,28 @@ namespace CU
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	inline const ObjectType* GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::TryGet(const SizeType aIndex) const
+	{
+		if (HasIndex(aIndex))
+		{
+			return myArray + aIndex;
+		}
+
+		return nullptr;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	inline ObjectType* GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::TryGet(const SizeType aIndex)
+	{
+		if (HasIndex(aIndex))
+		{
+			return myArray + aIndex;
+		}
+
+		return nullptr;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
 	inline ObjectType& GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::GetLast()
 	{
 		assert(IsInitialized() == true && "GrowingArray not yet initialized.");
@@ -710,6 +735,12 @@ namespace CU
 	__forceinline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::IsInitialized() const
 	{
 		return myArray != nullptr;
+	}
+
+	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
+	inline bool GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::HasIndex(const SizeType aIndex) const
+	{
+		return aIndex >= 0 && aIndex < Size();
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>

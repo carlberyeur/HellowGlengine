@@ -16,7 +16,9 @@ namespace wendy
 	class IMeshManager;
 	class ITextureManager;
 	class IEffectManager;
+	
 	class CSpriteManager;
+	class CRenderer;
 	class CInputManager;
 
 	class CEngine : public IInputListener
@@ -59,6 +61,7 @@ namespace wendy
 		inline ITextureManager& GetTextureManager();
 		inline IEffectManager& GetEffectManager();
 		inline CSpriteManager& GetSpriteManager();
+		inline CRenderer& GetRenderer();
 
 		inline CU::Vector2ui GetWindowSize() const;
 		inline CU::Vector2f GetWindowSizeF() const;
@@ -80,7 +83,9 @@ namespace wendy
 		CU::UniquePointer<IMeshManager> myMeshManager;
 		CU::UniquePointer<ITextureManager> myTextureManager;
 		CU::UniquePointer<IEffectManager> myEffectManager;
+		
 		CU::UniquePointer<CSpriteManager> mySpriteManager;
+		CU::UniquePointer<CRenderer> myRenderer;
 		CU::UniquePointer<CInputManager> myInputManager;
 
 		CU::UniquePointer<CU::CStopWatch> myLogicTimer;
@@ -114,6 +119,11 @@ namespace wendy
 	inline CSpriteManager& CEngine::GetSpriteManager()
 	{
 		return *mySpriteManager;
+	}
+
+	inline CRenderer& CEngine::GetRenderer()
+	{
+		return *myRenderer;
 	}
 
 	inline CU::Vector2ui CEngine::GetWindowSize() const

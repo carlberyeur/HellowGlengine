@@ -5,7 +5,9 @@
 #include "MeshManager.h"
 #include "EffectManager.h"
 #include "TextureManager.h"
+
 #include "SpriteManager.h"
+#include "Renderer.h"
 #include "InputManager.h"
 
 //temp includes
@@ -94,6 +96,11 @@ namespace wendy
 				myWindow->Close();
 			}
 		}
+
+		if (myRenderCallback)
+		{
+			myRenderCallback();
+		}
 	}
 
 	void CEngine::Render()
@@ -103,10 +110,7 @@ namespace wendy
 		sprite->Render({ 0.25f, 0.5f });
 		sprite2->Render({ 0.5f, 0.5f });
 
-		if (myRenderCallback)
-		{
-			myRenderCallback();
-		}
+		myRenderer->Render();
 
 		myGraphicsFramework->Present();
 	}
@@ -159,9 +163,11 @@ namespace wendy
 		myMeshManager = myGraphicsFramework->CreateMeshManager();
 		myTextureManager = myGraphicsFramework->CreateTextureManager();
 		myEffectManager = myGraphicsFramework->CreateEffectManager();
-		mySpriteManager = CU::MakeUnique<CSpriteManager>();
 
+		mySpriteManager = CU::MakeUnique<CSpriteManager>();
+		myRenderer = CU::MakeUnique<CRenderer>();
 		myInputManager = CU::MakeUnique<CInputManager>(*myWindow);
+
 		Subscribe();
 
 		return true;

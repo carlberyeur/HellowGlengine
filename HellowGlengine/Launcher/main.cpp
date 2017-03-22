@@ -3,8 +3,6 @@
 #include "../Engine/Engine.h"
 #include "../Game/Game.h"
 
-#pragma comment(lib, "../Dependencies/python34/libs/python34.lib")
-
 wendy::CEngine::SCreationParameters::eCreationFlags GetOperatingSystem();
 
 int wmain(int argc, wchar_t* argv[])
@@ -53,9 +51,9 @@ wendy::CEngine::SCreationParameters::eCreationFlags GetOperatingSystem()
 	return wendy::CEngine::SCreationParameters::eCreationFlags::eWindows;
 #elif defined(_APPLE_)
 	return wendy::CEngine::SCreationParameters::eCreationFlags::eMac;
-#elif !defined(_LINUX)
+#elif defined(_LINUX)
+	return  wendy::CEngine::SCreationParameters::eCreationFlags::eLinux;
+#else
 #error "What operating system is this?"
 #endif // _WIN32
-
-	return  wendy::CEngine::SCreationParameters::eCreationFlags::eLinux;
 }

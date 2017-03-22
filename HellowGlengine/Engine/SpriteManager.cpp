@@ -30,6 +30,11 @@ namespace wendy
 		return CU::UniquePointer<CSprite, SSpriteDeleter>(sprite);
 	}
 
+	CU::UniquePointer<CSprite, SSpriteDeleter> CSpriteManager::CopySprite(const CSprite& aSprite)
+	{
+		return CU::MakeUnique<CSprite, SSpriteDeleter>(aSprite);
+	}
+
 	void CSpriteManager::DestroySprite(CSprite* aSprite)
 	{
 		std::lock_guard<std::mutex> lock(myDeleteSpritesLock);
