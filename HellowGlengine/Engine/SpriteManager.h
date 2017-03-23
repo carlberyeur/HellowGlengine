@@ -23,6 +23,7 @@ namespace wendy
 
 	private:
 		std::mutex myDeleteSpritesLock;
+
 		CU::GrowingArray<CSprite*> mySprites;
 		CU::GrowingArray<CSprite*> myDeadSprites;
 	};

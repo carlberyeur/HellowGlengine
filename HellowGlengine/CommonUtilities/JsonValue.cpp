@@ -9,7 +9,6 @@
 
 //#define JSON_ERROR(ERROR_MESSAGE) assert(ERROR_MESSAGE && false)
 #define JSON_ERROR DL_MESSAGE_BOX
-#define CHAR_TO_STR(A_CHAR) std::string(1, A_CHAR)
 
 namespace CU
 {
@@ -323,8 +322,7 @@ namespace CU
 		}
 
 		assert(aNameXY.size() == 2u && "vector2 name does not match vector 2");
-
-		return Vector2f(at(CHAR_TO_STR(aNameXY[0])).GetFloat(), at(CHAR_TO_STR(aNameXY[1])).GetFloat());
+		return Vector2f(at(&aNameXY[0]).GetFloat(), at(aNameXY[1]).GetFloat());
 	}
 	
 	Vector3f CJsonValue::GetVector3f(const std::string& aNameXYZ) const
@@ -345,7 +343,7 @@ namespace CU
 			return Vector3f();
 		}
 		assert(aNameXYZ.size() == 3u && "vector3 name does not match vector3");
-		return Vector3f(at(CHAR_TO_STR(aNameXYZ[0])).GetFloat(), at(CHAR_TO_STR(aNameXYZ[1])).GetFloat(), at(CHAR_TO_STR(aNameXYZ[2])).GetFloat());
+		return Vector3f(at(&aNameXYZ[0]).GetFloat(), at(&aNameXYZ[1]).GetFloat(), at(&aNameXYZ[2]).GetFloat());
 	}
 
 	Vector4f CJsonValue::GetVector4f(const std::string& aNameXYZW) const
@@ -367,7 +365,7 @@ namespace CU
 		}
 		assert(aNameXYZW.size() == 4u && "vector4 name does not match vector 4");
 
-		return Vector4f(at(CHAR_TO_STR(aNameXYZW[0])).GetFloat(), at(CHAR_TO_STR(aNameXYZW[1])).GetFloat(), at(CHAR_TO_STR(aNameXYZW[2])).GetFloat(), at(CHAR_TO_STR(aNameXYZW[3])).GetFloat());
+		return Vector4f(at(&aNameXYZW[0]).GetFloat(), at(&aNameXYZW[1]).GetFloat(), at(&aNameXYZW[2]).GetFloat(), at(&aNameXYZW[3]).GetFloat());
 	}
 
 	CJsonValue CJsonValue::operator[](const int anIndex) const

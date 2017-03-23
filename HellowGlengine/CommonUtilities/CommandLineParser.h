@@ -1,26 +1,11 @@
 #pragma once
 
 template<typename CHAR_TYPE>
-struct GetStringVersion;
-
-template<>
-struct GetStringVersion<char>
-{
-	using string_type = std::string;
-};
-
-template<>
-struct GetStringVersion<wchar_t>
-{
-	using string_type = std::wstring;
-};
-
-template<typename CHAR_TYPE>
 class CommandLineManager
 {
 public:
-	using STD_STRING = typename GetStringVersion<CHAR_TYPE>::string_type;
-
+	using STD_STRING = std::basic_string<CHAR_TYPE>;
+	
 	static void CreateInstance(int argc, CHAR_TYPE* argv[]);
 	static void DestroyInstance();
 	static CommandLineManager* GetInstance();
@@ -58,6 +43,13 @@ void CommandLineManager<CHAR_TYPE>::CreateInstance(int argc, CHAR_TYPE* argv[])
 template<typename CHAR_TYPE>
 CommandLineManager<CHAR_TYPE>* CommandLineManager<CHAR_TYPE>::GetInstance()
 {
+	if (ourInstance == nullptr)
+	{
+		if (CommandLineManagerA::GetInstance() || CommandLineManagerW::GetInstance())
+		{
+			DL_MESSAGE_BOX("You are probably trying to get instance of wrong command line parser");
+		}
+	}
 	return ourInstance;
 }
 

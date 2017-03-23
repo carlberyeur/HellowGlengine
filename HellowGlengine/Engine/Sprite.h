@@ -18,6 +18,7 @@ namespace wendy
 
 		void Init(const std::string& aTexturePath);
 		void Render(const CU::Vector2f aPosition);
+		CU::Vector2f GetTextureSize() const;
 
 	private:
 		CU::SharedPointer<IMesh> myMesh;

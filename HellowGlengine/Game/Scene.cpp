@@ -3,11 +3,18 @@
 #include "../Engine/SpriteInstance.h"
 
 CScene::CScene()
+	: mySpriteInstances(8)
 {
 }
 
 CScene::~CScene()
 {
+}
+
+bool CScene::Init()
+{
+	mySpriteInstances.Optimize();
+	return true;
 }
 
 void CScene::Update(const CU::Time& /*aDeltaTime*/)
@@ -16,6 +23,10 @@ void CScene::Update(const CU::Time& /*aDeltaTime*/)
 
 void CScene::Render()
 {
+	for (wendy::CSpriteInstance& spriteInstance : mySpriteInstances)
+	{
+		spriteInstance.Render();
+	}
 }
 
 int CScene::AddSpriteInstance(wendy::CSpriteInstance&& aSpriteInstance)

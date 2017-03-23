@@ -4,6 +4,8 @@
 #include "Level.h"
 #include "Scene.h"
 
+#include "LevelLoader.h"
+
 CPlayState::CPlayState(CStateStack& aStateStack)
 	: IState(aStateStack)
 {
@@ -27,9 +29,11 @@ void CPlayState::Init()
 		return;
 	}
 
-
+	CLevelLoader levelLoader(*myLevel, *myScene);
+	levelLoader.LoadLevel("Data/Levels/sewers.json");
 
 	myLevel->Init("");
+	myScene->Init();
 }
 
 eStateStatus CPlayState::Update(const CU::Time& aDeltaTime)

@@ -37,6 +37,9 @@
     <Filter Include="GameObject\Component\SpriteComponent">
       <UniqueIdentifier>{91fd99d6-85dc-4d5b-adcc-d3676e74ab96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Loading">
+      <UniqueIdentifier>{fa287f41-616c-4849-a9e5-75459f0e8c83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -79,7 +82,9 @@
       <Filter>GameObject\Component\SpriteComponent</Filter>
     </ClInclude>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="LevelLoader.h">
+      <Filter>Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -116,6 +121,8 @@
       <Filter>GameObject\Component\SpriteComponent</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>Loading</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

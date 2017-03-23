@@ -63,4 +63,9 @@ namespace wendy
 
 		//mySprite->Render(myPosition);
 	}
+
+	CU::Vector2f CSpriteInstance::GetSize() const
+	{
+		return mySprite->GetTextureSize();
+	}
 }

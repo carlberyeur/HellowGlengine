@@ -62,4 +62,14 @@ namespace wendy
 
 		myMesh->Render();
 	}
+
+	CU::Vector2f CSprite::GetTextureSize() const
+	{
+		if (myTexture.IsValid())
+		{
+			return myTexture->GetTextureSizeF();
+		}
+
+		return CU::Vector2f::Zero;
+	}
 }

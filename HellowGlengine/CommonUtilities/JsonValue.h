@@ -14,9 +14,11 @@ namespace CU
 	template<typename T>
 	class Vector2;
 	using Vector2f = Vector2<float>;
+
 	template<typename T>
 	class Vector3;
 	using Vector3f = Vector3<float>;
+
 	template<typename T>
 	class Vector4;
 	using Vector4f = Vector4<float>;
@@ -65,7 +67,7 @@ namespace CU
 		unsigned int GetUInt() const;
 
 		template<typename T>
-		T GetInteger();
+		T GetInteger() const;
 
 		const std::string& GetString() const;
 		const std::string& TryGetString() const;
@@ -95,7 +97,7 @@ namespace CU
 	};
 
 	template<typename T>
-	inline T CJsonValue::GetInteger()
+	inline T CJsonValue::GetInteger() const
 	{
 		return static_cast<T>(GetInt());
 	}
