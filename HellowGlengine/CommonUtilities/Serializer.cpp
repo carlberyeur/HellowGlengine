@@ -34,7 +34,6 @@ namespace CU
 		{
 			DL_MESSAGE_BOX("Failed to read from file: %s", aFilePath.c_str());
 			buffer.Destroy();
-			return buffer;
 		}
 
 		return buffer;
@@ -53,6 +52,7 @@ namespace CU
 		if (!file.good())
 		{
 			DL_MESSAGE_BOX("Failed to write to file: %s", aFilePath.c_str());
+			return false;
 		}
 
 		return true;

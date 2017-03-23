@@ -8,51 +8,45 @@ namespace CU
 	{
 	}
 
-	CSerializerLoader::CSerializerLoader(const CU::GrowingArray<char>& aBuffer)
-		: myBuffer(aBuffer)
-		, myPointer(0)
+	CSerializerLoader::CSerializerLoader(const unsigned int aBufferStartSize)
+		: CSerializerLoader()
 	{
-	}
-
-	CSerializerLoader::CSerializerLoader(CU::GrowingArray<char>&& aBuffer)
-		: myBuffer(std::move(aBuffer))
-		, myPointer(0)
-	{
+		assert(myBuffer.Capacity() > 0 && "incoming heap corruption");
+		if (aBufferStartSize > 0)
+		{
+			myBuffer.Init(aBufferStartSize);
+		}
 	}
 
 	CSerializerLoader::~CSerializerLoader()
 	{
 	}
 
-	void CSerializerLoader::Init(const CU::GrowingArray<char>& aBuffer)
+	void CSerializerLoader::Init(const unsigned int aBufferStartSize)
 	{
-		myBuffer = aBuffer;
-	}
-
-	void CSerializerLoader::Init(CU::GrowingArray<char>&& aBuffer)
-	{
-		myBuffer = std::move(aBuffer);
+		assert(myBuffer.Capacity() > 0 && "incoming heap corruption");
+		if (aBufferStartSize > 0)
+		{
+			myBuffer.Init(aBufferStartSize);
+		}
 	}
 
 	void CSerializerLoader::Cerealize(unsigned char& aChar)
 	{
 		memcpy(&aChar, myBuffer.AsPointer(myPointer), sizeof(char));
 		myPointer += sizeof(char);
-		//myBuffer.RemoveChunk(&aChar, sizeof(char));
 	}
 
 	void CSerializerLoader::Cerealize(unsigned int& aUInt)
 	{
 		memcpy(&aUInt, myBuffer.AsPointer(myPointer), sizeof(unsigned int));
 		myPointer += sizeof(unsigned int);
-		//myBuffer.RemoveChunk(&aUInt, sizeof(unsigned int));
 	}
 
 	void CSerializerLoader::Cerealize(float& aFloat)
 	{
 		memcpy(&aFloat, myBuffer.AsPointer(myPointer), sizeof(float));
 		myPointer += sizeof(float);
-		//myBuffer.RemoveChunk(&aFloat, sizeof(float));
 	}
 
 	void CSerializerLoader::Cerealize(double & aDouble)
@@ -65,35 +59,30 @@ namespace CU
 	{
 		memcpy(&aVector2f, myBuffer.AsPointer(myPointer), sizeof(CU::Vector2f));
 		myPointer += sizeof(CU::Vector2f);
-		//myBuffer.RemoveChunk(&aVector2f, sizeof(CU::Vector2f));
 	}
 
 	void CSerializerLoader::Cerealize(CU::Vector3f& aVector3f)
 	{
 		memcpy(&aVector3f, myBuffer.AsPointer(myPointer), sizeof(CU::Vector3f));
 		myPointer += sizeof(CU::Vector3f);
-		//myBuffer.RemoveChunk(&aVector3f, sizeof(CU::Vector3f));
 	}
 
 	void CSerializerLoader::Cerealize(CU::Vector4f& aVector4f)
 	{
 		memcpy(&aVector4f, myBuffer.AsPointer(myPointer), sizeof(CU::Vector4f));
 		myPointer += sizeof(CU::Vector4f);
-		//myBuffer.RemoveChunk(&aVector4f, sizeof(CU::Vector4f));
 	}
 
 	void CSerializerLoader::Cerealize(CU::Matrix33f& aMatrix33f)
 	{
 		memcpy(&aMatrix33f, myBuffer.AsPointer(myPointer), sizeof(CU::Matrix33f));
 		myPointer += sizeof(CU::Matrix33f);
-		//myBuffer.RemoveChunk(&aMatrix33f, sizeof(CU::Matrix33f));
 	}
 
 	void CSerializerLoader::Cerealize(CU::Matrix44f& aMatrix44f)
 	{
 		memcpy(&aMatrix44f, myBuffer.AsPointer(myPointer), sizeof(CU::Matrix44f));
 		myPointer += sizeof(CU::Matrix44f);
-		//myBuffer.RemoveChunk(&aMatrix44f, sizeof(CU::Matrix44f));
 	}
 
 	void CSerializerLoader::Cerealize(std::string& aString)
@@ -103,7 +92,6 @@ namespace CU
 		if (stringLength > 0)
 		{
 			aString.resize(stringLength);
-			//myBuffer.RemoveChunk(&aString[0], stringLength);
 			memcpy(&aString[0], myBuffer.AsPointer(myPointer), stringLength);
 			myPointer += stringLength;
 		}
@@ -112,5 +100,11 @@ namespace CU
 	const CU::GrowingArray<char>& CSerializerLoader::GetBuffer() const
 	{
 		return myBuffer;
+	}
+
+	bool CSerializerLoader::ReadFile(const std::string& aFilePath)
+	{
+		myBuffer = ISerializer::ReadFile(aFilePath);
+		return myBuffer.IsInitialized();
 	}
 }

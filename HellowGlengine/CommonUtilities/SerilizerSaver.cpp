@@ -69,4 +69,9 @@ namespace CU
 	{
 		return myBuffer;
 	}
+
+	bool CSerializerSaver::WriteFile(const std::string& aFilePath) const
+	{
+		return ISerializer::WriteFile(myBuffer, aFilePath);
+	}
 }
