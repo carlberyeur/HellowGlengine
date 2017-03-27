@@ -22,6 +22,7 @@ namespace wendy
 		CU::Vector2f GetSize() const;
 
 		inline void SetPosition(const CU::Vector2f aPosition);
+		inline void SetPosition(const float aX, const float aY);
 		inline CU::Vector2f GetPosition() const;
 
 	private:
@@ -32,6 +33,11 @@ namespace wendy
 	inline void CSpriteInstance::SetPosition(const CU::Vector2f aPosition)
 	{
 		myPosition = aPosition;
+	}
+
+	inline void CSpriteInstance::SetPosition(const float aX, const float aY)
+	{
+		myPosition.Set(aX, aY);
 	}
 
 	inline CU::Vector2f CSpriteInstance::GetPosition() const

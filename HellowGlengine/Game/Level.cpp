@@ -3,6 +3,8 @@
 #include "GameObject.h"
 
 CLevel::CLevel()
+	: myGameObjects(32)
+	, myFreeIDs(16)
 {
 }
 
@@ -12,9 +14,8 @@ CLevel::~CLevel()
 }
 
 #include "SpriteComponent.h"
-void CLevel::Init(const std::string& /*aLevelPath*/)
+void CLevel::Init()
 {
-	myGameObjects.Init(32);
 	myGameObjects.Add();
 
 	CSpriteComponent* spriteComponent = new CSpriteComponent("Textures/square.tga");
@@ -24,6 +25,44 @@ void CLevel::Init(const std::string& /*aLevelPath*/)
 	myGameObjects.GetLast().Init();
 }
 
-void CLevel::Update(const CU::Time& /*aDeltaTime*/)
+void CLevel::Update(const CU::Time& /*aDeltaTime*/)   
 {
+}
+
+int CLevel::AddGameObject()
+{
+	if (!myFreeIDs.Empty())
+	{
+		return myFreeIDs.Pop();
+	}
+
+	int id = myGameObjects.Size();
+	myGameObjects.Add();
+	return id;
+}
+
+int CLevel::AddGameObject(CGameObject&& aGameObject)
+{
+	int id = myGameObjects.Size();
+	if (!myFreeIDs.Empty())
+	{
+		id = myFreeIDs.Pop();
+		myGameObjects[id] = std::move(aGameObject);
+		return id;
+	}
+
+	myGameObjects.Add(std::move(aGameObject));
+
+	return id;
+}
+
+void CLevel::DestroyGameObject(const int aID)
+{
+	myGameObjects[aID] = CGameObject();
+	myFreeIDs.Add(aID);
+}
+
+CGameObject* CLevel::GetGameObject(const int aID)
+{
+	return myGameObjects.TryGet(aID);
 }

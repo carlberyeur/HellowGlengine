@@ -9,7 +9,25 @@ class CLevel;
 class CScene;
 class CLevelLoader;
 
-using LoadObjectFunction = int(*)(CLevelLoader&, CU::CJsonValue);
+struct SLayerData
+{
+
+};
+
+struct STileData
+{
+	int gid;
+	short posx, posy;
+};
+
+struct STileSet
+{
+	std::string texture;
+	CU::Vector2ui imageSize;
+	unsigned int firstgid, columns, tileCount;
+};
+
+using LoadObjectFunction = int(*)(CLevelLoader&, const CU::CJsonValue&);
 
 class CLevelLoader
 {
@@ -18,20 +36,23 @@ public:
 	CLevelLoader(const CLevelLoader&) = delete;
 	~CLevelLoader();
 
-	//static CLevelLoader* GetInstance();
-
 	bool LoadLevel(const std::string& aJsonPath);
 	void RegisterLoadFunction(const std::string& aFunctionName, const LoadObjectFunction aLoadFunction);
+	int CallLoadFunction(const std::string& aJsonObjectKey, const CU::CJsonValue& aJsonObjectValue);
 
 	inline CLevel& GetLevel();
 	inline CScene& GetScene();
 
+	inline CU::GrowingArray<STileSet>& GetTileSets();
+	inline CU::GrowingArray<STileData>& GetTileDatas();
+
 private:
 	std::map<std::string, LoadObjectFunction> myLoadFunctions;
+	CU::GrowingArray<STileData> myTileDatas;
+	CU::GrowingArray<STileSet> myTileSets;
+
 	CLevel& myLevel;
 	CScene& myScene;
-
-	static CLevelLoader* ourInstance;
 };
 
 inline CLevel& CLevelLoader::GetLevel()
@@ -44,7 +65,12 @@ inline CScene& CLevelLoader::GetScene()
 	return myScene;
 }
 
-#define GET_LEVEL_LOADER(VARIABLE_NAME, DEFAULT_RETURN_VALUE)				\
-CLevelLoader* VARIABLE_NAME##_secretPointer = CLevelLoader::GetInstance();	\
-if (!VARIABLE_NAME##_secretPointer) return DEFAULT_RETURN_VALUE;			\
-CLevelLoader& VARIABLE_NAME = *VARIABLE_NAME##_secretPointer; VARIABLE_NAME
+inline CU::GrowingArray<STileSet>& CLevelLoader::GetTileSets()
+{
+	return myTileSets;
+}
+
+inline CU::GrowingArray<STileData>& CLevelLoader::GetTileDatas()
+{
+	return myTileDatas;
+}
