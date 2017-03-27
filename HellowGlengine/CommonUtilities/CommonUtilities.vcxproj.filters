@@ -204,6 +204,12 @@
     <ClInclude Include="SerilizerSaver.h">
       <Filter>Serialization\Serializer\Saver</Filter>
     </ClInclude>
+    <ClInclude Include="base64.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonIterator.h">
+      <Filter>Serialization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -262,6 +268,12 @@
     </ClCompile>
     <ClCompile Include="SerilizerSaver.cpp">
       <Filter>Serialization\Serializer\Saver</Filter>
+    </ClCompile>
+    <ClCompile Include="base64.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonIterator.cpp">
+      <Filter>Serialization</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

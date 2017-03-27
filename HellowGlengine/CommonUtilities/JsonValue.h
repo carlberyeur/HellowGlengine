@@ -33,6 +33,8 @@ namespace CU
 		OBJECT
 	};
 
+	class CJsonIterator;
+
 	class CJsonValue
 	{
 	public:
@@ -81,6 +83,9 @@ namespace CU
 
 		CJsonValue at(const int aIndex) const;
 		CJsonValue at(const std::string& aKey) const;
+
+		CJsonIterator Begin() const;
+		CJsonIterator End() const;
 
 	private:
 		CJsonValue(const picojson::value* aValuePointer);

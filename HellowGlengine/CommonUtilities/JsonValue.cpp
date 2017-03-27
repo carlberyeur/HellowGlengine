@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "JsonValue.h"
+#include "JsonIterator.h"
 #include "picojson.h"
 #include <fstream>
 
@@ -13,7 +14,7 @@
 namespace CU
 {
 	std::string CJsonValue::ourLastError("");
-
+	
 	CJsonValue::CJsonValue()
 		: myValue(nullptr)
 		, myIsBorrowed(false)
@@ -375,22 +376,40 @@ namespace CU
 			JSON_ERROR("json value is null");
 			return CJsonValue();
 		}
-		if (IsArray() == false)
-		{
-			JSON_ERROR("json value is not an array: %s", myValue->to_str().c_str());
-			return CJsonValue();
-		}
 
 		size_t sIndex = static_cast<size_t>(anIndex);
-
-		const picojson::array& tempArray = myValue->get<picojson::array>();
-		if (sIndex < 0 || sIndex >= tempArray.size())
+		if (IsArray() == true)
 		{
-			JSON_ERROR("json array subscript out of range");
-			return CJsonValue();
+			const picojson::array& tempArray = myValue->get<picojson::array>();
+			if (sIndex < 0 || sIndex >= tempArray.size())
+			{
+				JSON_ERROR("json array subscript out of range");
+				return CJsonValue();
+			}
+
+			return CJsonValue(&tempArray[sIndex]);
+		}
+		if (IsObject() == true)
+		{
+			const picojson::object& tempObject = myValue->get<picojson::object>();
+			if (sIndex < 0 || sIndex >= tempObject.size())
+			{
+				JSON_ERROR("json array subscript out of range");
+				return CJsonValue();
+			}
+
+			auto it = tempObject.begin();
+			for (size_t i = 0; i < sIndex; i++)
+			{
+				it++;
+			}
+
+			return CJsonValue(&it->second);
 		}
 
-		return CJsonValue(&tempArray[sIndex]);
+
+		JSON_ERROR("json value is not an object or array: %s", myValue->to_str().c_str());
+		return CJsonValue();
 	}
 
 	CJsonValue CJsonValue::operator[](const std::string& aKey) const
@@ -428,6 +447,16 @@ namespace CU
 		return self[aKey];
 	}
 #undef self
+
+	CJsonIterator CJsonValue::Begin() const
+	{
+		return CJsonIterator(myValue->get<picojson::object>().begin());
+	}
+
+	CJsonIterator CJsonValue::End() const
+	{
+		return CJsonIterator(myValue->get<picojson::object>().end());
+	}
 
 	CJsonValue::CJsonValue(const picojson::value* aValuePointer)
 		: myValue(aValuePointer)
