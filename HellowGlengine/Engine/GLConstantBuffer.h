@@ -38,4 +38,16 @@ namespace wendy
 	private:
 		int myUniformLocation;
 	};
+
+	class CGLUniformVec4 : public CConstantBuffer<CU::Vector4f>
+	{
+	public:
+		CGLUniformVec4(const int aUniformLocation);
+		~CGLUniformVec4();
+
+		void SetData(const CU::Vector4f& aData) override;
+
+	private:
+		int myUniformLocation;
+	};
 }

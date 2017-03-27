@@ -26,6 +26,7 @@ void CScene::Render()
 	for (wendy::CSpriteInstance& spriteInstance : mySpriteInstances)
 	{
 		spriteInstance.Render();
+		break;
 	}
 }
 

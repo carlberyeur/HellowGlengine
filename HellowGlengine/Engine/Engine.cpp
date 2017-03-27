@@ -107,8 +107,8 @@ namespace wendy
 	{
 		myGraphicsFramework->ClearFrame();
 
-		sprite->Render({ 0.25f, 0.5f });
-		sprite2->Render({ 0.5f, 0.5f });
+		//sprite->Render({ 0.25f, 0.5f });
+		//sprite2->Render({ 0.5f, 0.5f });
 
 		myRenderer->Render();
 

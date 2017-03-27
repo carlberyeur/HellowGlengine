@@ -90,6 +90,7 @@ namespace TiledLoader
 		STileSet tileSet;
 		tileSet.texture = jsonTileSet["image"].GetString();
 		tileSet.imageSize.Set(jsonTileSet["imagewidth"].GetUInt(), jsonTileSet["imageheight"].GetUInt());
+		tileSet.tileSize.Set(jsonTileSet["tilewidth"].GetUInt(), jsonTileSet["tileheight"].GetUInt());
 		tileSet.firstgid = jsonTileSet["firstgid"].GetUInt();
 		tileSet.columns = jsonTileSet["columns"].GetUInt();
 		tileSet.tileCount = jsonTileSet["tilecount"].GetUInt();
@@ -99,7 +100,7 @@ namespace TiledLoader
 		return 0;
 	}
 
-	int LoadObjects(CLevelLoader& aLevelLoader, const CU::CJsonValue& aJsonObject)
+	int LoadObjects(CLevelLoader& /*aLevelLoader*/, const CU::CJsonValue& /*aJsonObject*/)
 	{
 		return 0;
 	}

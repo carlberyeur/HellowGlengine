@@ -211,6 +211,9 @@ namespace wendy
 		case IEffect::eConstantBufferType::eVec3:
 			constantBuffer = new CGLUniformVec3(location);
 			break;
+		case IEffect::eConstantBufferType::eVec4:
+			constantBuffer = new CGLUniformVec4(location);
+			break;
 		default:
 			return nullptr;
 		}

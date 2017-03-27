@@ -9,6 +9,7 @@
 #include "Mesh.h"
 #include "Effect.h"
 #include "Texture.h"
+#include "TextureRect.h"
 
 namespace wendy
 {
@@ -16,6 +17,7 @@ namespace wendy
 		: myPositionSlot(nullptr)
 		, mySizeSlot(nullptr)
 		, myTextureSlot(nullptr)
+		, myTextureRectSlot(nullptr)
 	{
 	}
 
@@ -26,6 +28,7 @@ namespace wendy
 		, myPositionSlot(aCopy.myPositionSlot)
 		, mySizeSlot(aCopy.mySizeSlot)
 		, myTextureSlot(aCopy.myTextureSlot)
+		, myTextureRectSlot(aCopy.myTextureRectSlot)
 	{
 	}
 
@@ -48,13 +51,15 @@ namespace wendy
 		myPositionSlot = myEffect->GetConstantBuffer<CU::Vector3f>("spritePosition");
 		mySizeSlot = myEffect->GetConstantBuffer<CU::Vector2f>("spriteSize");
 		myTextureSlot = myEffect->GetConstantBuffer<int>("albedoTexture");
+		myTextureRectSlot = myEffect->GetConstantBuffer<CU::Vector4f>("textureRect");
 	}
 
-	void CSprite::Render(const CU::Vector2f aPosition)
+	void CSprite::Render(const CU::Vector2f aPosition, const STextureRect& aTextureRect)
 	{
 		myEffect->Activate();
 
 		myTextureSlot->SetData(0);
+		myTextureRectSlot->SetData(aTextureRect.AsVector4f());
 		myPositionSlot->SetData(CU::Vector3f(aPosition, 0));
 		mySizeSlot->SetData(myTexture->GetTextureSizeF() / CEngine::GetInstance().GetWindowSizeF());
 

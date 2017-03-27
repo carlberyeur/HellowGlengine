@@ -16,7 +16,7 @@ struct SLayerData
 
 struct STileData
 {
-	int gid;
+	unsigned int gid;
 	short posx, posy;
 };
 
@@ -24,6 +24,7 @@ struct STileSet
 {
 	std::string texture;
 	CU::Vector2ui imageSize;
+	CU::Vector2ui tileSize;
 	unsigned int firstgid, columns, tileCount;
 };
 

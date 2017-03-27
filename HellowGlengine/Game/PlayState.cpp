@@ -50,9 +50,21 @@ void CPlayState::Init()
 			if (tileSet.firstgid <= tile.gid && tileSet.firstgid + tileSet.tileCount > tile.gid)
 			{
 				spritePath = tileSet.texture;
-				spriteInstance.SetPosition(static_cast<float>(tile.posx * 24) / (float)tileSet.imageSize.x, static_cast<float>(tile.posy * 24) / (float)tileSet.imageSize.y);
 				spriteInstance.Init(spritePath);
-				//get uvs too
+				spriteInstance.SetPosition(static_cast<float>(tile.posx * 24) / (float)tileSet.imageSize.x, static_cast<float>(tile.posy * 24) / (float)tileSet.imageSize.y);
+				
+				unsigned int width = tileSet.tileCount / tileSet.columns;
+				unsigned int tileIndex = tile.gid - tileSet.firstgid;
+				unsigned int tileX = tileIndex / width;
+				unsigned int tileY = tileIndex % width;
+				
+				wendy::STextureRect textureRect;
+				textureRect.topleft.Set(tileX, tileY);
+				textureRect.botright.Set(tileX + tileSet.tileSize.x, tileY + tileSet.tileSize.y);
+				textureRect.topleft /= CU::Vector2f(tileSet.imageSize);
+				textureRect.botright /= CU::Vector2f(tileSet.imageSize);
+
+				spriteInstance.SetTextureRect(textureRect);
 				break;
 			}
 		}

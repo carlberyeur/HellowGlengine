@@ -46,4 +46,19 @@ namespace wendy
 	{
 		glUniform3fv(myUniformLocation, 1, aData.vector);
 	}
+	
+	
+	CGLUniformVec4::CGLUniformVec4(const int aUniformLocation)
+		: myUniformLocation(aUniformLocation)
+	{
+	}
+	
+	CGLUniformVec4::~CGLUniformVec4()
+	{
+	}
+
+	void CGLUniformVec4::SetData(const CU::Vector4f& aData)
+	{
+		glUniform4fv(myUniformLocation, 1, aData.vector);
+	}
 }

@@ -25,6 +25,7 @@ namespace wendy
 			eInt,
 			eVec2,
 			eVec3,
+			eVec4
 		};
 
 		virtual void* GetConstantBuffer(const eConstantBufferType aType, const std::string& aConstantBufferName) = 0;
@@ -48,5 +49,11 @@ namespace wendy
 	inline CConstantBuffer<CU::Vector3f>* IEffect::GetConstantBuffer(const std::string& aConstantBufferName)
 	{
 		return reinterpret_cast<CConstantBuffer<CU::Vector3f>*>(GetConstantBuffer(eConstantBufferType::eVec3, aConstantBufferName));
+	}
+
+	template<>
+	inline CConstantBuffer<CU::Vector4f>* IEffect::GetConstantBuffer(const std::string& aConstantBufferName)
+	{
+		return reinterpret_cast<CConstantBuffer<CU::Vector4f>*>(GetConstantBuffer(eConstantBufferType::eVec4, aConstantBufferName));
 	}
 }

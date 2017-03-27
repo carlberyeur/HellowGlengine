@@ -2,6 +2,8 @@
 
 namespace wendy
 {
+	struct STextureRect;
+
 	class IMesh;
 	class ITexture;
 	class IEffect;
@@ -17,7 +19,7 @@ namespace wendy
 		~CSprite();
 
 		void Init(const std::string& aTexturePath);
-		void Render(const CU::Vector2f aPosition);
+		void Render(const CU::Vector2f aPosition, const STextureRect& aTextureRect);
 		CU::Vector2f GetTextureSize() const;
 
 	private:
@@ -28,5 +30,6 @@ namespace wendy
 		CConstantBuffer<CU::Vector3f>* myPositionSlot;
 		CConstantBuffer<CU::Vector2f>* mySizeSlot;
 		CConstantBuffer<int>* myTextureSlot;
+		CConstantBuffer<CU::Vector4f>* myTextureRectSlot;
 	};
 }
