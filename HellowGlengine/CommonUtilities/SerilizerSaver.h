@@ -6,8 +6,11 @@ namespace CU
 	class CSerializerSaver : public ISerializer
 	{
 	public:
-		CSerializerSaver(const unsigned int aBufferStartSize = 32);
+		CSerializerSaver();
+		CSerializerSaver(const unsigned int aBufferStartSize);
 		~CSerializerSaver();
+
+		void Init(const unsigned int aBufferStartSize);
 
 		virtual void Cerealize(unsigned char& aChar) override;
 		virtual void Cerealize(unsigned int& aUInt) override;

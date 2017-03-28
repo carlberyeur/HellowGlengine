@@ -15,9 +15,9 @@ int wmain(int argc, wchar_t* argv[])
 		CGame game;
 
 		wendy::CEngine::SCreationParameters creationParameters = {};
-		creationParameters.myInitCallback = std::bind(&CGame::Init, &game);
-		creationParameters.myUpdateCallback = std::bind(&CGame::Update, &game, std::placeholders::_1);
-		creationParameters.myRenderCallback = std::bind(&CGame::Render, &game);
+		creationParameters.myInitCallback = [&game]() { game.Init(); };
+		creationParameters.myUpdateCallback = [&game](const CU::Time aDeltaTime) { return game.Update(aDeltaTime); };
+		creationParameters.myRenderCallback = [&game]() { game.Render(); };
 		creationParameters.myWindowWidth = 1920u;
 		creationParameters.myWindowHeight = 1080u;
 		creationParameters.myCreationFlags = 0u;

@@ -3,14 +3,23 @@
 
 namespace CU
 {
-	CSerializerSaver::CSerializerSaver(const unsigned int aBufferStartSize)
-		: myBuffer(aBufferStartSize)
+	CSerializerSaver::CSerializerSaver()
 	{
-		assert(myBuffer.Capacity() > 0 && "incoming heap corruption");
+	}
+
+	CSerializerSaver::CSerializerSaver(const unsigned int aBufferStartSize)
+	{
+		Init(aBufferStartSize);
 	}
 
 	CSerializerSaver::~CSerializerSaver()
 	{
+	}
+
+	void CSerializerSaver::Init(const unsigned int aBufferStartSize)
+	{
+		assert(aBufferStartSize > 0 && "incoming heap corruption");
+		myBuffer.Init(aBufferStartSize);
 	}
 
 	void CSerializerSaver::Cerealize(unsigned char& aChar)
