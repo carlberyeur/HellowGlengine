@@ -117,6 +117,6 @@ namespace CU
 
 	unsigned int NetworkToHost(unsigned int aUInt)
 	{
-		return ntohs(aUInt);
+		return ntohl(aUInt);
 	}
 }

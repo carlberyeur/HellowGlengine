@@ -18,7 +18,7 @@ CPhysicsEngine::~CPhysicsEngine()
 {
 }
 
-bool CPhysicsEngine::InitWorld(const CU::Vector2f aGravity)
+bool CPhysicsEngine::InitWorld(const CU::Vector2f /*aGravity*/)
 {
 	//myWorld = CU::MakeUnique<b2World>(b2Vec2(aGravity.x, aGravity.y));
 	//return myWorld.IsValid();

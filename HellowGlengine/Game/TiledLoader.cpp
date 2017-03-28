@@ -42,7 +42,7 @@ namespace TiledLoader
 		{
 			return -1;
 		}
-		tileDatas.Init(decodedData.size() / 4);
+		tileDatas.Init((unsigned int)decodedData.size() / 4);
 
 		int layerWidth = aJsonObject["width"].GetInt();
 		int layerHeight = aJsonObject["height"].GetInt();
@@ -70,8 +70,8 @@ namespace TiledLoader
 				{
 					STileData tile;
 					tile.gid = gid;
-					tile.posx = x;
-					tile.posy = y;
+					tile.posx = (short)x;
+					tile.posy = (short)y;
 
 					tileDatas.Add(tile);
 				}

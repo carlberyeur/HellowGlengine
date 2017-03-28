@@ -1,5 +1,6 @@
 #pragma once
 
+class IComponent;
 class CSpriteComponent;
 
 class CSpriteComponentManager
@@ -7,6 +8,8 @@ class CSpriteComponentManager
 public:
 	friend class CComponentManager;
 
+	CSpriteComponent* CreateSpriteComponent();
+	IComponent* CreateComponent();
 
 private:
 	CSpriteComponentManager(CComponentManager& aComponentManager);

@@ -12,7 +12,7 @@ public:
 	~CScene();
 
 	bool Init();
-	void Update(const CU::Time& aDeltaTime);
+	void Update(const CU::Time aDeltaTime);
 	void Render();
 
 	int AddSpriteInstance(wendy::CSpriteInstance&& aSpriteInstance);

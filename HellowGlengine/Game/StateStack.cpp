@@ -42,7 +42,7 @@ void CStateStack::Pop()
 	}
 }
 
-bool CStateStack::Update(const CU::Time& aDeltaTime)
+bool CStateStack::Update(const CU::Time aDeltaTime)
 {
 	if (UpdateAtIndex(myStates.Size() - 1, aDeltaTime) == eStateStatus::ePop)
 	{
@@ -57,7 +57,7 @@ void CStateStack::Render()
 	RenderAtIndex(myStates.Size() - 1);
 }
 
-eStateStatus CStateStack::UpdateAtIndex(const int aIndex, const CU::Time& aDeltaTime)
+eStateStatus CStateStack::UpdateAtIndex(const int aIndex, const CU::Time aDeltaTime)
 {
 	if (aIndex < 0) return eStateStatus::eKeep;
 

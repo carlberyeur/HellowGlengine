@@ -46,6 +46,12 @@
     <Filter Include="GameObject\ComponentManager\CSpriteComponentManager">
       <UniqueIdentifier>{4b8215a5-968e-42a1-982e-425b794c9a69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\PhysicsComponent">
+      <UniqueIdentifier>{7a3eae4e-6609-43e3-a3ff-351c3aec7a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\InputComponent">
+      <UniqueIdentifier>{376c9dce-5ace-417f-8770-67260cc8b205}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -99,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="SpriteComponentManager.h">
       <Filter>GameObject\ComponentManager\CSpriteComponentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentType.h">
+      <Filter>GameObject\ComponentManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

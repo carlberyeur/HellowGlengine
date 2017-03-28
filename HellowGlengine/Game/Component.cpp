@@ -4,6 +4,7 @@
 
 IComponent::IComponent()
 	: myParent(nullptr)
+	, myID(-1)
 {
 }
 
@@ -15,11 +16,25 @@ void IComponent::Init()
 {
 }
 
+void IComponent::Update(const CU::Time /*aDeltaTime*/)
+{
+}
+
 void IComponent::Recieve(const SComponentMessage& /*aMessage*/)
 {
 }
 
-CGameObject* IComponent::GetParent()
+bool IComponent::Answer(SComponentMessage& /*aMessage*/)
+{
+	return false;
+}
+
+CGameObject* IComponent::GetParent() /*const*/
 {
 	return myParent;
+}
+
+int IComponent::GetID() const
+{
+	return myID;
 }

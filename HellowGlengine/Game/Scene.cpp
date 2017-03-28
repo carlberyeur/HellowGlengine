@@ -24,7 +24,7 @@ bool CScene::Init()
 	return true;
 }
 
-void CScene::Update(const CU::Time& /*aDeltaTime*/)
+void CScene::Update(const CU::Time /*aDeltaTime*/)
 {
 }
 

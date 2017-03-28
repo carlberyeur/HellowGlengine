@@ -25,8 +25,12 @@ void CLevel::Init()
 	myGameObjects.GetLast().Init();
 }
 
-void CLevel::Update(const CU::Time& /*aDeltaTime*/)   
+void CLevel::Update(const CU::Time aDeltaTime)
 {
+	for (CGameObject& gameObject : myGameObjects)
+	{
+		gameObject.Update(aDeltaTime);
+	}
 }
 
 int CLevel::AddGameObject()

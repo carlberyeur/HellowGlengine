@@ -12,6 +12,9 @@ namespace CU
 		inline void* GetAddress();
 		inline constexpr int Size() const;
 
+		//inline static T* New();
+		//inline static void Delete(T* aObject);
+
 	private:
 		char myMemoryChunk[SIZE];
 	};
