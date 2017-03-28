@@ -85,6 +85,9 @@
     <ClInclude Include="LevelLoader.h">
       <Filter>Loading</Filter>
     </ClInclude>
+    <ClInclude Include="TiledLoader.h">
+      <Filter>Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="LevelLoader.cpp">
+      <Filter>Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledLoader.cpp">
       <Filter>Loading</Filter>
     </ClCompile>
   </ItemGroup>

@@ -212,6 +212,9 @@
     <ClInclude Include="RenderSpriteCommand.h">
       <Filter>Renderer\RenderCommand\RenderSprite</Filter>
     </ClInclude>
+    <ClInclude Include="TextureRect.h">
+      <Filter>Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">

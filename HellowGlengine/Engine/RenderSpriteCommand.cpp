@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "RenderSpriteCommand.h"
 #include "Sprite.h"
+#include "TextureRect.h"
 
 namespace wendy
 {
-	CRenderSpriteCommand::CRenderSpriteCommand(CSprite* aSprite, const CU::Vector2f aPosition)
-		: myPosition(aPosition)
+	CRenderSpriteCommand::CRenderSpriteCommand(CSprite* aSprite, const STextureRect& aTextureRect, const CU::Vector2f aPosition)
+		: myTextureRect(aTextureRect)
+		, myPosition(aPosition)
 		, mySprite(aSprite)
 	{
 	}
@@ -16,6 +18,6 @@ namespace wendy
 
 	void CRenderSpriteCommand::Do()
 	{
-		mySprite->Render(myPosition);
+		mySprite->Render(myPosition, myTextureRect);
 	}
 }

@@ -10,9 +10,6 @@
 #include "Renderer.h"
 #include "InputManager.h"
 
-//temp includes
-#include "Sprite.h"
-
 namespace wendy
 {
 	CEngine* CEngine::ourInstance = nullptr;
@@ -47,20 +44,12 @@ namespace wendy
 		return ourInstance;
 	}
 
-	CSprite* sprite = nullptr;
-	CSprite* sprite2 = nullptr;
-
 	void CEngine::Start()
 	{
 		if (myInitCallback)
 		{
 			myInitCallback();
 		}
-
-		sprite = new CSprite();
-		sprite->Init("Textures/square2.tga");
-		sprite2 = new CSprite();
-		sprite2->Init("Textures/square.tga");
 
 		std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
 
@@ -106,9 +95,6 @@ namespace wendy
 	void CEngine::Render()
 	{
 		myGraphicsFramework->ClearFrame();
-
-		sprite->Render({ 0.25f, 0.5f });
-		sprite2->Render({ 0.5f, 0.5f });
 
 		myRenderer->Render();
 

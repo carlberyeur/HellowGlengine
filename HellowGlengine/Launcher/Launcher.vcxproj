@@ -74,7 +74,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+    <TargetName>HelloWengine_$(Configuration)</TargetName>
     <IntDir>$(SolutionDir)..\Temp\$(ProjectName)_$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)..\Bin\</OutDir>
   </PropertyGroup>
@@ -83,7 +83,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+    <TargetName>HelloWengine_$(Configuration)</TargetName>
     <IntDir>$(SolutionDir)..\Temp\$(ProjectName)_$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)..\Bin\</OutDir>
   </PropertyGroup>

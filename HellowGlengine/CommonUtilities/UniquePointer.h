@@ -89,7 +89,10 @@ namespace CU
 	template <typename ObjectType, typename Deleter>
 	UniquePointer<ObjectType, Deleter>::~UniquePointer()
 	{
-		Destroy();
+		if (myObject)
+		{
+			Destroy();
+		}
 	}
 
 	template<typename ObjectType, typename Deleter>

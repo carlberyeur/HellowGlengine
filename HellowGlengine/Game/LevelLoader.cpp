@@ -2,40 +2,23 @@
 #include "LevelLoader.h"
 #include "../CommonUtilities/JsonValue.h"
 
-CLevelLoader* CLevelLoader::ourInstance = nullptr;
-
 CLevelLoader::CLevelLoader(CLevel& aLevel, CScene& aScene)
 	: myLevel(aLevel)
 	, myScene(aScene)
 {
-	assert(ourInstance == nullptr);
-	ourInstance = this;
 }
 
 CLevelLoader::~CLevelLoader()
 {
-	assert(ourInstance == this);
-	ourInstance = nullptr;
 }
-
-//CLevelLoader* CLevelLoader::GetInstance()
-//{
-//	return ourInstance;
-//}
 
 bool CLevelLoader::LoadLevel(const std::string& aJsonPath)
 {
 	CU::CJsonValue root(aJsonPath);
-	CU::CJsonValue data = root.at("layers").at(0).at("data");
-
-	const char* rawData = data.GetString().c_str();
-	unsigned int* gids = new unsigned int[data.GetString().size()];
-	for (int i = 0; i < data.GetString().size(); i++)
+	if (CallLoadFunction("root", root) != -1)
 	{
-		gids[i] = (unsigned int)data.GetString()[i];
+		return true;
 	}
-
-	delete[] gids;
 	
 	return false;
 }
@@ -49,4 +32,15 @@ void CLevelLoader::RegisterLoadFunction(const std::string& aFunctionName, const 
 	}
 
 	myLoadFunctions[aFunctionName] = aLoadFunction;
+}
+
+int CLevelLoader::CallLoadFunction(const std::string& aJsonObjectKey, const CU::CJsonValue& aJsonObjectValue)
+{
+	auto function = myLoadFunctions.find(aJsonObjectKey);
+	if (function != myLoadFunctions.end())
+	{
+		return function->second(*this, aJsonObjectValue);
+	}
+
+	return -1;
 }

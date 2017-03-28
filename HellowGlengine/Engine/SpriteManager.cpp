@@ -23,21 +23,37 @@ namespace wendy
 
 	CU::UniquePointer<CSprite, SSpriteDeleter> CSpriteManager::CreateSprite(const std::string& aSpritePath)
 	{
-		CSprite* sprite = new CSprite();
-		sprite->Init(aSpritePath);
-		mySprites.Add(sprite);
+		if (mySpriteLookup.find(aSpritePath) == mySpriteLookup.end())
+		{
+			CSprite* newSprite = new CSprite();
+			newSprite->Init(aSpritePath);
+			
+			int newIndex = mySprites.Size();
+			mySpriteLookup[aSpritePath] = newIndex;
+			mySprites.Add(newSprite);
+		}
 
+		int index = mySpriteLookup[aSpritePath];
+		CSprite* sprite = mySprites[index];
+		sprite->AddRef();
 		return CU::UniquePointer<CSprite, SSpriteDeleter>(sprite);
 	}
 
 	CU::UniquePointer<CSprite, SSpriteDeleter> CSpriteManager::CopySprite(const CSprite& aSprite)
 	{
-		return CU::MakeUnique<CSprite, SSpriteDeleter>(aSprite);
+		CU::UniquePointer<CSprite, SSpriteDeleter> newSprite = CU::MakeUnique<CSprite, SSpriteDeleter>(aSprite);
+		newSprite->AddRef();
+		return newSprite;
 	}
 
 	void CSpriteManager::DestroySprite(CSprite* aSprite)
 	{
 		std::lock_guard<std::mutex> lock(myDeleteSpritesLock);
+		if (aSprite->DecRef() > 0)
+		{
+			return;
+		}
+
 		if (mySprites.RemoveCyclic(aSprite))
 		{
 			myDeadSprites.Add(aSprite);
