@@ -1,5 +1,10 @@
 #pragma once
 
+namespace CU
+{
+	class ISerializer;
+}
+
 struct SComponentMessage;
 class IComponent;
 
@@ -23,6 +28,8 @@ public:
 	void SetPosition(const CU::Vector2f aPosition);
 	void SetPosition(const float aPositionX, const float aPositionY);
 	CU::Vector2f GetPosition() const;
+
+	bool Serialize(CU::ISerializer& aSerializer);
 
 private:
 	CU::GrowingArray<IComponent*> myComponents;

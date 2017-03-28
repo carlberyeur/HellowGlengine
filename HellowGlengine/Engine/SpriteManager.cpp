@@ -60,6 +60,28 @@ namespace wendy
 		}
 	}
 
+	std::string CSpriteManager::GetSpritePath(const CSprite& aSprite) const
+	{
+		//int spriteIndex = mySprites.Find(&aSprite);
+		for (int i = 0; i < mySprites.Size(); ++i)
+		{
+			if (mySprites[i] == &aSprite)
+			{
+				for (const auto& lookup : mySpriteLookup)
+				{
+					if (lookup.second == i)
+					{
+						return lookup.first;
+					}
+				}
+
+				break;
+			}
+		}
+
+		return std::string();
+	}
+
 	void CSpriteManager::CollectGarbage()
 	{
 		std::lock_guard<std::mutex> lock(myDeleteSpritesLock);

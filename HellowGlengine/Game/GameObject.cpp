@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "..\CommonUtilities\Serializer.h"
 
 CGameObject::CGameObject()
 	: myComponents(4u)
@@ -109,4 +110,17 @@ void CGameObject::SetPosition(const float aPositionX, const float aPositionY)
 CU::Vector2f CGameObject::GetPosition() const
 {
 	return myPosition;
+}
+
+bool CGameObject::Serialize(CU::ISerializer& aSerializer)
+{
+	aSerializer.Cerealize(myPosition);
+	aSerializer.Cerealize(myRotation);
+	unsigned int componentCount = myComponents.Size();
+	aSerializer.Cerealize(componentCount);
+	for (IComponent* component : myComponents)
+	{
+		component->Serialize(aSerializer);
+	}
+	return true;
 }

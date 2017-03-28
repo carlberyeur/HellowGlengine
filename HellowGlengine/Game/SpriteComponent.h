@@ -15,10 +15,13 @@ public:
 	~CSpriteComponent();
 
 	CSpriteComponent& operator=(const CSpriteComponent& aCopy);
-	IComponent* Copy() override;
-	void Init() override;
+
+	virtual IComponent* Copy() override;
+	virtual void Init() override;
 
 	void Render();
+
+	virtual bool Serialize(CU::ISerializer& aSerializer) override;
 
 private:
 	CU::UniquePointer<wendy::CSpriteInstance> mySpriteInstance;

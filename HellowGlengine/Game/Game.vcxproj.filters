@@ -40,6 +40,12 @@
     <Filter Include="Loading">
       <UniqueIdentifier>{fa287f41-616c-4849-a9e5-75459f0e8c83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\ComponentManager">
+      <UniqueIdentifier>{e2d0c3d2-cf1a-4fe7-bc5b-7cb0ffdb4469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\ComponentManager\CSpriteComponentManager">
+      <UniqueIdentifier>{4b8215a5-968e-42a1-982e-425b794c9a69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -88,6 +94,12 @@
     <ClInclude Include="TiledLoader.h">
       <Filter>Loading</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>GameObject\ComponentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponentManager.h">
+      <Filter>GameObject\ComponentManager\CSpriteComponentManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -129,6 +141,12 @@
     </ClCompile>
     <ClCompile Include="TiledLoader.cpp">
       <Filter>Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>GameObject\ComponentManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponentManager.cpp">
+      <Filter>GameObject\ComponentManager\CSpriteComponentManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

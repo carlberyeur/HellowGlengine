@@ -19,6 +19,8 @@ namespace wendy
 		CU::UniquePointer<CSprite, SSpriteDeleter> CopySprite(const CSprite& aSprite);
 		void DestroySprite(CSprite* aSprite);
 
+		std::string GetSpritePath(const CSprite& aSprite) const;
+
 		void CollectGarbage();
 
 	private:

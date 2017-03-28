@@ -22,6 +22,7 @@ namespace wendy
 		void Render();
 
 		CU::Vector2f GetSize() const;
+		std::string GetFilePath() const;
 
 		inline void SetTextureRect(const STextureRect& aTextureRect);
 		inline void SetPosition(const CU::Vector2f aPosition);

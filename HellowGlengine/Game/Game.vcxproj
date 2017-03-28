@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ComponentMessage.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="ScriptLoader.h" />
     <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="SpriteComponentManager.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
     <ClInclude Include="stdafx.h" />
@@ -167,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -176,6 +179,7 @@
     <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="ScriptLoader.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="SpriteComponentManager.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="stdafx.cpp">

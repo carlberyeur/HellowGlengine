@@ -78,7 +78,7 @@ namespace CU
 		inline void DeleteAtIndex(const SizeType aIndex);
 		inline void DeleteCyclic(const ObjectType& aObject);
 		inline void DeleteCyclicAtIndex(const SizeType aIndex);
-		inline SizeType Find(const ObjectType& aObject);
+		inline SizeType Find(const ObjectType& aObject) const;
 
 		inline ObjectType* TryGet(const SizeType aIndex);
 		inline const ObjectType* TryGet(const SizeType aIndex) const;
@@ -531,7 +531,7 @@ namespace CU
 	}
 
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
-	inline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Find(const ObjectType& aObject)
+	inline SizeType GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Find(const ObjectType& aObject) const
 	{
 		for (SizeType i = 0; i < mySize; ++i)
 		{

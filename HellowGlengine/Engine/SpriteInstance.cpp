@@ -71,4 +71,14 @@ namespace wendy
 	{
 		return mySprite->GetTextureSize();
 	}
+
+	std::string CSpriteInstance::GetFilePath() const
+	{
+		if (!mySprite)
+		{
+			return std::string();
+		}
+
+		return CEngine::GetInstance().GetSpriteManager().GetSpritePath(*mySprite);
+	}
 }

@@ -2,8 +2,6 @@
 #include "PythonModule.h"
 #include "PythonFunction.h"
 
-#define DIS (*this)
-
 CPythonModule::CPythonModule()
 	: myModuleObject(nullptr)
 {
@@ -11,12 +9,12 @@ CPythonModule::CPythonModule()
 
 CPythonModule::CPythonModule(const CPythonModule& aCopy)
 {
-	DIS = aCopy;
+	*this = aCopy;
 }
 
 CPythonModule::CPythonModule(CPythonModule&& aTemporary)
 {
-	DIS = std::move(aTemporary);
+	*this = std::move(aTemporary);
 }
 
 CPythonModule::~CPythonModule()
@@ -37,7 +35,7 @@ CPythonModule CPythonModule::operator=(const CPythonModule& aCopy)
 	myModuleObject = aCopy.myModuleObject;
 	Py_XINCREF(myModuleObject);
 
-	return DIS;
+	return *this;
 }
 
 CPythonModule CPythonModule::operator=(CPythonModule&& aTemporary)
@@ -46,7 +44,7 @@ CPythonModule CPythonModule::operator=(CPythonModule&& aTemporary)
 	myModuleObject = aTemporary.myModuleObject;
 	aTemporary.myModuleObject = nullptr;
 
-	return DIS;
+	return *this;
 }
 
 bool CPythonModule::HasAttribute(const std::string& aAttributeName) const
