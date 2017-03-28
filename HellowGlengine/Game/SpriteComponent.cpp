@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "SpriteComponent.h"
+
+#include "ComponentManager.h"
+
 #include "../Engine/SpriteInstance.h"
 #include "../CommonUtilities/Serializer.h"
 
@@ -45,21 +48,23 @@ void CSpriteComponent::Render()
 	mySpriteInstance->Render();
 }
 
-bool CSpriteComponent::Serialize(CU::ISerializer& aSerializer)
+bool CSpriteComponent::Load(CU::ISerializer& aSerializer)
 {
-	//TODO: spara eller hämta filepath, om hämta: skapa ny sprite
 	std::string filePath;
-	if (mySpriteInstance.IsValid())
-	{
-		filePath = mySpriteInstance->GetFilePath();
-	}
-	bool isLoading = filePath.empty();
+
 	aSerializer.Cerealize(filePath);
-	isLoading = isLoading && !filePath.empty();
-	if (isLoading)
-	{
-		mySpriteInstance = CU::MakeUnique<wendy::CSpriteInstance>();
-		mySpriteInstance->Init(filePath);
-	}
+
+	mySpriteInstance = CU::MakeUnique<wendy::CSpriteInstance>();
+	mySpriteInstance->Init(filePath);
+	return true;
+}
+
+bool CSpriteComponent::Save(CU::ISerializer& aSerializer)
+{
+	unsigned char componentType = static_cast<unsigned char>(/*eComponentType::eSprite*/0);
+	aSerializer.Cerealize(componentType);
+	
+	std::string filePath = mySpriteInstance->GetFilePath();
+	aSerializer.Cerealize(filePath);
 	return true;
 }

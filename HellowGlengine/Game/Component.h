@@ -20,7 +20,8 @@ public:
 
 	CGameObject* GetParent();
 
-	virtual bool Serialize(CU::ISerializer& aSerializer) = 0;
+	virtual bool Load(CU::ISerializer& aSerializer) = 0;
+	virtual bool Save(CU::ISerializer& aSerializer) = 0;
 
 private:
 	virtual void Init();

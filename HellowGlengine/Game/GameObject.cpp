@@ -114,13 +114,44 @@ CU::Vector2f CGameObject::GetPosition() const
 
 bool CGameObject::Serialize(CU::ISerializer& aSerializer)
 {
-	aSerializer.Cerealize(myPosition);
-	aSerializer.Cerealize(myRotation);
+}
+#include "../CommonUtilities/SerilizerSaver.h"
+#include "../CommonUtilities/SerializerLoader.h"
+
+bool CGameObject::Save()
+{
+	CU::CSerializerSaver serializer(1024);
+
+	serializer.Cerealize(myPosition);
+	serializer.Cerealize(myRotation);
+	
 	unsigned int componentCount = myComponents.Size();
-	aSerializer.Cerealize(componentCount);
+	serializer.Cerealize(componentCount);
+	
 	for (IComponent* component : myComponents)
 	{
-		component->Serialize(aSerializer);
+		component->Save(serializer);
 	}
+	return true;
+}
+
+bool CGameObject::Load()
+{
+	CU::CSerializerLoader serializer(1024);
+
+	serializer.Cerealize(myPosition);
+	serializer.Cerealize(myRotation);
+
+	unsigned int componentCount = myComponents.Size();
+	serializer.Cerealize(componentCount);
+
+	myComponents.Init(componentCount);
+
+	for (IComponent* component : myComponents)
+	{
+		component->Save(serializer);
+	}
+
+
 	return true;
 }

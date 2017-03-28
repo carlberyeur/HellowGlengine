@@ -30,6 +30,8 @@ public:
 	CU::Vector2f GetPosition() const;
 
 	bool Serialize(CU::ISerializer& aSerializer);
+	bool Save();
+	bool Load();
 
 private:
 	CU::GrowingArray<IComponent*> myComponents;

@@ -21,7 +21,8 @@ public:
 
 	void Render();
 
-	virtual bool Serialize(CU::ISerializer& aSerializer) override;
+	virtual bool Load(CU::ISerializer& aSerializer) override;
+	virtual bool Save(CU::ISerializer& aSerializer) override;
 
 private:
 	CU::UniquePointer<wendy::CSpriteInstance> mySpriteInstance;
