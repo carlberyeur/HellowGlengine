@@ -19,7 +19,7 @@ namespace wendy
 		~CSprite();
 
 		void Init(const std::string& aTexturePath);
-		void Render(const CU::Vector2f aPosition, const STextureRect& aTextureRect);
+		void Render(const CU::Vector2f aPosition, const CU::Vector2f aScale, const STextureRect& aTextureRect);
 		CU::Vector2f GetTextureSize() const;
 
 		inline int AddRef();

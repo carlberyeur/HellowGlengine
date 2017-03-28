@@ -48,9 +48,9 @@ namespace TiledLoader
 		int layerHeight = aJsonObject["height"].GetInt();
 
 		int tileIndex = 0;
-		for (int x = 0; x < layerWidth; ++x)
+		for (int y = 0; y < layerHeight; ++y)
 		{
-			for (int y = 0; y < layerHeight; ++y)
+			for (int x = 0; x < layerWidth; ++x)
 			{
 				unsigned int gid = decodedData[tileIndex] | decodedData[tileIndex + 1] << 8 | decodedData[tileIndex + 2] << 16 | decodedData[tileIndex + 3] << 24;
 				tileIndex += 4;

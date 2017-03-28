@@ -112,9 +112,6 @@ CU::Vector2f CGameObject::GetPosition() const
 	return myPosition;
 }
 
-bool CGameObject::Serialize(CU::ISerializer& aSerializer)
-{
-}
 #include "../CommonUtilities/SerilizerSaver.h"
 #include "../CommonUtilities/SerializerLoader.h"
 

@@ -18,12 +18,13 @@ public:
 	IState& operator=(const IState& aCopy);
 
 	virtual void Init() = 0;
-	virtual eStateStatus Update(const CU::Time& aDeltaTime) = 0;
+	virtual eStateStatus Update(const CU::Time aDeltaTime) = 0;
 	virtual void Render() = 0;
 	virtual void OnEnter() = 0;
 	virtual void OnExit() = 0;
 
 	void SetStatus(const eStateStatus aStatus);
+	eStateStatus GetStatus() const;
 
 	bool LetThroughRender() const;
 	bool LetThroughUpdate() const;

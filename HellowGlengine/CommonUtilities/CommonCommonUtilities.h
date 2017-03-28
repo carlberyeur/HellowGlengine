@@ -17,3 +17,4 @@
 #include "MemoryManagedObject.h"
 #include "UniquePointer.h"
 #include "SharedPointer.h"
+#include "MemoryBlob.h"

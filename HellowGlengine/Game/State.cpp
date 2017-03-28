@@ -36,6 +36,11 @@ void IState::SetStatus(const eStateStatus aStatus)
 	myStatus = aStatus;
 }
 
+eStateStatus IState::GetStatus() const
+{
+	return myStatus;
+}
+
 bool IState::LetThroughRender() const
 {
 	return myLetThroughRender;

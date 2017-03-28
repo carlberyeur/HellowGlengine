@@ -8,6 +8,7 @@
 #include "TiledLoader.h"
 
 #include "../Engine/SpriteInstance.h"
+#include "../Engine/Engine.h"
 
 CPlayState::CPlayState(CStateStack& aStateStack)
 	: IState(aStateStack)
@@ -38,8 +39,8 @@ void CPlayState::Init()
 	levelLoader.RegisterLoadFunction("tilelayer", TiledLoader::LoadTileLayer);
 	levelLoader.RegisterLoadFunction("tilesets", TiledLoader::LoadTileSets);
 	levelLoader.RegisterLoadFunction("objects", TiledLoader::LoadObjects);
-	levelLoader.LoadLevel("Data/Levels/sewers2.json");
-
+	levelLoader.LoadLevel("Data/Levels/sewers.json");
+	
 	for (STileData& tile : levelLoader.GetTileDatas())
 	{
 		wendy::CSpriteInstance spriteInstance;
@@ -51,18 +52,27 @@ void CPlayState::Init()
 			{
 				spritePath = tileSet.texture;
 				spriteInstance.Init(spritePath);
-				spriteInstance.SetPosition(static_cast<float>(tile.posx * 24) / (float)tileSet.imageSize.x, static_cast<float>(tile.posy * 24) / (float)tileSet.imageSize.y);
 				
-				unsigned int width = tileSet.tileCount / tileSet.columns;
+				CU::Vector2f tilePosition(static_cast<float>(tile.posx * 24) / (float)tileSet.imageSize.x, static_cast<float>(tile.posy * 24) / (float)tileSet.imageSize.y);
+				tilePosition *= CU::Vector2f(tileSet.imageSize) / wendy::CEngine::GetInstance().GetWindowSizeF();
+				spriteInstance.SetPosition(tilePosition);
+
+				spriteInstance.SetVirtualSize(tileSet.tileSize);
+
+				unsigned int width = tileSet.columns;
 				unsigned int tileIndex = tile.gid - tileSet.firstgid;
-				unsigned int tileX = tileIndex / width;
-				unsigned int tileY = tileIndex % width;
+				unsigned int tileX = tileIndex % width;
+				unsigned int tileY = tileIndex / width;
+				tileX *= tileSet.tileSize.x;
+				tileY *= tileSet.tileSize.y;
 				
 				wendy::STextureRect textureRect;
 				textureRect.topleft.Set(tileX, tileY);
 				textureRect.botright.Set(tileX + tileSet.tileSize.x, tileY + tileSet.tileSize.y);
+				
 				textureRect.topleft /= CU::Vector2f(tileSet.imageSize);
 				textureRect.botright /= CU::Vector2f(tileSet.imageSize);
+
 
 				spriteInstance.SetTextureRect(textureRect);
 				break;
@@ -76,12 +86,12 @@ void CPlayState::Init()
 	myScene->Init();
 }
 
-eStateStatus CPlayState::Update(const CU::Time& aDeltaTime)
+eStateStatus CPlayState::Update(const CU::Time aDeltaTime)
 {
 	myLevel->Update(aDeltaTime);
 	myScene->Update(aDeltaTime);
 
-	return eStateStatus::eKeep;
+	return GetStatus();
 }
 
 void CPlayState::Render()

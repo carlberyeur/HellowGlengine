@@ -21,8 +21,9 @@ namespace wendy
 		void Init(const std::string& aTexturePath);
 		void Render();
 
-		CU::Vector2f GetSize() const;
 		std::string GetFilePath() const;
+		CU::Vector2f GetSize() const;
+		void SetVirtualSize(const CU::Vector2ui aVirtualPixelSize);
 
 		inline void SetTextureRect(const STextureRect& aTextureRect);
 		inline void SetPosition(const CU::Vector2f aPosition);
@@ -32,6 +33,7 @@ namespace wendy
 	private:
 		STextureRect myTextureRect;
 		CU::Vector2f myPosition;
+		CU::Vector2f myScale;
 		CU::UniquePointer<CSprite, SSpriteDeleter> mySprite;
 	};
 

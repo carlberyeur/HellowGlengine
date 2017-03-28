@@ -56,14 +56,18 @@ namespace wendy
 		myTextureRectSlot = myEffect->GetConstantBuffer<CU::Vector4f>("textureRect");
 	}
 
-	void CSprite::Render(const CU::Vector2f aPosition, const STextureRect& aTextureRect)
+	void CSprite::Render(const CU::Vector2f aPosition, const CU::Vector2f aScale, const STextureRect& aTextureRect)
 	{
 		myEffect->Activate();
 
 		myTextureSlot->SetData(0);
 		myTextureRectSlot->SetData(aTextureRect.AsVector4f());
 		myPositionSlot->SetData(CU::Vector3f(aPosition, 0));
-		mySizeSlot->SetData(myTexture->GetTextureSizeF() / CEngine::GetInstance().GetWindowSizeF());
+		
+		CU::Vector2f scale = aScale;
+		scale *= myTexture->GetTextureSizeF();
+		scale /= CEngine::GetInstance().GetWindowSizeF();
+		mySizeSlot->SetData(scale);
 
 		myTexture->SetTexture();
 

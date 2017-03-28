@@ -5,9 +5,10 @@
 
 namespace wendy
 {
-	CRenderSpriteCommand::CRenderSpriteCommand(CSprite* aSprite, const STextureRect& aTextureRect, const CU::Vector2f aPosition)
+	CRenderSpriteCommand::CRenderSpriteCommand(CSprite* aSprite, const STextureRect& aTextureRect, const CU::Vector2f aPosition, const CU::Vector2f aScale)
 		: myTextureRect(aTextureRect)
 		, myPosition(aPosition)
+		, myScale(aScale)
 		, mySprite(aSprite)
 	{
 	}
@@ -18,6 +19,6 @@ namespace wendy
 
 	void CRenderSpriteCommand::Do()
 	{
-		mySprite->Render(myPosition, myTextureRect);
+		mySprite->Render(myPosition, myScale, myTextureRect);
 	}
 }

@@ -157,6 +157,7 @@
     <ClInclude Include="JsonValue.h" />
     <ClInclude Include="matrix33.h" />
     <ClInclude Include="matrix44.h" />
+    <ClInclude Include="MemoryBlob.h" />
     <ClInclude Include="MemoryLeekLogger.h" />
     <ClInclude Include="MemoryManagedObject.h" />
     <ClInclude Include="picojson.h" />

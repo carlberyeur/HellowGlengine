@@ -10,12 +10,14 @@ namespace wendy
 {
 	CSpriteInstance::CSpriteInstance()
 		: myTextureRect({ { 0.f, 0.f }, { 1.f, 1.f } })
+		, myScale(CU::Vector2f::One)
 	{
 	}
 
 	CSpriteInstance::CSpriteInstance(CSpriteInstance&& aCopy)
 		: myTextureRect(aCopy.myTextureRect)
 		, myPosition(aCopy.myPosition)
+		, myScale(aCopy.myScale)
 		, mySprite(std::move(aCopy.mySprite))
 	{
 	}
@@ -23,6 +25,7 @@ namespace wendy
 	CSpriteInstance::CSpriteInstance(const CSpriteInstance& aCopy)
 		: myTextureRect(aCopy.myTextureRect)
 		, myPosition(aCopy.myPosition)
+		, myScale(aCopy.myScale)
 	{
 		if (aCopy.mySprite.IsValid())
 		{
@@ -38,6 +41,7 @@ namespace wendy
 	{
 		myTextureRect = aCopy.myTextureRect;
 		myPosition = aCopy.myPosition;
+		myScale = aCopy.myScale;
 		mySprite = std::move(aCopy.mySprite);
 
 		return *this;
@@ -47,6 +51,7 @@ namespace wendy
 	{
 		myTextureRect = aCopy.myTextureRect;
 		myPosition = aCopy.myPosition;
+		myScale = aCopy.myScale;
 
 		if (aCopy.mySprite.IsValid())
 		{
@@ -63,13 +68,19 @@ namespace wendy
 
 	void CSpriteInstance::Render()
 	{
-		IRenderCommand* renderSprite = new CRenderSpriteCommand(mySprite.GetRawPointer(), myTextureRect, myPosition);
+		IRenderCommand* renderSprite = new CRenderSpriteCommand(mySprite.GetRawPointer(), myTextureRect, myPosition, myScale);
 		CEngine::GetInstance().GetRenderer().AddRenderCommand(renderSprite);
 	}
 
 	CU::Vector2f CSpriteInstance::GetSize() const
 	{
 		return mySprite->GetTextureSize();
+	}
+
+	void CSpriteInstance::SetVirtualSize(const CU::Vector2ui aVirtualPixelSize)
+	{
+		CU::Vector2f virtualSize(aVirtualPixelSize);
+		myScale = virtualSize / mySprite->GetTextureSize();
 	}
 
 	std::string CSpriteInstance::GetFilePath() const

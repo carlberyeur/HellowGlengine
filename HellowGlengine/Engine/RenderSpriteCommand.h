@@ -9,7 +9,7 @@ namespace wendy
 	class CRenderSpriteCommand : public IRenderCommand
 	{
 	public:
-		CRenderSpriteCommand(CSprite* aSprite, const STextureRect& aTextureRect, const CU::Vector2f aPosition);
+		CRenderSpriteCommand(CSprite* aSprite, const STextureRect& aTextureRect, const CU::Vector2f aPosition, const CU::Vector2f aScale);
 		~CRenderSpriteCommand();
 
 		void Do() override;
@@ -17,6 +17,7 @@ namespace wendy
 	private:
 		const STextureRect myTextureRect;
 		const CU::Vector2f myPosition;
+		const CU::Vector2f myScale;
 		CSprite* mySprite;
 	};
 }
