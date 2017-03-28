@@ -5,7 +5,21 @@
 
 wendy::CEngine::SCreationParameters::eCreationFlags GetOperatingSystem();
 
+int Init(int argc, wchar_t* argv[]);
+
 int wmain(int argc, wchar_t* argv[])
+{
+	//__try
+	{
+		Init(argc, argv);
+	}
+	//__except (auto e)
+	{
+
+	}
+}
+
+int Init(int argc, wchar_t * argv[])
 {
 	int exitResult = EXIT_FAILURE;
 	CommandLineManager<wchar_t>::CreateInstance(argc, argv);

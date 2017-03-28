@@ -13,6 +13,13 @@ CScene::~CScene()
 
 bool CScene::Init()
 {
+	//wendy::CSpriteInstance sprite;
+	//sprite.SetTextureRect({ { 0.75f, 0.75f }, {1.f, 1.f} });
+	//sprite.SetPosition(0.25f, 0.25f);
+	//sprite.Init("Textures/sewer_tileset.tga");
+	//mySpriteInstances.Add(std::move(sprite));
+
+
 	mySpriteInstances.Optimize();
 	return true;
 }
@@ -26,7 +33,6 @@ void CScene::Render()
 	for (wendy::CSpriteInstance& spriteInstance : mySpriteInstances)
 	{
 		spriteInstance.Render();
-		break;
 	}
 }
 

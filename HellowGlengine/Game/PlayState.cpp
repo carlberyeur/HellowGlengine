@@ -38,7 +38,7 @@ void CPlayState::Init()
 	levelLoader.RegisterLoadFunction("tilelayer", TiledLoader::LoadTileLayer);
 	levelLoader.RegisterLoadFunction("tilesets", TiledLoader::LoadTileSets);
 	levelLoader.RegisterLoadFunction("objects", TiledLoader::LoadObjects);
-	levelLoader.LoadLevel("Data/Levels/sewers.json");
+	levelLoader.LoadLevel("Data/Levels/sewers2.json");
 
 	for (STileData& tile : levelLoader.GetTileDatas())
 	{

@@ -18,6 +18,7 @@ namespace wendy
 		, mySizeSlot(nullptr)
 		, myTextureSlot(nullptr)
 		, myTextureRectSlot(nullptr)
+		, myRefCount(0)
 	{
 	}
 
@@ -29,6 +30,7 @@ namespace wendy
 		, mySizeSlot(aCopy.mySizeSlot)
 		, myTextureSlot(aCopy.myTextureSlot)
 		, myTextureRectSlot(aCopy.myTextureRectSlot)
+		, myRefCount(aCopy.myRefCount)
 	{
 	}
 
