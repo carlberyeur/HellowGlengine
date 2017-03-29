@@ -13,7 +13,8 @@ namespace CU
 		void Init(const unsigned int aBufferStartSize);
 
 		virtual void Cerealize(unsigned char& aChar) override;
-		virtual void Cerealize(unsigned int& aChar) override;
+		virtual void Cerealize(unsigned int& aUInt) override;
+		virtual void Cerealize(int& aInt) override;
 		virtual void Cerealize(float& aFloat) override;
 		virtual void Cerealize(double& aDouble) override;
 		virtual void Cerealize(CU::Vector2f& aVector2f) override;

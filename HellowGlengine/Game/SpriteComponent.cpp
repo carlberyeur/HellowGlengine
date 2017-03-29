@@ -5,6 +5,7 @@
 
 #include "../Engine/SpriteInstance.h"
 #include "../CommonUtilities/Serializer.h"
+#include "ComponentType.h"
 
 CSpriteComponent::CSpriteComponent()
 {
@@ -61,7 +62,7 @@ bool CSpriteComponent::Load(CU::ISerializer& aSerializer)
 
 bool CSpriteComponent::Save(CU::ISerializer& aSerializer)
 {
-	unsigned char componentType = static_cast<unsigned char>(/*eComponentType::eSprite*/0);
+	unsigned char componentType = static_cast<unsigned char>(eComponentType::eScriptComponent);
 	aSerializer.Cerealize(componentType);
 	
 	std::string filePath = mySpriteInstance->GetFilePath();

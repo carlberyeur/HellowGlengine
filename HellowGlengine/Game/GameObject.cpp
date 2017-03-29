@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "GameObject.h"
 #include "Component.h"
+
+#include "ComponentManager.h"
+#include "ComponentType.h"
 #include "..\CommonUtilities\Serializer.h"
 
 CGameObject::CGameObject()
@@ -177,6 +180,9 @@ bool CGameObject::Save()
 
 bool CGameObject::Load()
 {
+	CComponentManager* componentManager = CComponentManager::GetInstance();
+	if (!componentManager) return nullptr;
+
 	CU::CSerializerLoader serializer(1024);
 
 	serializer.Cerealize(myPosition);
@@ -184,14 +190,22 @@ bool CGameObject::Load()
 
 	unsigned int componentCount = myComponents.Size();
 	serializer.Cerealize(componentCount);
-
-	myComponents.Init(componentCount);
-	//CComponentManager::Load(serializer);
-	for (IComponent* component : myComponents)
+	if (componentCount == 0)
 	{
-		component->Load(serializer);
+		return false;
 	}
 
+	myComponents.Init(componentCount);
+	for (unsigned int i = 0; i < componentCount; ++i)
+	{
+		int componentType = static_cast<int>(eComponentType::eNone);
+		serializer.Cerealize(componentType);
+		IComponent* component = componentManager->CreateComponent(static_cast<eComponentType>(componentType));
+		if (component)
+		{
+			component->Load(serializer);
+		}
+	}
 
 	return true;
 }

@@ -14,10 +14,14 @@ public:
 	IComponent* CreateComponent(const eComponentType aType);
 	IComponent* GetComponent(const int aComponentID);
 
+	static CComponentManager* GetInstance();
+
 private:
 	CU::CMemoryBlob<24, CSpriteComponentManager> mySpriteMemory;
 
 	CU::GrowingArray<IComponent*, int> myComponents;
 
 	CSpriteComponentManager* mySpriteComponentManager;
+
+	static CComponentManager* ourInstance;
 };

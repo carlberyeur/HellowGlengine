@@ -10,6 +10,7 @@ namespace CU
 
 		virtual void Cerealize(unsigned char& aChar) = 0;
 		virtual void Cerealize(unsigned int& aUInt) = 0;
+		virtual void Cerealize(int& aInt) = 0;
 		virtual void Cerealize(float& aFloat) = 0;
 		virtual void Cerealize(double& aDouble) = 0;
 		virtual void Cerealize(CU::Vector2f& aVector2f) = 0;

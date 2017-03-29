@@ -6,16 +6,24 @@
 #include "SpriteComponentManager.h"
 
 #include <new>
+#include "..\CommonUtilities\Serializer.h"
+
+CComponentManager* CComponentManager::ourInstance = nullptr;
 
 CComponentManager::CComponentManager()
 	: myComponents(1024)
 {
+	assert(ourInstance == nullptr);
+	ourInstance = this;
 	mySpriteComponentManager = new (mySpriteMemory.GetAddress()) CSpriteComponentManager(*this);
 }
 
 CComponentManager::~CComponentManager()
 {
 	mySpriteComponentManager->~CSpriteComponentManager();
+
+	assert(ourInstance == this);
+	ourInstance = nullptr;
 }
 
 IComponent* CComponentManager::CreateComponent(const eComponentType aType)
@@ -45,5 +53,10 @@ IComponent* CComponentManager::GetComponent(const int aComponentID)
 		return myComponents[aComponentID];
 	}
 
+	return nullptr;
+}
+
+CComponentManager* CComponentManager::GetInstance()
+{
 	return nullptr;
 }

@@ -43,6 +43,12 @@ namespace CU
 		myPointer += sizeof(unsigned int);
 	}
 
+	void CSerializerLoader::Cerealize(int& aInt)
+	{
+		memcpy(&aInt, myBuffer.AsPointer(myPointer), sizeof(int));
+		myPointer += sizeof(int);
+	}
+
 	void CSerializerLoader::Cerealize(float& aFloat)
 	{
 		memcpy(&aFloat, myBuffer.AsPointer(myPointer), sizeof(float));

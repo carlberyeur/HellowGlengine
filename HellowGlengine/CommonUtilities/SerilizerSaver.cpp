@@ -32,6 +32,11 @@ namespace CU
 		myBuffer.AddChunk(&aUInt, sizeof(unsigned int));
 	}
 
+	void CSerializerSaver::Cerealize(int& aInt)
+	{
+		myBuffer.AddChunk(&aInt, sizeof(int));
+	}
+
 	void CSerializerSaver::Cerealize(float& aFloat)
 	{
 		myBuffer.AddChunk(&aFloat, sizeof(float));
