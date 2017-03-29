@@ -56,8 +56,13 @@ bool CSpriteComponent::Load(CU::ISerializer& aSerializer)
 	aSerializer.Cerealize(filePath);
 
 	mySpriteInstance = CU::MakeUnique<wendy::CSpriteInstance>();
-	mySpriteInstance->Init(filePath);
-	return true;
+	if (mySpriteInstance.IsValid())
+	{
+		mySpriteInstance->Init(filePath);
+		return true;
+	}
+
+	return false;
 }
 
 bool CSpriteComponent::Save(CU::ISerializer& aSerializer)

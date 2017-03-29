@@ -3,11 +3,11 @@
 #pragma comment(lib, "../Dependencies/python34/libs/python34.lib")
 
 std::string CPythonWrapper::ourLastError;
-CPythonWrapper* CPythonWrapper::ourInstance(nullptr);
+CPythonWrapper* CPythonWrapper::ourInstance = nullptr;
 
 CPythonWrapper::CPythonWrapper(wchar_t* aArgv0, const VoidFunction& aInitModulesFunction)
 {
-	assert(ourInstance == nullptr && "Python wrapper should not be created twice, make growington?");
+	assert(ourInstance == nullptr && "Python wrapper should not be created twice");
 	ourInstance = this;
 
 	Py_SetProgramName(aArgv0);
@@ -23,7 +23,7 @@ CPythonWrapper::CPythonWrapper(wchar_t* aArgv0, const VoidFunction& aInitModules
 
 CPythonWrapper::~CPythonWrapper()
 {
-	assert(ourInstance == this && "Python wrapper should not be created twice, make growington?");
+	assert(ourInstance == this && "Python wrapper should not be created twice");
 	ourInstance = nullptr;
 
 	Py_Finalize();

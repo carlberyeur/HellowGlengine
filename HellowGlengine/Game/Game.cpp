@@ -29,7 +29,7 @@ CGame::~CGame()
 void CGame::Init()
 {
 	CPythonWrapper pythonWrapper(CommandLineManagerW::GetInstance()->GetArgV()[0], ScriptLoader::InitPythonModules);
-
+	sizeof(CPythonWrapper);
 	CPythonModule module;
 	if (pythonWrapper.ImportModule("hello_wendy_program", module))
 	{

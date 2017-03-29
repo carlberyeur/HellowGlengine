@@ -162,7 +162,7 @@ float CGameObject::GetRotation() const
 
 bool CGameObject::Save()
 {
-	CU::CSerializerSaver serializer(1024);
+	CU::CSerializerSaver serializer(1024u);
 
 	serializer.Cerealize(myPosition);
 	serializer.Cerealize(myRotation);

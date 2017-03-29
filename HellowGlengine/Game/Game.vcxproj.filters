@@ -109,6 +109,9 @@
     <ClInclude Include="ComponentType.h">
       <Filter>GameObject\ComponentManager</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>GameObject\Component\PhysicsComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -156,6 +159,9 @@
     </ClCompile>
     <ClCompile Include="SpriteComponentManager.cpp">
       <Filter>GameObject\ComponentManager\CSpriteComponentManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>GameObject\Component\PhysicsComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

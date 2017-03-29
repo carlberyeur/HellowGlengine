@@ -156,6 +156,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ScriptComponent.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
