@@ -95,6 +95,12 @@
     <ClCompile Include="RenderSpriteCommand.cpp">
       <Filter>Renderer\RenderCommand\RenderSprite</Filter>
     </ClCompile>
+    <ClCompile Include="RenderPackage.cpp">
+      <Filter>RenderPackage</Filter>
+    </ClCompile>
+    <ClCompile Include="GLRenderPackage.cpp">
+      <Filter>RenderPackage\GL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -215,6 +221,12 @@
     <ClInclude Include="TextureRect.h">
       <Filter>Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="RenderPackage.h">
+      <Filter>RenderPackage</Filter>
+    </ClInclude>
+    <ClInclude Include="GLRenderPackage.h">
+      <Filter>RenderPackage\GL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -252,6 +264,12 @@
     </Filter>
     <Filter Include="Renderer\RenderCommand\RenderSprite">
       <UniqueIdentifier>{17ac446f-8944-4578-90ed-eec2c599c751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderPackage">
+      <UniqueIdentifier>{2b4e0d68-7dc7-4102-ac6a-2022a25dc4bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderPackage\GL">
+      <UniqueIdentifier>{30087f99-d319-4121-aa06-a52ef61e51e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

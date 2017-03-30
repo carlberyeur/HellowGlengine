@@ -159,6 +159,7 @@
     <ClInclude Include="glext.h" />
     <ClInclude Include="GLMesh.h" />
     <ClInclude Include="GLMeshManager.h" />
+    <ClInclude Include="GLRenderPackage.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GLTextureManager.h" />
     <ClInclude Include="GraphicsFrameworkFactory.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="RenderCommand.h" />
+    <ClInclude Include="RenderPackage.h" />
     <ClInclude Include="RenderSpriteCommand.h" />
     <ClInclude Include="SpriteInstance.h" />
     <ClInclude Include="SpriteManager.h" />
@@ -198,6 +200,7 @@
     <ClCompile Include="GLEffectManager.cpp" />
     <ClCompile Include="GLMesh.cpp" />
     <ClCompile Include="GLMeshManager.cpp" />
+    <ClCompile Include="GLRenderPackage.cpp" />
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GLTextureManager.cpp" />
     <ClCompile Include="GraphicsFrameworkFactory.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="InputMessage.cpp" />
     <ClCompile Include="IRenderable.cpp" />
     <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="RenderPackage.cpp" />
     <ClCompile Include="RenderSpriteCommand.cpp" />
     <ClCompile Include="SpriteInstance.cpp" />
     <ClCompile Include="SpriteManager.cpp" />

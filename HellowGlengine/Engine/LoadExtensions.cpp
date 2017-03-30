@@ -41,10 +41,19 @@ PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv;
 PFNGLACTIVETEXTUREPROC glActiveTexture;
 PFNGLUNIFORM1IPROC glUniform1i;
 PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
+PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
+PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
 PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 PFNGLUNIFORM3FVPROC glUniform2fv;
 PFNGLUNIFORM3FVPROC glUniform3fv;
 PFNGLUNIFORM4FVPROC glUniform4fv;
+PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
+PFNGLBINDRENDERBUFFERPROC glBindRenderbuffer;
+PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
+PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer;
+PFNGLFRAMEBUFFERTEXTUREPROC glFramebufferTexture;
+PFNGLDRAWBUFFERSPROC glDrawBuffers;
+PFNGLCHECKFRAMEBUFFERSTATUSPROC glCheckFramebufferStatus;
 
 namespace wendy
 {
@@ -285,6 +294,18 @@ namespace wendy
 			return false;
 		}
 
+		glGenFramebuffers = (PFNGLGENFRAMEBUFFERSPROC)wglGetProcAddress("glGenFramebuffers");
+		if (!glGenFramebuffers)
+		{
+			return false;
+		}
+
+		glBindFramebuffer = (PFNGLBINDFRAMEBUFFERPROC)wglGetProcAddress("glBindFramebuffer");
+		if (!glBindFramebuffer)
+		{
+			return false;
+		}
+
 		glDisableVertexAttribArray = (PFNGLDISABLEVERTEXATTRIBARRAYPROC)wglGetProcAddress("glDisableVertexAttribArray");
 		if (!glDisableVertexAttribArray)
 		{
@@ -308,6 +329,50 @@ namespace wendy
 		{
 			return false;
 		}
+		
+		glGenRenderbuffers = (PFNGLGENRENDERBUFFERSPROC)wglGetProcAddress("glGenRenderbuffers");
+		if (!glGenRenderbuffers)
+		{
+			return false;
+		}
+
+		glBindRenderbuffer = (PFNGLBINDRENDERBUFFERPROC)wglGetProcAddress("glBindRenderbuffer");
+		if (!glBindRenderbuffer)
+		{
+			return false;
+		}
+
+		glRenderbufferStorage = (PFNGLRENDERBUFFERSTORAGEPROC)wglGetProcAddress("glRenderbufferStorage");
+		if (!glRenderbufferStorage)
+		{
+			return false;
+		}
+
+		glFramebufferRenderbuffer = (PFNGLFRAMEBUFFERRENDERBUFFERPROC)wglGetProcAddress("glFramebufferRenderbuffer");
+		if (!glFramebufferRenderbuffer)
+		{
+			return false;
+		}
+
+		glFramebufferTexture = (PFNGLFRAMEBUFFERTEXTUREPROC)wglGetProcAddress("glFramebufferTexture");
+		if (!glFramebufferTexture)
+		{
+			return false;
+		}
+
+		glDrawBuffers = (PFNGLDRAWBUFFERSPROC)wglGetProcAddress("glDrawBuffers");
+		if (!glDrawBuffers)
+		{
+			return false;
+		}
+
+		glCheckFramebufferStatus = (PFNGLCHECKFRAMEBUFFERSTATUSPROC)wglGetProcAddress("glCheckFramebufferStatus");
+		if (!glCheckFramebufferStatus)
+		{
+			return false;
+		}
+
+		
 
 		// Release the temporary rendering context now that the extensions have been loaded.
 		wglMakeCurrent(NULL, NULL);
