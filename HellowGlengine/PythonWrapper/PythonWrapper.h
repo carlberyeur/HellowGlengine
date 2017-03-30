@@ -13,6 +13,7 @@ public:
 
 	void AddSearchPath(const std::string& aPathToAppendFrom, const std::string& aPathToAppend);
 	bool ImportModule(const std::string& aModuleName, CPythonModule& aModuleOut);
+	bool RunCode(const std::string& aPieceOfCode);
 
 	static const std::string& GetLastError();
 

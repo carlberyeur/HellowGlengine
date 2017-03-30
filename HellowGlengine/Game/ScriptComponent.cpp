@@ -30,9 +30,36 @@ void CScriptComponent::Recieve(const SComponentMessage& aMessage)
 			args.Init();
 			args.Append(aMessage.myData);
 			function(args.AsTuple());
+
+			function(aMessage.myData);
 		}
 		break;
 	case SComponentMessage::eType::eCollisionExit:
 		break;
 	}
+}
+
+bool CScriptComponent::Answer(SComponentMessage& aMessage)
+{
+	return false;
+}
+
+IComponent* CScriptComponent::Copy()
+{
+	return nullptr;
+}
+
+bool CScriptComponent::Load(CU::ISerializer& aSerializer)
+{
+	return false;
+}
+
+bool CScriptComponent::Save(CU::ISerializer& aSerializer)
+{
+	return false;
+}
+
+CPythonTuple CScriptComponent::CallFunction(const CPythonTuple& aArguments)
+{
+	return CPythonTuple();
 }

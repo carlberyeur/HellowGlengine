@@ -35,7 +35,7 @@ void CGame::Init()
 	{
 		CPythonFunction function;
 		module.GetFunction("hello_wendy", function);
-
+		 
 		CPythonList args;
 		args.Init();
 		args.Append<std::string>("hej");

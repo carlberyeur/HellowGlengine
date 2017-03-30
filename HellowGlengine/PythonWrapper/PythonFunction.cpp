@@ -40,14 +40,13 @@ CPythonFunction& CPythonFunction::operator=(CPythonFunction&& aTemporary)
 	return *this;
 }
 
-void CPythonFunction::operator()()
-{
-	if (PyCallable_Check(myFunctionObject))
-	{
-		PyObject* args = Py_BuildValue("()");
-		PyObject_CallObject(myFunctionObject, args);
-	}
-}
+//void CPythonFunction::operator()()
+//{
+//	if (PyCallable_Check(myFunctionObject))
+//	{
+//		PyObject_CallObject(myFunctionObject, nullptr);
+//	}
+//}
 
 CPythonTuple CPythonFunction::operator()(const CPythonTuple& aArguments)
 {
@@ -78,3 +77,20 @@ bool CPythonFunction::Init(PyObject* aMaybeFunctionObject)
 
 	return false;
 }
+
+//template<>
+//inline void CPythonFunction::BuildArgument<int>(CPythonList& aList, const int& aLonely)
+//{
+//	aList.Append(aLonely);
+//}
+//
+//template<>
+//inline void CPythonFunction::BuildArgument<float>(CPythonList& aList, const float& aLonely)
+//{
+//}
+//
+//template<>
+//inline void CPythonFunction::BuildArgument<std::string>(CPythonList & aList, const std::string& aLonely)
+//{
+//}
+

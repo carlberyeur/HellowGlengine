@@ -16,6 +16,11 @@ public:
 	CPythonTuple& operator=(const CPythonTuple& aCopy);
 	CPythonTuple& operator=(CPythonTuple&& aTemporary);
 
+	template<typename T>
+	T At(const int aIndex) const;
+
+	int Size() const;
+
 private:
 	CPythonTuple(const CPythonList& aPythonList);
 	CPythonTuple(PyObject* aTupleObject);

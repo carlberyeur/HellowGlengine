@@ -51,20 +51,40 @@ CPythonTuple CPythonList::AsTuple() const
 	return CPythonTuple(*this);
 }
 
-template<>
-bool CPythonList::Append<std::string>(const std::string& aValue)
+int CPythonList::Size() const
 {
-	//insert error checking
-	PyObject* str = Py_BuildValue("s", aValue.c_str());
-	PyList_Append(myListObject, str);
-	return true;
+	if (PyList_Check(myListObject))
+	{
+		Py_ssize_t size = PyList_Size(myListObject);
+		return static_cast<int>(size);
+	}
+
+	return 0;
 }
 
 template<>
 bool CPythonList::Append<int>(const int& aValue)
 {
 	//insert error checking
-	PyObject* str = Py_BuildValue("i", aValue);
+	PyObject* integer = Py_BuildValue("i", aValue);
+	PyList_Append(myListObject, integer);
+	return true;
+}
+
+template<>
+bool CPythonList::Append<float>(const float& aValue)
+{
+	//insert error checking
+	PyObject* number = Py_BuildValue("f", aValue);
+	PyList_Append(myListObject, number);
+	return true;
+}
+
+template<>
+bool CPythonList::Append<std::string>(const std::string& aValue)
+{
+	//insert error checking
+	PyObject* str = Py_BuildValue("s", aValue.c_str());
 	PyList_Append(myListObject, str);
 	return true;
 }

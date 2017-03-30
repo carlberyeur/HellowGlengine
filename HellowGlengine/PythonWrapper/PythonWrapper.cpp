@@ -79,6 +79,22 @@ bool CPythonWrapper::ImportModule(const std::string& aModuleName, CPythonModule&
 	return !HasError();
 }
 
+bool CPythonWrapper::RunCode(const std::string& aPieceOfCode)
+{
+	int result = PyRun_SimpleString(aPieceOfCode.c_str());
+	if (result == -1)
+	{
+		if (!HasError())
+		{
+			ourLastError = "Failed to run code piece: " + aPieceOfCode;
+		}
+
+		return false;
+	}
+
+	return true;
+}
+
 const std::string& CPythonWrapper::GetLastError()
 {
 	return ourLastError;

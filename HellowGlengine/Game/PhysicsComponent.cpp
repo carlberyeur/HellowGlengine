@@ -16,19 +16,24 @@ CPhysicsComponent::~CPhysicsComponent()
 
 CPhysicsComponent& CPhysicsComponent::operator=(const CPhysicsComponent& aCopy)
 {
+	aCopy;
 	return *this;
 }
 
 void CPhysicsComponent::Update(const CU::Time aDeltaTime)
 {
+	aDeltaTime;
 }
 
 void CPhysicsComponent::Recieve(const SComponentMessage& aMessage)
 {
+	aMessage;
 }
 
 bool CPhysicsComponent::Answer(SComponentMessage& aMessage)
 {
+	aMessage;
+	return false;
 }
 
 IComponent* CPhysicsComponent::Copy()

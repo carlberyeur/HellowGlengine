@@ -6,6 +6,22 @@ class CPythonList
 {
 public:
 	friend class CPythonTuple;
+	friend class ItemRef;
+
+	template<typename T>
+	class ItemRef
+	{
+	public:
+		ItemRef(CPythonList& aList, const int aIndex) : myList(aList), myIndex(aIndex) {}
+		~ItemRef() {}
+
+		void operator=(const T& aValue);
+		operator T() { return const_cast<const CPythonList&>(myList).At(myIndex); }
+
+	private:
+		CPythonList& myList;
+		int myIndex;
+	};
 
 	CPythonList();
 	CPythonList(const CPythonList& aCopy);
@@ -24,6 +40,14 @@ public:
 
 	template<typename First, typename... Args>
 	bool Append(const First aFirst, const Args&... aRest);
+
+	template<typename T>
+	T At(const int aIndex) const;
+
+	template<typename T>
+	ItemRef<T> At(const int aIndex);
+
+	int Size() const;
 
 private:
 	PyObject* myListObject;
