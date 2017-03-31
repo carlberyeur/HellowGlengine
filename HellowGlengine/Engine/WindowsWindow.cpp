@@ -180,7 +180,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
-		TextOut(hdc, 300, 300, L"Hello Wendy!", 13);
+		//TextOut(hdc, 300, 300, L"Hello Wendy!", 13);
 		EndPaint(hWnd, &ps);
 		break;
 	}

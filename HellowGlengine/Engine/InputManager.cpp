@@ -8,7 +8,7 @@
 
 namespace wendy
 {
-	CInputManager* CInputManager::ourInstance(nullptr);
+	CInputManager* CInputManager::ourInstance = nullptr;
 
 	CInputManager::CInputManager(IWindow& aWindow)
 		: myInputListeners(8u)
