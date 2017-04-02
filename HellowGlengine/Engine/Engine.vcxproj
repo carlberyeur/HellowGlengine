@@ -149,7 +149,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActivateRenderPackageCommand.h" />
     <ClInclude Include="CConstantBuffer.h" />
+    <ClInclude Include="DoPostEffectCommand.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EInputLayout.h" />
     <ClInclude Include="Engine.h" />
@@ -165,6 +167,7 @@
     <ClInclude Include="GraphicsFrameworkFactory.h" />
     <ClInclude Include="IConstantBuffer.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="PostEffect.h" />
     <ClInclude Include="IGraphicsFramework.h" />
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputManager.h" />
@@ -193,6 +196,8 @@
     <ClInclude Include="WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActivateRenderPackageCommand.cpp" />
+    <ClCompile Include="DoPostEffectCommand.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GLConstantBuffer.cpp" />
@@ -205,6 +210,7 @@
     <ClCompile Include="GLTextureManager.cpp" />
     <ClCompile Include="GraphicsFrameworkFactory.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="IGraphicsFramework.cpp" />
     <ClCompile Include="InputListener.cpp" />
     <ClCompile Include="InputManager.cpp" />

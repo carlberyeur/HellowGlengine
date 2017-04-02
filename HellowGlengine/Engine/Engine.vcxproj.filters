@@ -101,6 +101,15 @@
     <ClCompile Include="GLRenderPackage.cpp">
       <Filter>RenderPackage\GL</Filter>
     </ClCompile>
+    <ClCompile Include="ActivateRenderPackageCommand.cpp">
+      <Filter>Renderer\RenderCommand\ActivateRenderPackage</Filter>
+    </ClCompile>
+    <ClCompile Include="DoPostEffectCommand.cpp">
+      <Filter>Renderer\RenderCommand\DoPostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="PostEffect.cpp">
+      <Filter>PostEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -227,6 +236,15 @@
     <ClInclude Include="GLRenderPackage.h">
       <Filter>RenderPackage\GL</Filter>
     </ClInclude>
+    <ClInclude Include="ActivateRenderPackageCommand.h">
+      <Filter>Renderer\RenderCommand\ActivateRenderPackage</Filter>
+    </ClInclude>
+    <ClInclude Include="DoPostEffectCommand.h">
+      <Filter>Renderer\RenderCommand\DoPostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="PostEffect.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Window">
@@ -270,6 +288,15 @@
     </Filter>
     <Filter Include="RenderPackage\GL">
       <UniqueIdentifier>{30087f99-d319-4121-aa06-a52ef61e51e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\RenderCommand\ActivateRenderPackage">
+      <UniqueIdentifier>{2c719bb3-2e71-4ce2-a350-8c4059027f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\RenderCommand\DoPostEffect">
+      <UniqueIdentifier>{1fb1b0e9-6e70-4da3-a30c-3613d9beab0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PostEffect">
+      <UniqueIdentifier>{75a2a73a-471b-41d4-b47b-04582610f9b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

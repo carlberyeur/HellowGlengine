@@ -16,7 +16,6 @@ namespace wendy
 	private:
 		void DoRenderQueue();
 
-	private:
 		CU::GrowingArray<IRenderCommand*> myRenderQueue;
 	};
 }

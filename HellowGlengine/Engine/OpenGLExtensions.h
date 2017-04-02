@@ -41,6 +41,7 @@ extern PFNGLUNIFORM1IPROC glUniform1i;
 extern PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 extern PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
 extern PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
+extern PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
 extern PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 extern PFNGLUNIFORM3FVPROC glUniform2fv;
 extern PFNGLUNIFORM3FVPROC glUniform3fv;

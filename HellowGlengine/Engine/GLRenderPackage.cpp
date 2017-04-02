@@ -14,7 +14,7 @@ namespace wendy
 
 	CGLRenderPackage::~CGLRenderPackage()
 	{
-		//glDeleteFramebuffers(1, &myFrameBuffer);
+		glDeleteFramebuffers(1, &myFrameBuffer);
 		glDeleteTextures(1, &myTexture);
 	}
 
@@ -44,7 +44,14 @@ namespace wendy
 		GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
 		glDrawBuffers(1, drawBuffers); // "1" is the size of drawBuffers
 
-		return (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE);
+		unsigned int frameBufferError = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		if (frameBufferError != GL_FRAMEBUFFER_COMPLETE)
+		{
+			//handle error
+			return false;
+		}
+
+		return true;
 	}
 
 	void CGLRenderPackage::Clear(const CU::Vector4f aClearColor)
@@ -54,7 +61,7 @@ namespace wendy
 		glClearColor(aClearColor.x, aClearColor.y, aClearColor.z, aClearColor.w);
 
 		unsigned int bitMask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(bitMask);
 	}
 
 	void CGLRenderPackage::Activate()

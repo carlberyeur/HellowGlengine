@@ -15,16 +15,16 @@ namespace wendy
 		inline CU::Vector2f GetTextureSizeF() const;
 
 	protected:
-		CU::Vector2ui myPixelSize;
+		CU::Vector2ui myTextureSize;
 	};
 
 	inline CU::Vector2ui ITexture::GetTextureSize() const
 	{
-		return myPixelSize;
+		return myTextureSize;
 	}
 
 	inline CU::Vector2f ITexture::GetTextureSizeF() const
 	{
-		return CU::Vector2f(myPixelSize);
+		return CU::Vector2f(myTextureSize);
 	}
 }

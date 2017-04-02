@@ -43,6 +43,7 @@ PFNGLUNIFORM1IPROC glUniform1i;
 PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
 PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
+PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
 PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray;
 PFNGLUNIFORM3FVPROC glUniform2fv;
 PFNGLUNIFORM3FVPROC glUniform3fv;
@@ -302,6 +303,12 @@ namespace wendy
 
 		glBindFramebuffer = (PFNGLBINDFRAMEBUFFERPROC)wglGetProcAddress("glBindFramebuffer");
 		if (!glBindFramebuffer)
+		{
+			return false;
+		}
+
+		glDeleteFramebuffers = (PFNGLDELETEFRAMEBUFFERSPROC)wglGetProcAddress("glDeleteFramebuffers");
+		if (!glDeleteFramebuffers)
 		{
 			return false;
 		}
