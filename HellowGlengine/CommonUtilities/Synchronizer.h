@@ -8,14 +8,6 @@ const std::uint32_t BufferSize = 512u;
 template<typename T, typename SizeType = std::uint32_t>
 class CSynchronizer
 {
-	enum eBufferIndex : char
-	{
-		eFirst,
-		eSecond,
-		eThird,
-		eSize
-	};
-
 public:
 	CSynchronizer();
 	CSynchronizer(const CSynchronizer& aCopy) = delete;
@@ -35,13 +27,13 @@ public:
 	inline void ClearAll();
 
 private:
-	CU::StaticArray<CU::GrowingArray<T, SizeType>, eSize> myBuffers;
+	CU::StaticArray<CU::GrowingArray<T, SizeType>, 3> myBuffers;
 
 	std::mutex mySwapMutex;
 
-	eBufferIndex myWriteTo;
-	eBufferIndex myReadFrom;
-	eBufferIndex myFreeBuffer;
+	std::uint8_t myWriteTo;
+	std::uint8_t myReadFrom;
+	std::uint8_t myFreeBuffer;
 
 	volatile bool myHasFresh;
 };
@@ -49,26 +41,22 @@ private:
 template<typename T, typename SizeType>
 inline void CSynchronizer<T, SizeType>::ClearAll()
 {
-	mySwapMutex.lock();
-
 	for (char i = 0; i < myBuffers.Size(); ++i)
 	{
 		myBuffers[i].DeleteAll();
 	}
-
-	mySwapMutex.unlock();
 }
 
 template<typename T, typename SizeType>
 inline CSynchronizer<T, SizeType>::CSynchronizer()
 {
-	myBuffers[eFirst].Init(BufferSize);
-	myBuffers[eSecond].Init(BufferSize);
-	myBuffers[eThird].Init(BufferSize);
+	myBuffers[0].Init(BufferSize);
+	myBuffers[1].Init(BufferSize);
+	myBuffers[2].Init(BufferSize);
 
-	myWriteTo = eFirst;
-	myReadFrom = eSecond;
-	myFreeBuffer = eThird;
+	myWriteTo = 0;
+	myReadFrom = 1;
+	myFreeBuffer = 2;
 
 	myHasFresh = false;
 }
@@ -120,7 +108,7 @@ inline void CSynchronizer<T, SizeType>::SwapWrite()
 {
 	mySwapMutex.lock();
 
-	eBufferIndex lastFree = myFreeBuffer;
+	std::uint8_t lastFree = myFreeBuffer;
 	myFreeBuffer = myWriteTo;
 	myWriteTo = lastFree;
 
@@ -144,7 +132,7 @@ inline void CSynchronizer<T, SizeType>::SwapRead()
 
 	myHasFresh = false;
 
-	eBufferIndex lastFree = myFreeBuffer;
+	std::uint8_t lastFree = myFreeBuffer;
 	myFreeBuffer = myReadFrom;
 	myReadFrom = lastFree;
 

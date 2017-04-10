@@ -7,9 +7,11 @@ namespace std
 
 namespace CU
 {
-	//if error with uint32_t, include <cstdint> int stdafx in the project you are using this file
-	void SetThreadName(uint32_t dwThreadID, const char* threadName);
-	void SetThreadName(const char* threadName);
+	void SetThreadName(const std::string& threadName);
+	void SetThreadName(std::thread& thread, const std::string& threadName);
+	void SetThreadName(uint32_t dwThreadID, const std::string& threadName);
 
-	void SetThreadName(std::thread& thread, const char* threadName);
+	const std::string& GetThreadName();
+	const std::string& GetThreadName(std::thread& aThread);
+	const std::string& GetThreadName(const uint32_t aThreadID);
 }

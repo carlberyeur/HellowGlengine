@@ -16,7 +16,6 @@ namespace wendy
 				struct SWindows
 				{
 					void* myHWND;
-					void* myHInstance;
 
 				} myWindowsParameters;
 
@@ -34,6 +33,7 @@ namespace wendy
 		virtual bool LoadExtensionList(class COpenGLFramework& aHWND) = 0;
 		virtual bool InitInputWrapper(class CInputManager& aInputManager) = 0;
 		virtual void Update() = 0;
+		virtual void* DeviceContext() = 0;
 
 		inline bool IsOpen() const;
 		inline void Close();

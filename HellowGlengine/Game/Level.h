@@ -12,7 +12,7 @@ public:
 	void Update(const CU::Time aDeltaTime);
 
 	int AddGameObject();
-	int AddGameObject(CGameObject&& aGameObject);
+	//int AddGameObject(CGameObject&& aGameObject);
 	void DestroyGameObject(const int aID);
 	CGameObject* GetGameObject(const int aID);
 

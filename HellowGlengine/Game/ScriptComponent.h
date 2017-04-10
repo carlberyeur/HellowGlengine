@@ -10,6 +10,9 @@ public:
 	CScriptComponent();
 	~CScriptComponent();
 
+	bool InitModule(const std::string& aFilePath);
+
+	virtual void Init() override;
 	virtual void Recieve(const SComponentMessage& aMessage) override;
 	virtual bool Answer(SComponentMessage& aMessage) override;
 

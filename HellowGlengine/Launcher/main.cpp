@@ -46,6 +46,7 @@ int Init(int argc, wchar_t * argv[])
 			exitResult = EXIT_SUCCESS;
 		}
 
+		//wendy::CEngine::GetInstance().Shutdown();
 	}
 
 	wendy::CEngine::GetInstance().Shutdown();

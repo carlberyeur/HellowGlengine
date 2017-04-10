@@ -1,4 +1,5 @@
 #pragma once
+#include "../CommonUtilities/Synchronizer.h"
 
 namespace wendy
 {
@@ -13,9 +14,13 @@ namespace wendy
 		void AddRenderCommand(IRenderCommand* aRenderCommand);
 		void Render();
 
+		void SwapRead();
+		void SwapWrite();
+
 	private:
 		void DoRenderQueue();
 
+		CSynchronizer<IRenderCommand*> mySynchronizer;
 		CU::GrowingArray<IRenderCommand*> myRenderQueue;
 	};
 }

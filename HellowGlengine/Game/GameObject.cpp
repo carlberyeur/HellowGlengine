@@ -6,15 +6,17 @@
 #include "ComponentType.h"
 #include "..\CommonUtilities\Serializer.h"
 
-CGameObject::CGameObject()
+CGameObject::CGameObject(const int aID)
 	: myComponents(4u)
 	, myRotation(0.f)
+	, myID(aID)
 {
 }
 
 CGameObject::CGameObject(const CGameObject& aOther)
 	: myComponents(aOther.myComponents)
 	, myRotation(aOther.myRotation)
+	, myID(aOther.myID)
 {
 	for (IComponent* component : aOther.myComponents)
 	{
@@ -27,6 +29,7 @@ CGameObject::CGameObject(const CGameObject& aOther)
 CGameObject::CGameObject(CGameObject&& aOther)
 	: myComponents(std::move(aOther.myComponents))
 	, myRotation(aOther.myRotation)
+	, myID(aOther.myID)
 {
 	for (IComponent* component : myComponents)
 	{
@@ -44,6 +47,10 @@ CGameObject::~CGameObject()
 
 CGameObject& CGameObject::operator=(const CGameObject& aOther)
 {
+	myPosition = aOther.myPosition;
+	myRotation = aOther.myRotation;
+	myID = aOther.myID;
+
 	myComponents.DeleteAll();
 
 	for (IComponent* component : aOther.myComponents)
@@ -58,6 +65,10 @@ CGameObject& CGameObject::operator=(const CGameObject& aOther)
 
 CGameObject& CGameObject::operator=(CGameObject&& aOther)
 {
+	myPosition = aOther.myPosition;
+	myRotation = aOther.myRotation;
+	myID = aOther.myID;
+
 	myComponents = std::move(aOther.myComponents);
 
 	for (IComponent* component : myComponents)
@@ -155,6 +166,11 @@ CU::Vector2f CGameObject::GetPosition() const
 float CGameObject::GetRotation() const
 {
 	return myRotation;
+}
+
+int CGameObject::GetID() const
+{
+	return myID;
 }
 
 #include "../CommonUtilities/SerilizerSaver.h"

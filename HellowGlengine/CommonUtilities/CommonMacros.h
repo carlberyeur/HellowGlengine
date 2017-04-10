@@ -10,7 +10,7 @@
 #undef min
 #endif // min
 
-#define min(a,b) (((a) < (b)) ? (a) : (b))
+#define min(a, b) (((a) < (b)) ? (a) : (b))
 
 #ifdef clamp
 #undef clamp
@@ -52,16 +52,16 @@
 #undef FLOOP
 #endif // FLOOP
 
-#define FLOOP(NUMBER) for(int i = 0; i < (NUMBER); ++i) BEGIN
+#define FLOOP(NUMBER) for (int i = 0; i < (NUMBER); ++i) BEGIN
 
 #ifdef FLOOPY
 #undef FLOOPY
 #endif // FLOOPY
 
-#define FLOOPY(TYPE, NUMBER) for(TYPE i = 0; i < (NUMBER); ++i) BEGIN
+#define FLOOPY(TYPE, NUMBER) for (TYPE i = 0; i < (NUMBER); ++i) BEGIN
 
 #ifdef BREAK_POINT_HERE
 #undef BREAK_POINT_HERE
 #endif // BREAK_POINT_HERE
 
-#define BREAK_POINT_HERE int br = 0; br++
+#define BREAK_POINT_HERE { int br = 0; br++; } (void)0

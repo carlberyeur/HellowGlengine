@@ -18,7 +18,8 @@ public:
 	CPythonFunction& operator=(const CPythonFunction& aCopy);
 	CPythonFunction& operator=(CPythonFunction&& aTemporary);
 
-	CPythonTuple operator()(const CPythonTuple& aArguments);
+	//CPythonTuple operator()(const CPythonTuple& aArguments);
+	CPythonTuple Call(const CPythonTuple& aArguments);
 
 	template<typename... T>
 	CPythonTuple operator()(const T&... aArguments);
@@ -38,7 +39,7 @@ inline CPythonTuple CPythonFunction::operator()(const T&... aArguments)
 		argumentList.Append(aArguments...);
 	}
 
-	CPythonTuple returnValues = (*this)(argumentList);
+	CPythonTuple returnValues = /*(*this)*/Call(argumentList);
 
 	return returnValues;
 }

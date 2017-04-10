@@ -10,9 +10,6 @@
     <Filter Include="Math">
       <UniqueIdentifier>{cb8a1513-b97d-413c-8874-a2a1e87922d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Function">
-      <UniqueIdentifier>{dba9aab8-820b-4cc8-b894-b450893eeafd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Time">
       <UniqueIdentifier>{c948936d-5bb3-4a06-a4a1-2935e08c50e8}</UniqueIdentifier>
     </Filter>
@@ -43,9 +40,6 @@
     <Filter Include="Input\XInput">
       <UniqueIdentifier>{460bd1b0-82bf-4b72-beeb-e40309a4050d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utilities\Common">
-      <UniqueIdentifier>{38621218-3a74-4c3e-bdd0-4b58548ba3d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Serialization\Serializer">
       <UniqueIdentifier>{8b71429a-778d-4150-a9a8-439d64f44844}</UniqueIdentifier>
     </Filter>
@@ -55,6 +49,9 @@
     <Filter Include="Serialization\Serializer\Saver">
       <UniqueIdentifier>{b909459f-d269-43e6-8d4b-2382674da0d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities\CommonIncludes">
+      <UniqueIdentifier>{38621218-3a74-4c3e-bdd0-4b58548ba3d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -62,9 +59,6 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Precompiled</Filter>
-    </ClInclude>
-    <ClInclude Include="Function.h">
-      <Filter>Function</Filter>
     </ClInclude>
     <ClInclude Include="GrowingArray.h">
       <Filter>Containers</Filter>
@@ -117,9 +111,6 @@
     <ClInclude Include="StopWatch.h">
       <Filter>Time</Filter>
     </ClInclude>
-    <ClInclude Include="ThreadNamer.h">
-      <Filter>Thread</Filter>
-    </ClInclude>
     <ClInclude Include="picojson.h">
       <Filter>Serialization</Filter>
     </ClInclude>
@@ -157,19 +148,13 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="CommonCommonUtilities.h">
-      <Filter>Utilities\Common</Filter>
+      <Filter>Utilities\CommonIncludes</Filter>
     </ClInclude>
     <ClInclude Include="CommonMacros.h">
-      <Filter>Utilities\Common</Filter>
+      <Filter>Utilities\CommonIncludes</Filter>
     </ClInclude>
     <ClInclude Include="CommonSTL.h">
-      <Filter>Utilities\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="MemberFunction.h">
-      <Filter>Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Binder.h">
-      <Filter>Function</Filter>
+      <Filter>Utilities\CommonIncludes</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Utilities</Filter>
@@ -182,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="ConstexprString.h">
       <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="TaskPool.h">
-      <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="UniquePointer.h">
       <Filter>Memory</Filter>
@@ -213,6 +195,18 @@
     <ClInclude Include="MemoryBlob.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="WorkPool.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Worker.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Work.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadNamer.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -232,9 +226,6 @@
     </ClCompile>
     <ClCompile Include="StopWatch.cpp">
       <Filter>Time</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreadNamer.cpp">
-      <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml2.cpp">
       <Filter>Serialization</Filter>
@@ -260,9 +251,6 @@
     <ClCompile Include="Random.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="TaskPool.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
     <ClCompile Include="Serializer.cpp">
       <Filter>Serialization\Serializer</Filter>
     </ClCompile>
@@ -277,6 +265,18 @@
     </ClCompile>
     <ClCompile Include="JsonIterator.cpp">
       <Filter>Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkPool.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Work.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Worker.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadNamer.cpp">
+      <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

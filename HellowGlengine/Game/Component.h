@@ -26,6 +26,7 @@ public:
 	virtual bool Save(CU::ISerializer& aSerializer) = 0;
 
 	CGameObject* GetParent() /*const*/;
+	int GetParentID();
 	int GetID() const;
 
 private:

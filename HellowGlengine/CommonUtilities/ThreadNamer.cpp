@@ -4,29 +4,41 @@
 #include <windows.h>
 #include <thread>
 
+#pragma pack(push,8)
+typedef struct tagTHREADNAME_INFO
+{
+	DWORD dwType; // Must be 0x1000.
+	LPCSTR szName; // Pointer to name (in user addr space).
+	DWORD dwThreadID; // Thread ID (-1=caller thread).
+	DWORD dwFlags; // Reserved for future use, must be zero.
+} THREADNAME_INFO;
+#pragma pack(pop)
+
+static std::map<uint32_t, std::string> locThreadNames;
+static std::string locUnNamedThread("UnNamed");
+
 namespace CU
 {
 	static const DWORD MS_VC_EXCEPTION = 0x406D1388;
 
-#pragma pack(push,8)
-	typedef struct tagTHREADNAME_INFO
+	void SetThreadName(const std::string& threadName)
 	{
-		DWORD dwType; // Must be 0x1000.
-		LPCSTR szName; // Pointer to name (in user addr space).
-		DWORD dwThreadID; // Thread ID (-1=caller thread).
-		DWORD dwFlags; // Reserved for future use, must be zero.
-	} THREADNAME_INFO;
-#pragma pack(pop)
+		SetThreadName(GetCurrentThreadId(), threadName);
+	}
 
-
-	void SetThreadName(uint32_t dwThreadID, const char* threadName)
+	void SetThreadName(std::thread& thread, const std::string& threadName)
 	{
+		DWORD threadId = ::GetThreadId(static_cast<HANDLE>(thread.native_handle()));
+		SetThreadName(threadId, threadName);
+	}
 
-		// DWORD dwThreadID = ::GetThreadId( static_cast<HANDLE>( t.native_handle() ) );
+	void SetThreadName(uint32_t dwThreadID, const std::string& threadName)
+	{
+		locThreadNames[dwThreadID] = threadName;
 
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
-		info.szName = threadName;
+		info.szName = threadName.c_str();
 		info.dwThreadID = dwThreadID;
 		info.dwFlags = 0;
 
@@ -38,17 +50,26 @@ namespace CU
 		{
 		}
 	}
-	void SetThreadName(const char* threadName)
+
+	const std::string& GetThreadName()
 	{
-		SetThreadName(GetCurrentThreadId(), threadName);
+		DWORD id = GetCurrentThreadId();
+		return GetThreadName(id);
 	}
 
-	void SetThreadName(std::thread& thread, const char* threadName)
+	const std::string& GetThreadName(std::thread& aThread)
 	{
-		DWORD threadId = ::GetThreadId(static_cast<HANDLE>(thread.native_handle()));
-		SetThreadName(threadId, threadName);
+		DWORD id = ::GetThreadId(static_cast<HANDLE>(aThread.native_handle()));
+		return GetThreadName(id);
 	}
 
+	const std::string& GetThreadName(const uint32_t aThreadID)
+	{
+		if (locThreadNames.find(aThreadID) != locThreadNames.end())
+		{
+			return locThreadNames[aThreadID];
+		}
 
-
+		return locUnNamedThread;
+	}
 }

@@ -12,7 +12,7 @@ class IComponent;
 class CGameObject final
 {
 public:
-	CGameObject();
+	CGameObject(const int aID = -1);
 	CGameObject(const CGameObject& aOther);
 	CGameObject(CGameObject&& aOther);
 	~CGameObject();
@@ -34,6 +34,7 @@ public:
 	void SetRotation(const float aRotation);
 	CU::Vector2f GetPosition() const;
 	float GetRotation() const;
+	int GetID() const;
 
 	bool Save();
 	bool Load();
@@ -42,4 +43,5 @@ private:
 	CU::GrowingArray<IComponent*> myComponents;
 	CU::Vector2f myPosition;
 	float myRotation;
+	int myID;
 };

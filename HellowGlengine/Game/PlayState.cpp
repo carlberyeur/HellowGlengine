@@ -7,6 +7,10 @@
 #include "LevelLoader.h"
 #include "TiledLoader.h"
 
+#include "ComponentManager.h"
+#include "SpriteComponent.h"
+#include "ScriptComponent.h"
+
 #include "../Engine/SpriteInstance.h"
 #include "../Engine/Engine.h"
 
@@ -81,7 +85,17 @@ void CPlayState::Init()
 
 		myScene->AddSpriteInstance(std::move(spriteInstance));
 	}
+
 	
+	CGameObject& playerObject = *myLevel->GetGameObject(myLevel->AddGameObject());
+
+	CSpriteComponent* playerSprite = new CSpriteComponent("Textures/player.tga");
+	playerObject.AddComponent(*playerSprite);
+	CScriptComponent* playerScript = new CScriptComponent();
+	playerScript->InitModule("player_movement");
+	playerObject.AddComponent(*playerScript);
+	playerObject.Init();
+
 	myLevel->Init();
 	myScene->Init();
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonMacros.h"
+
 #include "GrowingArray.h"
 #include "VectorOnStack.h"
 #include "StaticArray.h"

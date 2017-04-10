@@ -1,45 +1,32 @@
 #pragma once
-#include <stdlib.h>
-#include <functional>
-#include <atomic>
-
-namespace DL_Debug
-{
-	enum class eLogType;
-}
 
 namespace CU
 {
-	enum class ePriority
-	{
-		eHigh,
-		eStandard,
-		eLow
-	};
+	using WorkFunction = std::function<void(void)>;
+	using ConditionFunction = std::function<bool(void)>;
 
-	class Work
+	class CWork
 	{
 	public:
-		Work(std::function<void(void)> aFunction, ePriority aPrio = ePriority::eStandard);
-		Work(std::function<void(void)> aFunction, DL_Debug::eLogType aToWhatLog, const char* aLogMessage, ePriority aPrio = ePriority::eStandard);
-		Work(const Work& aWork);
-		Work() {};
-		~Work();
+		CWork();
+		CWork(CWork&& aTemporary) noexcept;
+		CWork(const WorkFunction& aFunction, const ConditionFunction& aIsCompleteCondition = nullptr);
+		~CWork();
+
+		CWork& operator=(CWork&& aTemporary) noexcept;
 
 		void DoWork();
-		inline ePriority GetPriority();
+		bool IsComplete() const;
 
-		std::string myLogMessage;
-		DL_Debug::eLogType myToWhatLog;
+		void SetName(const std::string& aName);
+		const std::string& GetName() const;
+
+		CWork(const CWork&) = delete;
+		CWork& operator=(const CWork&) = delete;
 
 	private:
-		std::function<void(void)> myWork;
-		ePriority myPrio;
+		WorkFunction mySweatAndTears;
+		ConditionFunction myIsComplete;
+		std::string myName;
 	};
-
-	ePriority Work::GetPriority()
-	{
-		return  myPrio;
-	}
-
 }

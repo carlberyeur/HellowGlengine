@@ -16,7 +16,7 @@ namespace wendy
 		, myRead(0)
 		, myWrite(1)
 		, myHasInputToDispatch(false)
-		, myIsStarted(false)
+		, myIsRunning(false)
 	{
 		assert(!ourInstance);
 		ourInstance = this;
@@ -35,26 +35,18 @@ namespace wendy
 
 	void CInputManager::Start()
 	{
-		myIsStarted = true;
+		myIsRunning = true;
 
 		mySleepTimer.Init();
-		while (myIsStarted)
-		{
-			mySleepTimer.Update();
-			if (mySleepTimer.GetLifeTime().Get<CU::MilliSeconds>() < 16.f)
-			{
-				std::this_thread::yield();
-				continue;
-			}
-
-			mySleepTimer.Restart();
-			Update();
-		}
+		//while (myIsRunning)
+		//{
+		//	Update();
+		//}
 	}
 
 	void CInputManager::Stop()
 	{
-		myIsStarted = false;
+		myIsRunning = false;
 	}
 
 	void CInputManager::DispatchMessages()
@@ -86,6 +78,15 @@ namespace wendy
 			return;
 		}
 
+		mySleepTimer.Update();
+		if (mySleepTimer.GetLifeTime().Get<CU::MilliSeconds>() < 16.f)
+		{
+			std::this_thread::yield();
+			return;
+		}
+
+		mySleepTimer.Restart();
+
 		if (!myHasInputToDispatch && !myBuffers[myWrite].Empty())
 		{
 			if (myMouseDelta.Length2() > 0.001f)
@@ -103,6 +104,11 @@ namespace wendy
 
 		UpdateKeyboard();
 		UpdateMouse();
+	}
+
+	bool CInputManager::IsRunning() const
+	{
+		return myIsRunning;
 	}
 
 	bool CInputManager::InitInputWrapper(void* aHWND, void* aHInstance)

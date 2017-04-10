@@ -10,7 +10,6 @@ CLevel::CLevel()
 
 CLevel::~CLevel()
 {
-	BREAK_POINT_HERE;
 }
 
 #include "SpriteComponent.h"
@@ -41,24 +40,23 @@ int CLevel::AddGameObject()
 	}
 
 	int id = myGameObjects.Size();
-	myGameObjects.Add();
+	myGameObjects.Add(id);
 	return id;
 }
 
-int CLevel::AddGameObject(CGameObject&& aGameObject)
-{
-	int id = myGameObjects.Size();
-	if (!myFreeIDs.Empty())
-	{
-		id = myFreeIDs.Pop();
-		myGameObjects[id] = std::move(aGameObject);
-		return id;
-	}
-
-	myGameObjects.Add(std::move(aGameObject));
-
-	return id;
-}
+//int CLevel::AddGameObject(CGameObject&& aGameObject)
+//{
+//	int id = myGameObjects.Size();
+//	if (!myFreeIDs.Empty())
+//	{
+//		id = myFreeIDs.Pop();
+//		myGameObjects[id] = std::move(aGameObject);
+//		return id;
+//	}
+//
+//	myGameObjects.Add(std::move(aGameObject));
+//	return id;
+//}
 
 void CLevel::DestroyGameObject(const int aID)
 {

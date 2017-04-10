@@ -25,6 +25,7 @@ namespace wendy
 		void DispatchMessages();
 
 		void Update();
+		bool IsRunning() const;
 
 		bool InitInputWrapper(void* aHWND, void* aHInstance);
 
@@ -48,8 +49,8 @@ namespace wendy
 		unsigned char myRead;
 		unsigned char myWrite;
 
-		bool myHasInputToDispatch;
-		bool myIsStarted;
+		std::atomic_bool myHasInputToDispatch;
+		std::atomic_bool myIsRunning;
 
 		static CInputManager* ourInstance;
 	};

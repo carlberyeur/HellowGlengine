@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+#include "../CommonUtilities/WorkPool.h"
+#include "../CommonUtilities/Work.h"
+
 #include "WindowFactory.h"
 #include "GraphicsFrameworkFactory.h"
 #include "MeshManager.h"
@@ -50,25 +53,40 @@ namespace wendy
 		{
 			myInitCallback();
 		}
+		myInputManager->Start();
+		Work inputWork([this] () { myInputManager->Update(); }, [this]() -> bool { return !myInputManager->IsRunning(); });
+		inputWork.SetName("InputThread");
+		//Work mainLoop([this] () { Update(); Render(); }, [this]() -> bool { !return myWindow->IsOpen(); });
+		Work renderWork([this] () { Render(); }, [this]() -> bool { return !myWindow->IsOpen(); });
+		renderWork.SetName("RenderThread");
 
-		std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
+		WorkPool::Init(true);
+		WorkPool::AddWork(std::move(inputWork));
+		WorkPool::AddWork(std::move(renderWork));
+		//WorkPool::AddWork(std::move(mainLoop));
+
+		//std::thread inputThread(&CInputManager::Start, myInputManager.GetRawPointer());
 
 		while (myWindow->IsOpen() == true)
 		{
 			Update();
-			Render();
+			//Render();
 		}
 
-		myInputManager->Stop();
-		inputThread.join();
+		//myInputManager->Stop();
+		//inputThread.join();
 	}
 
 	void CEngine::Shutdown()
 	{
+		myInputManager->Stop();
+
 		if (myWindow.IsValid())
 		{
 			myWindow->Close();
 		}
+
+		WorkPool::Shutdown();
 	}
 
 	void CEngine::Update()
@@ -88,6 +106,8 @@ namespace wendy
 
 		if (myRenderCallback)
 		{
+			myRenderer->SwapWrite();
+
 			myRenderCallback();
 		}
 	}
@@ -96,6 +116,7 @@ namespace wendy
 	{
 		myGraphicsFramework->ClearFrame();
 
+		myRenderer->SwapRead();
 		myRenderer->Render();
 
 		myGraphicsFramework->Present();

@@ -21,7 +21,8 @@ namespace wendy
 	void CRenderer::AddRenderCommand(IRenderCommand* aRenderCommand)
 	{
 		if (!aRenderCommand) return;
-		myRenderQueue.Add(aRenderCommand);
+		//myRenderQueue.Add(aRenderCommand);
+		mySynchronizer.Write(aRenderCommand);
 	}
 
 	void CRenderer::Render()
@@ -29,13 +30,31 @@ namespace wendy
 		DoRenderQueue();
 	}
 
+	void CRenderer::SwapRead()
+	{
+		mySynchronizer.SwapRead();
+	}
+
+	void CRenderer::SwapWrite()
+	{
+		mySynchronizer.SwapWrite();
+	}
+
 	void CRenderer::DoRenderQueue()
 	{
-		for (IRenderCommand* renderCommand : myRenderQueue)
+		for (std::uint32_t i = 0; i < mySynchronizer.ReadSize(); i++)
 		{
-			renderCommand->Do();
+			IRenderCommand* renderCommand = mySynchronizer.At(i);
+			if (renderCommand)
+			{
+				renderCommand->Do();
+			}
 		}
+		//for (IRenderCommand* renderCommand : myRenderQueue)
+		//{
+		//	renderCommand->Do();
+		//}
 
-		myRenderQueue.DeleteAll();
+		//myRenderQueue.DeleteAll();
 	}
 }

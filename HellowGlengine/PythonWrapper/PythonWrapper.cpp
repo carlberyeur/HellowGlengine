@@ -74,7 +74,7 @@ bool CPythonWrapper::ImportModule(const std::string& aModuleName, CPythonModule&
 	PyObject* module = PyImport_Import(name);
 
 	aModuleOut.Init(module);
-	Py_XDECREF(module);
+	Py_XDECREF(name);
 
 	return !HasError();
 }

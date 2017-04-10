@@ -48,7 +48,23 @@ CPythonFunction& CPythonFunction::operator=(CPythonFunction&& aTemporary)
 //	}
 //}
 
-CPythonTuple CPythonFunction::operator()(const CPythonTuple& aArguments)
+//CPythonTuple CPythonFunction::operator()(const CPythonTuple& aArguments)
+//{
+//	if (PyCallable_Check(myFunctionObject))
+//	{
+//		PyObject* args = aArguments.myTupleObject;
+//		PyObject* returnValue = PyObject_CallObject(myFunctionObject, args);
+//		if (!returnValue)
+//		{
+//			PyErr_Print();
+//		}
+//		return CPythonTuple(returnValue);
+//	}
+//
+//	return CPythonTuple();
+//}
+
+CPythonTuple CPythonFunction::Call(const CPythonTuple& aArguments)
 {
 	if (PyCallable_Check(myFunctionObject))
 	{

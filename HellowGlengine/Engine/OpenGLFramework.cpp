@@ -47,7 +47,7 @@ namespace wendy
 
 
 		// Get the device context for this window.
-		myDeviceContext = GetDC(reinterpret_cast<HWND>(static_cast<CWindowsWindow&>(aWindow).GetHWND()));
+		myDeviceContext = aWindow.DeviceContext();
 		if (myDeviceContext == nullptr)
 		{
 			return false;

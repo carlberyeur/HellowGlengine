@@ -138,18 +138,15 @@
   <ItemGroup>
     <ClInclude Include="AlarmClock.h" />
     <ClInclude Include="base64.h" />
-    <ClInclude Include="Binder.h" />
     <ClInclude Include="ConstexprString.h" />
     <ClInclude Include="EMouseButtons.h" />
     <ClInclude Include="JsonIterator.h" />
-    <ClInclude Include="MemberFunction.h" />
     <ClInclude Include="CommandLineParser.h" />
     <ClInclude Include="CommonCommonUtilities.h" />
     <ClInclude Include="CommonMacros.h" />
     <ClInclude Include="DL_Assert.h" />
     <ClInclude Include="DL_Debug.h" />
     <ClInclude Include="DynamicMemoryPool.h" />
-    <ClInclude Include="Function.h" />
     <ClInclude Include="GrowingArray.h" />
     <ClInclude Include="DInputWrapper.h" />
     <ClInclude Include="CommonSTL.h" />
@@ -178,7 +175,7 @@
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="Synchronizer.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TaskPool.h" />
+    <ClInclude Include="WorkPool.h" />
     <ClInclude Include="ThreadNamer.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="tinyxml2.h" />
@@ -187,6 +184,8 @@
     <ClInclude Include="vector3.h" />
     <ClInclude Include="vector4.h" />
     <ClInclude Include="VectorOnStack.h" />
+    <ClInclude Include="Work.h" />
+    <ClInclude Include="Worker.h" />
     <ClInclude Include="XInputWrapper.h" />
   </ItemGroup>
   <ItemGroup>
@@ -211,10 +210,12 @@
     </ClCompile>
     <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="StringHelper.cpp" />
-    <ClCompile Include="TaskPool.cpp" />
+    <ClCompile Include="WorkPool.cpp" />
     <ClCompile Include="ThreadNamer.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="Work.cpp" />
+    <ClCompile Include="Worker.cpp" />
     <ClCompile Include="XInputWrapper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,9 @@
 #pragma once
 #include "Window.h"
 
+typedef struct HWND__ *HWND;
+typedef struct HINSTANCE__ *HINSTANCE;
+
 namespace wendy
 {
 	class CWindowsWindow : public IWindow
@@ -13,25 +16,26 @@ namespace wendy
 		void Update() override;
 		bool LoadExtensionList(class COpenGLFramework& aOpenGLFrameWork) override;
 		bool InitInputWrapper(CInputManager& aInputManager) override;
+		virtual void* DeviceContext() override;
 
-		inline void* GetHWND() const;
-		inline void* GetHInstance() const;
+		inline HWND GetHWND() const;
+		inline HINSTANCE GetHInstance() const;
 
 	private:
-		bool RegisterWindowsWindow(void* aHInstance);
+		bool RegisterWindowsWindow(HINSTANCE aHInstance);
 		bool InitHWND(void* aHInstance, const unsigned int aWindowWidth, const unsigned int aWindowHeight);
 
-		void* myHWND;
-		void* myHInstance;
+		HINSTANCE myHInstance;
+		HWND myHWND;
 	};
 
-	inline void* CWindowsWindow::GetHWND() const
-	{
-		return myHWND;
-	}
-
-	inline void* CWindowsWindow::GetHInstance() const
+	inline HINSTANCE CWindowsWindow::GetHInstance() const
 	{
 		return myHInstance;
+	}
+
+	inline HWND CWindowsWindow::GetHWND() const
+	{
+		return myHWND;
 	}
 }

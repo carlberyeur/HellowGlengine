@@ -34,12 +34,15 @@ void CGame::Init()
 	if (pythonWrapper.ImportModule("hello_wendy_program", module))
 	{
 		CPythonFunction function;
-		module.GetFunction("hello_wendy", function);
+		if (module.GetFunction("hello_wendy", function))
+		{
+			function(std::string("hej"));
+		}
 		 
-		CPythonList args;
-		args.Init();
-		args.Append<std::string>("hej");
-		function(args.AsTuple());
+		//CPythonList args;
+		//args.Init();
+		//args.Append<std::string>("hej");
+		//function(args.AsTuple());
 	}
 
 	myStateStack = CU::MakeUnique<CStateStack>();

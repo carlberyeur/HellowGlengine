@@ -34,6 +34,11 @@ CGameObject* IComponent::GetParent() /*const*/
 	return myParent;
 }
 
+int IComponent::GetParentID()
+{
+	return myParent->GetID();
+}
+
 int IComponent::GetID() const
 {
 	return myID;

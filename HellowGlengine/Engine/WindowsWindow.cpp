@@ -18,16 +18,15 @@ namespace wendy
 
 	CWindowsWindow::~CWindowsWindow()
 	{
-		DestroyWindow(reinterpret_cast<HWND>(myHWND));
+		DestroyWindow(myHWND);
 		myHWND = nullptr;
 
-		UnregisterClass(szWindowClass, reinterpret_cast<HINSTANCE>(myHInstance));
+		UnregisterClass(szWindowClass, myHInstance);
 		myHInstance = nullptr;
 	}
 
 	bool CWindowsWindow::Init(const SCreationParameters& aCreationParameters)
 	{
-		myHInstance = aCreationParameters.myWindowsParameters.myHInstance;
 		myHInstance = GetModuleHandle(nullptr);
 
 		if (RegisterWindowsWindow(myHInstance) == false)
@@ -95,7 +94,7 @@ namespace wendy
 		return success;
 	}
 
-	bool CWindowsWindow::RegisterWindowsWindow(void* aHInstance)
+	bool CWindowsWindow::RegisterWindowsWindow(HINSTANCE aHInstance)
 	{
 		WNDCLASSEXW wcex = {};
 
@@ -134,11 +133,11 @@ namespace wendy
 			return false;
 		}
 
-		(void)ShowWindow((HWND)myHWND, SW_SHOW);
+		(void)ShowWindow(myHWND, SW_SHOW);
 
 		myIsOpen = true;
 
-		BOOL updateWindowResult = UpdateWindow((HWND)myHWND);
+		BOOL updateWindowResult = UpdateWindow(myHWND);
 		if (updateWindowResult == FALSE)
 		{
 			assert(!"Window failed to be updated");
@@ -151,6 +150,11 @@ namespace wendy
 	bool CWindowsWindow::InitInputWrapper(CInputManager& aInputManager)
 	{
 		return aInputManager.InitInputWrapper(myHWND, myHInstance);
+	}
+
+	void* CWindowsWindow::DeviceContext()
+	{
+		return GetDC(myHWND);
 	}
 }
 

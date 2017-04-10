@@ -12,6 +12,7 @@
 
 #include <stdexcept>
 #include <mutex>
+#include <atomic>
 #include <functional>
 #include <algorithm>
 

@@ -4,7 +4,6 @@
 #define _GROWING_ARRAY_
 
 #pragma message("Growing Array compiled")
-#include <assert.h>
 #include <string.h> // memcpy
 #include <initializer_list>
 #include "QuickSort.h"
@@ -701,8 +700,7 @@ namespace CU
 	template<typename ObjectType, typename SizeType, bool USE_SAFE_MODE>
 	inline void GrowingArray<ObjectType, SizeType, USE_SAFE_MODE>::Destroy()
 	{
-		delete[] myArray;
-		myArray = nullptr;
+		SAFE_DELETE_ARRAY(myArray);
 		myCapacity = 0;
 		mySize = 0;
 	}
@@ -771,11 +769,19 @@ namespace CU
 	template<typename ObjectType, typename SizeType>
 	struct CopyArray<false, ObjectType, SizeType>
 	{
-		static void DoCopy(ObjectType aCopyToArray[], const ObjectType aCopyFromArray[], const SizeType aElementsToCopy)
+		static void DoCopy(ObjectType aCopyToArray[], ObjectType aCopyFromArray[], const SizeType aElementsToCopy)
 		{
 			for (SizeType i = 0; i < aElementsToCopy; ++i)
 			{
 				aCopyToArray[i] = std::move(aCopyFromArray[i]);
+			}
+		}
+
+		static void DoCopy(ObjectType aCopyToArray[], const ObjectType aCopyFromArray[], const SizeType aElementsToCopy)
+		{
+			for (SizeType i = 0; i < aElementsToCopy; ++i)
+			{
+				aCopyToArray[i] = aCopyFromArray[i];
 			}
 		}
 	};

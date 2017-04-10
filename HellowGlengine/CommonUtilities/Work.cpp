@@ -1,41 +1,70 @@
 #include "stdafx.h"
 #include "Work.h"
-#include "DL_Debug.h"
 
+#define that_(boolean_expression) (boolean_expression)
+#define _exist
 
 namespace CU
 {
-	Work::Work(std::function<void()> aFunction, ePriority aPrio)
-	{
-		myWork = aFunction; // 2 spooky
-		myPrio = aPrio;
-		myLogMessage = "";
-		myToWhatLog = DL_Debug::eLogType::eThreadPool;
-	}
-
-	Work::Work(std::function<void()> aFunction, DL_Debug::eLogType aToWhatLog, const char* aLogMessage, ePriority aPrio)
-	{
-		myWork = aFunction;
-		myPrio = aPrio;
-		myToWhatLog = aToWhatLog;
-		myLogMessage = aLogMessage;
-	}
-
-	Work::Work(const Work& aWork)
-	{
-		myWork = aWork.myWork;
-		myPrio = aWork.myPrio;
-		myLogMessage = aWork.myLogMessage;
-		myToWhatLog = aWork.myToWhatLog;
-	}
-
-	Work::~Work()
+	CWork::CWork()
 	{
 	}
 
-	void Work::DoWork()
+	CWork::CWork(CWork&& aTemporary) noexcept
+		: mySweatAndTears(std::move(aTemporary.mySweatAndTears))
+		, myIsComplete(std::move(aTemporary.myIsComplete))
+		, myName(std::move(aTemporary.myName))
 	{
-		myWork();
+		assert(that_(mySweatAndTears)_exist);
 	}
 
+	CWork::CWork(const WorkFunction& aFunction, const ConditionFunction& aIsCompleteCondition)
+		: mySweatAndTears(aFunction)
+		, myIsComplete(aIsCompleteCondition)
+	{
+		assert(that_(mySweatAndTears)_exist);
+	}
+
+	CWork::~CWork()
+	{
+	}
+
+	CWork& CWork::operator=(CWork&& aTemporary) noexcept
+	{
+		mySweatAndTears = std::move(aTemporary.mySweatAndTears);
+		myIsComplete = std::move(aTemporary.myIsComplete);
+		myName = std::move(aTemporary.myName);
+
+		return *this;
+	}
+
+	void CWork::DoWork()
+	{
+		assert(that_(mySweatAndTears)_exist);
+
+		if (mySweatAndTears)
+		{
+			mySweatAndTears();
+		}
+	}
+
+	bool CWork::IsComplete() const
+	{
+		if (myIsComplete)
+		{
+			return myIsComplete();
+		}
+
+		return true;
+	}
+
+	void CWork::SetName(const std::string& aName)
+	{
+		myName = aName;
+	}
+
+	const std::string& CWork::GetName() const
+	{
+		return myName;
+	}
 }
