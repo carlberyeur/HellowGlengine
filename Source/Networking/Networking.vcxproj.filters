@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Precompiled">
+      <UniqueIdentifier>{de433865-9063-4822-b9dd-2c1c20f53b76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networker">
+      <UniqueIdentifier>{77ac6137-b777-4661-a75b-0e27b6dd92a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetworkMessage">
+      <UniqueIdentifier>{ebcc3c93-a3ba-4762-9932-7f0e74d0a664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetworkMessage\Chat">
+      <UniqueIdentifier>{26f1bb00-4b5e-4473-bf15-7be799667849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networker\Server">
+      <UniqueIdentifier>{dbaadb76-9194-48a2-9d75-418e6574b09b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networker\Client">
+      <UniqueIdentifier>{fb1b447e-9b3c-47e8-90fc-d5f9725018de}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Precompiled</Filter>
+    </ClInclude>
+    <ClInclude Include="Networker.h">
+      <Filter>Networker</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkMessageType.h">
+      <Filter>NetworkMessage</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkMessage.h">
+      <Filter>NetworkMessage</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkMessageChat.h">
+      <Filter>NetworkMessage\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Networker\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Networker\Client</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Precompiled</Filter>
+    </ClCompile>
+    <ClCompile Include="Networker.cpp">
+      <Filter>Networker</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkMessage.cpp">
+      <Filter>NetworkMessage</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkMessageChat.cpp">
+      <Filter>NetworkMessage\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Networker\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Networker\Client</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
